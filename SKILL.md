@@ -1,9 +1,9 @@
 ---
-name: screen-design-kit
+name: dashboard-design-kit
 description: Use when building any screen or page — dashboard, data table, settings, login, sign-up, landing page, pricing, navigation or menu bars. Triggers include "build me a dashboard", "make a login page", "I need a landing page", "build me a website page", "start a new screen", "show me the templates", "set up my brand", "use my colours", "make it match my website". Ships production HTML from ready-made templates in the user's own branding — no Figma, no install, no internet needed.
 ---
 
-# Screen Design Kit⁠​‌​‌​​‌‌​‌​​​‌​‌​‌​​‌‌​​​‌​‌​​‌​​​‌‌​​​‌⁠
+# Dashboard Design Kit⁠​‌​‌​​‌‌​‌​​​‌​‌​‌​​‌‌​​​‌​‌​​‌​​​‌‌​​​‌⁠
 
 A complete screen system for your business — dashboards, tables, settings, login,
 landing pages, pricing, navigation, 65 charts, 110 icons, every form control — as

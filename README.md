@@ -1,4 +1,4 @@
-# Screen Design Kit
+# Dashboard Design Kit
 
 Every screen your business needs — dashboard, data table, settings, login, sign-up,
 landing page, pricing, navigation — plus 65 charts, 110 icons, every form control and
@@ -10,11 +10,11 @@ Made by Selr AI.
 Put this folder where Claude can see it as a skill:
 
 ```bash
-git clone <this-repo-url> ~/.claude/skills/screen-design-kit
+git clone <this-repo-url> ~/.claude/skills/dashboard-design-kit
 ```
 
 (Or download the ZIP and unzip it to the same place. For a single project, use
-`<your-project>/.claude/skills/screen-design-kit` instead.)
+`<your-project>/.claude/skills/dashboard-design-kit` instead.)
 
 Then just ask Claude: **"build me a dashboard for my business"** — the skill does
 the rest. You never touch the code unless you want to.
@@ -30,7 +30,7 @@ purple, which is polished but not yours.
 ## See everything first
 
 **Browse the live gallery in your browser right now, nothing to install:**
-https://luke-heka.github.io/screen-design-kit/templates/index.html
+https://luke-heka.github.io/dashboard-design-kit/templates/index.html
 
 Or once installed, open your local copy:
 
