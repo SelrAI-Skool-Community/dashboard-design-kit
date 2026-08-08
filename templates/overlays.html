@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selr AI — Overlays and feedback</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css">
+<style>
+  body{padding:var(--s32)}
+  .wrap{max-width:1240px;margin:0 auto}
+  header{border-bottom:1px solid var(--border-primary);padding-bottom:var(--s28);margin-bottom:var(--s24)}
+  header h1{font-size:var(--t-h2);margin:var(--s12) 0 var(--s10)}
+  .eyebrow{font:700 12px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--text-accent)}
+  .lead{color:var(--text-secondary);max-width:66ch;font-size:var(--t-p2)}
+  h2.sec{font:700 12px var(--font);letter-spacing:.13em;text-transform:uppercase;
+    color:var(--text-tertiary);margin:var(--s40) 0 var(--s12)}
+  .about{color:var(--text-secondary);font-size:14px;margin-bottom:var(--s16);max-width:70ch}
+  .stage{position:relative;border:1px solid var(--border-primary);border-radius:var(--r-l);
+    background:var(--bg-primary);min-height:340px;overflow:hidden;display:grid;place-items:center;padding:var(--s24)}
+  .scrim{position:absolute;inset:0;background:rgba(10,10,18,.45);backdrop-filter:blur(2px)}
+  .modal{position:relative;width:min(460px,100%);background:var(--bg-secondary);border-radius:var(--r-xl);
+    box-shadow:var(--shadow-lg);padding:var(--s28)}
+  .modal h3{font-size:var(--t-ui3)}
+  .modal .x{position:absolute;top:var(--s16);right:var(--s16);color:var(--text-tertiary);cursor:pointer}
+  .modal .acts{display:flex;gap:var(--s12);justify-content:flex-end;margin-top:var(--s24)}
+  .ic-round{width:48px;height:48px;border-radius:var(--r-full);display:grid;place-items:center;margin-bottom:var(--s16)}
+  .drawer-stage{display:block;padding:0}
+  .drawer{position:absolute;top:0;right:0;bottom:0;width:min(400px,80%);background:var(--bg-secondary);
+    box-shadow:var(--shadow-lg);padding:var(--s24);display:flex;flex-direction:column}
+  .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--bg-secondary);
+    border-radius:var(--r-2xl) var(--r-2xl) 0 0;box-shadow:var(--shadow-lg);padding:var(--s24)}
+  .sheet .handle{width:44px;height:5px;border-radius:var(--r-full);background:var(--border-primary);margin:0 auto var(--s16)}
+  .toasts{position:absolute;right:var(--s20);bottom:var(--s20);display:flex;flex-direction:column;
+    gap:var(--s12);width:min(360px,80%)}
+  .toast{display:flex;gap:var(--s12);align-items:flex-start;background:var(--bg-secondary);
+    border:1px solid var(--border-primary);border-left-width:4px;border-radius:var(--r-m);
+    padding:var(--s14,14px) var(--s16);box-shadow:var(--shadow-md)}
+  .toast b{display:block;font-size:14px}
+  .toast p{font-size:13.5px;color:var(--text-secondary);margin-top:2px}
+  .alert{display:flex;gap:var(--s12);padding:var(--s16);border-radius:var(--r-m);
+    border:1px solid var(--border-primary);align-items:flex-start}
+  .banner{display:flex;align-items:center;gap:var(--s12);padding:var(--s12) var(--s20);
+    border-radius:var(--r-m);font-size:14.5px}
+  .pop{position:relative;display:inline-block}
+  .popcard{position:absolute;top:calc(100% + 10px);left:0;width:280px;background:var(--bg-secondary);
+    border:1px solid var(--border-primary);border-radius:var(--r-m);box-shadow:var(--shadow-lg);
+    padding:var(--s16);z-index:2}
+  .popcard::before{content:"";position:absolute;top:-6px;left:22px;width:10px;height:10px;
+    background:var(--bg-secondary);border-left:1px solid var(--border-primary);
+    border-top:1px solid var(--border-primary);transform:rotate(45deg)}
+  .menu{width:220px;background:var(--bg-secondary);border:1px solid var(--border-primary);
+    border-radius:var(--r-m);box-shadow:var(--shadow-lg);padding:var(--s6)}
+  .menu a{display:flex;align-items:center;gap:var(--s10);padding:var(--s10) var(--s12);
+    border-radius:var(--r-s);text-decoration:none;font-size:14.5px;color:var(--text-primary)}
+  .menu a:hover{background:var(--chip-hover)}
+  .menu a.bad{color:var(--danger)}
+  .menu hr{border:none;border-top:1px solid var(--border-secondary);margin:var(--s6) 0}
+  .spin{width:34px;height:34px;border-radius:var(--r-full);border:3px solid var(--border-primary);
+    border-top-color:var(--purple-600);animation:sp .8s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .progressbar{height:6px;border-radius:var(--r-full);background:var(--c-basic);overflow:hidden}
+  .progressbar i{display:block;height:100%;background:var(--c4);border-radius:var(--r-full)}
+</style>
+</head>
+<body>
+<div class="modebar"><button data-mode="light">Light</button><button data-mode="dark">Dark</button></div>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Selr AI · overlays and feedback</span>
+  <h1>Everything that sits on top</h1>
+  <p class="lead">Modals, drawers, sheets, toasts, alerts, banners, popovers, menus and loading states. Every one uses the same scrim, the same radius ladder and the same button pair.</p>
+</header>
+
+<h2 class="sec">1 · Modal</h2>
+<p class="about">Radius XL, shadow LG, scrim at 45% black. Primary action on the right, always last.</p>
+<div class="stage">
+  <div class="scrim"></div>
+  <div class="modal">
+    <span class="x" id="x1"></span>
+    <h3>Rename workflow</h3>
+    <p class="muted" style="margin-top:var(--s6);font-size:14px">This changes the name everywhere it appears, including past runs.</p>
+    <div class="field" style="margin-top:var(--s20)"><label for="m1">Name</label>
+      <input class="input" id="m1" value="Invoice chase"></div>
+    <div class="acts"><button class="btn btn--ghost">Cancel</button><button class="btn btn--primary">Save</button></div>
+  </div>
+</div>
+
+<h2 class="sec">2 · Confirm — destructive</h2>
+<p class="about">Red is reserved for the action itself. The icon carries the tone, the copy states what is lost.</p>
+<div class="stage">
+  <div class="scrim"></div>
+  <div class="modal" style="text-align:center">
+    <div class="ic-round" id="danger" style="margin-left:auto;margin-right:auto"></div>
+    <h3>Delete this workflow</h3>
+    <p class="muted" style="margin-top:var(--s8);font-size:14px;max-width:36ch;margin-left:auto;margin-right:auto">
+      Its 4,182 runs and their history go with it. This cannot be undone.</p>
+    <div class="acts" style="justify-content:center">
+      <button class="btn btn--ghost">Keep it</button>
+      <button class="btn" style="background:var(--danger);color:#fff">Delete workflow</button></div>
+  </div>
+</div>
+
+<h2 class="sec">3 · Side drawer</h2>
+<p class="about">For detail that keeps the list behind it in view. Header, scrolling body, pinned footer.</p>
+<div class="stage drawer-stage">
+  <div class="scrim"></div>
+  <aside class="drawer">
+    <div class="row"><h3>Run #40128</h3><span class="x spacer" id="x2"></span></div>
+    <p class="muted" style="font-size:14px;margin-top:var(--s4)">Invoice chase · 09:14 · 1.2s</p>
+    <div class="stack" style="margin-top:var(--s20);gap:var(--s12);flex:1">
+      <div class="row"><span class="badge badge--ok">Success</span><span class="caption spacer">3 steps</span></div>
+      <div class="listitem" style="border-bottom:1px solid var(--border-secondary);padding:var(--s12) 0"><b>1 · Fetch invoice</b><span class="caption spacer">210ms</span></div>
+      <div class="listitem" style="border-bottom:1px solid var(--border-secondary);padding:var(--s12) 0"><b>2 · Match contact</b><span class="caption spacer">640ms</span></div>
+      <div class="listitem" style="padding:var(--s12) 0"><b>3 · Post to Slack</b><span class="caption spacer">350ms</span></div>
+    </div>
+    <div class="row" style="margin-top:var(--s16)"><button class="btn btn--ghost btn--block">Re-run</button>
+      <button class="btn btn--primary btn--block">Open workflow</button></div>
+  </aside>
+</div>
+
+<h2 class="sec">4 · Bottom sheet — mobile</h2>
+<p class="about">Same content model as the drawer, anchored to the bottom with a grab handle.</p>
+<div class="stage drawer-stage" style="min-height:300px">
+  <div class="scrim"></div>
+  <div class="sheet">
+    <div class="handle"></div>
+    <h3>Actions</h3>
+    <div class="menu" style="border:none;box-shadow:none;padding:var(--s8) 0;width:100%" id="sheetmenu"></div>
+  </div>
+</div>
+
+<h2 class="sec">5 · Toasts</h2>
+<p class="about">Bottom right, stacked newest first, coloured only on the left edge.</p>
+<div class="stage" style="min-height:280px">
+  <div class="toasts" id="toasts"></div>
+</div>
+
+<h2 class="sec">6 · Inline alerts</h2>
+<p class="about">For state that belongs inside the page, not floating above it.</p>
+<div class="stack" id="alerts"></div>
+
+<h2 class="sec">7 · Banners</h2>
+<p class="about">Full width, one line, one action. Use for account-level state only.</p>
+<div class="stack" id="banners"></div>
+
+<h2 class="sec">8 · Popover and dropdown menu</h2>
+<p class="about">Popover explains, menu acts. Destructive items sit last, after a rule.</p>
+<div class="card row" style="gap:var(--s40);align-items:flex-start;padding-bottom:var(--s56)">
+  <div class="pop">
+    <span class="pill">What is a run <span id="i1"></span></span>
+    <div class="popcard">
+      <b style="font-size:14px">Runs</b>
+      <p class="muted" style="font-size:13.5px;margin-top:var(--s6)">One pass of a workflow from trigger to last step. Every run keeps its own log for 90 days.</p>
+      <a href="#" style="font-size:13.5px;font-weight:600;color:var(--text-accent);text-decoration:none;display:inline-block;margin-top:var(--s10)">Read more</a>
+    </div>
+  </div>
+  <div class="menu" id="menu"></div>
+</div>
+
+<h2 class="sec">9 · Loading</h2>
+<p class="about">Spinner for short waits, progress for anything with a known end, skeleton for content.</p>
+<div class="grid3">
+  <div class="card" style="display:grid;place-items:center;gap:var(--s12);min-height:170px">
+    <div class="spin"></div><span class="caption">Working</span></div>
+  <div class="card" style="min-height:170px">
+    <b style="font-size:14px">Importing 1,204 rows</b>
+    <p class="caption" style="margin:var(--s6) 0 var(--s16)">62% · about 40 seconds left</p>
+    <div class="progressbar"><i style="width:62%"></i></div></div>
+  <div class="card" style="min-height:170px">
+    <div class="stack" style="gap:var(--s12)">
+      <span style="height:14px;width:62%;border-radius:360px;background:var(--bg-tertiary);display:block"></span>
+      <span style="height:14px;width:88%;border-radius:360px;background:var(--bg-tertiary);display:block"></span>
+      <span style="height:14px;width:74%;border-radius:360px;background:var(--bg-tertiary);display:block"></span>
+      <span style="height:14px;width:46%;border-radius:360px;background:var(--bg-tertiary);display:block"></span>
+    </div></div>
+</div>
+</div>
+
+<script src="mode.js"></script>
+<script src="icons.js"></script>
+<script>
+document.getElementById('x1').innerHTML = Icons.svg('close');
+document.getElementById('x2').innerHTML = Icons.svg('close');
+document.getElementById('i1').innerHTML = Icons.svg('help','sm');
+document.getElementById('danger').innerHTML = Icons.svg('trash','lg');
+document.getElementById('danger').style.cssText +=
+  ';background:var(--danger-tint);color:var(--danger)';
+
+document.getElementById('toasts').innerHTML = [
+  ['check-circle','var(--success)','Workflow published','Invoice chase is live and will run on the next trigger.'],
+  ['alert-triangle','var(--warning)','Reconciliation is degraded','Three retries in the last hour. Nothing has failed yet.'],
+  ['alert-circle','var(--danger)','Onboarding pack failed','Step 2 could not reach Drive. Nothing was sent.']
+].map(([ic,c,t,d]) =>
+  `<div class="toast" style="border-left-color:${c}">
+     <span style="color:${c}">${Icons.svg(ic)}</span>
+     <div><b>${t}</b><p>${d}</p></div>
+     <span class="spacer dim">${Icons.svg('close','sm')}</span></div>`).join('');
+
+document.getElementById('alerts').innerHTML = [
+  ['info','var(--text-accent)','var(--purple-100)','Scheduled maintenance','Runs pause for about five minutes on Sunday at 2am AEST.'],
+  ['check-circle','var(--success)','var(--success-tint)','All integrations healthy','Last checked two minutes ago.'],
+  ['alert-triangle','var(--warning)','var(--warning-tint)','Stripe needs reauthorisation','Payments data stops refreshing in six days.'],
+  ['alert-circle','var(--danger)','var(--danger-tint)','Two workflows are failing','Onboarding pack and Quote builder. Open runs to see why.']
+].map(([ic,c,bg,t,d]) =>
+  `<div class="alert" style="background:${bg};border-color:${c}">
+     <span style="color:${c}">${Icons.svg(ic)}</span>
+     <div><b style="font-size:14.5px">${t}</b>
+       <p style="font-size:13.5px;color:var(--text-secondary);margin-top:2px">${d}</p></div>
+     <a class="btn btn--ghost btn--sm spacer" href="#">View</a></div>`).join('');
+
+document.getElementById('banners').innerHTML = [
+  ['var(--purple-600)','#fff','Your trial ends in 6 days.','Choose a plan'],
+  ['var(--warning-tint)','var(--text-primary)','Two Manrope weights are missing, so headings render approximate.','Fix it'],
+  ['var(--bg-tertiary)','var(--text-primary)','A new version of the template library is available.','Reload']
+].map(([bg,fg,t,cta]) =>
+  `<div class="banner" style="background:${bg};color:${fg}">
+     ${Icons.svg('info')}<span>${t}</span>
+     <a class="btn btn--sm spacer" style="background:${fg==='#fff'?'rgba(255,255,255,.18)':'var(--bg-secondary)'};color:${fg};border-color:transparent" href="#">${cta}</a>
+     <span style="opacity:.7">${Icons.svg('close','sm')}</span></div>`).join('');
+
+const MENU = [['edit','Edit workflow'],['duplicate','Duplicate'],['download','Export runs'],
+              ['share','Share'],['SEP',''],['archive','Archive'],['trash','Delete']];
+const menuHtml = MENU.map(([ic,t]) => ic === 'SEP' ? '<hr>' :
+  `<a href="#" class="${ic==='trash'?'bad':''}">${Icons.svg(ic)}${t}</a>`).join('');
+document.getElementById('menu').innerHTML = menuHtml;
+document.getElementById('sheetmenu').innerHTML = menuHtml;
+</script>
+</body>
+</html>

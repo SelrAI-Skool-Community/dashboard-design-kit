@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selr AI — Landing page</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css">
+<style>
+  body{background:var(--bg-secondary)}
+  .container{max-width:1160px;margin:0 auto;padding:0 var(--s32)}
+  section{padding:var(--s56) 0}
+  .hero{background:var(--bg-primary);border-bottom:1px solid var(--border-secondary);
+    padding:var(--s56) 0 0;overflow:hidden}
+  .hero h1{font-size:var(--t-h2);line-height:1.08;max-width:15ch}
+  .hero .lead{font-size:var(--t-p1);color:var(--text-secondary);max-width:46ch;margin-top:var(--s20)}
+  .hero .cta{display:flex;gap:var(--s12);margin-top:var(--s32);flex-wrap:wrap}
+  .hero .note{margin-top:var(--s16);font-size:13.5px;color:var(--text-tertiary)}
+  .heroGrid{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s48);align-items:center}
+  .mock{background:var(--bg-secondary);border:1px solid var(--border-primary);
+    border-radius:var(--r-l) var(--r-l) 0 0;box-shadow:var(--shadow-lg);padding:var(--s20);
+    margin-bottom:calc(var(--s32) * -1)}
+  .mockrow{display:flex;gap:var(--s12);margin-bottom:var(--s16)}
+  .mockrow i{height:8px;border-radius:var(--r-full);background:var(--border-primary);display:block}
+  .bars{display:flex;align-items:flex-end;gap:var(--s8);height:130px}
+  .bars i{flex:1;border-radius:var(--r-s) var(--r-s) var(--r-3xs) var(--r-3xs);display:block}
+  .logos{display:flex;gap:var(--s40);align-items:center;justify-content:center;flex-wrap:wrap;
+    padding:var(--s32) 0;border-bottom:1px solid var(--border-secondary)}
+  .logos span{font-weight:700;font-size:19px;color:var(--text-tertiary);letter-spacing:var(--track)}
+  .eyebrow{font:700 12px var(--font);letter-spacing:.13em;text-transform:uppercase;color:var(--text-accent)}
+  h2.big{font-size:var(--t-sub1);margin:var(--s12) 0 var(--s12);max-width:20ch}
+  .sublead{color:var(--text-secondary);max-width:56ch}
+  .feature{padding:var(--s28);border:1px solid var(--border-primary);border-radius:var(--r-l);
+    background:var(--bg-secondary);box-shadow:var(--shadow-sm)}
+  .feature .ic{width:44px;height:44px;border-radius:var(--r-m);display:grid;place-items:center;
+    background:var(--purple-100);color:var(--purple-700);margin-bottom:var(--s16)}
+  :root[data-mode="dark"] .feature .ic{background:var(--purple-900);color:var(--purple-200)}
+  .feature h3{font-size:var(--t-ui4);margin-bottom:var(--s8)}
+  .feature p{color:var(--text-secondary);font-size:14.5px}
+  .metrics{background:var(--bg-primary);border-radius:var(--r-2xl);padding:var(--s40)}
+  .metric b{display:block;font-size:var(--t-h2);font-weight:600;letter-spacing:var(--track);line-height:1}
+  .metric span{display:block;margin-top:var(--s8);color:var(--text-secondary);font-size:14.5px}
+  .quote{font-size:var(--t-sub2);line-height:1.4;letter-spacing:var(--track);max-width:34ch}
+  .band{background:linear-gradient(150deg,var(--purple-700),var(--purple-900));color:#fff;
+    border-radius:var(--r-2xl);padding:var(--s48);position:relative;overflow:hidden;text-align:center}
+  .band h2{font-size:var(--t-sub1);max-width:20ch;margin:0 auto}
+  .band p{color:rgba(255,255,255,.72);margin:var(--s12) auto var(--s28);max-width:44ch}
+  .band .ghost{position:absolute;left:-60px;bottom:-180px;font-size:400px;font-weight:800;
+    color:rgba(255,255,255,.06);line-height:.8;letter-spacing:-.06em;pointer-events:none}
+  footer{border-top:1px solid var(--border-secondary);padding:var(--s40) 0;color:var(--text-secondary);font-size:14px}
+  @media(max-width:900px){.heroGrid{grid-template-columns:1fr}.hero h1{font-size:var(--t-sub1)}}
+</style>
+</head>
+<body>
+<div class="modebar" style="padding:var(--s16) var(--s32) 0"><button data-mode="light">Light</button><button data-mode="dark">Dark</button></div>
+
+<div class="topnav" style="border-bottom:1px solid var(--border-secondary)">
+  <span class="logo"><span class="mark sm">S</span>Selr AI</span>
+  <nav class="links"><a href="#" class="active">Platform</a><a href="#">Solutions</a><a href="#">Pricing</a><a href="#">Resources</a></nav>
+  <div class="right">
+    <a class="btn btn--ghost btn--sm" href="login.html">Log in</a>
+    <a class="btn btn--primary btn--sm" href="signup.html">Get started</a>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="container heroGrid">
+    <div>
+      <span class="badge badge--soft">Claude Partner Network member</span>
+      <h1>Intelligent automation. Real growth.</h1>
+      <p class="lead">The strategic automation partner for established businesses. We build it into the workflows you already run, and we measure what it returns.</p>
+      <div class="cta">
+        <a class="btn btn--primary btn--lg" href="signup.html">Get started
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn--secondary btn--lg" href="#">Book a walkthrough</a>
+      </div>
+      <p class="note">No credit card. Your first workflow live in a day.</p>
+    </div>
+    <div class="mock">
+      <div class="mockrow"><i style="width:38%;background:var(--c4)"></i><i style="width:22%"></i><i style="width:16%"></i></div>
+      <div class="bars">
+        <i style="height:44%;background:var(--c1)"></i><i style="height:68%;background:var(--c2)"></i>
+        <i style="height:52%;background:var(--c2)"></i><i style="height:100%;background:var(--c4)"></i>
+        <i style="height:74%;background:var(--c3)"></i><i style="height:58%;background:var(--c2)"></i>
+        <i style="height:86%;background:var(--c5)"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="logos"><span>Xero</span><span>Slack</span><span>Stripe</span><span>Shopify</span><span>HubSpot</span><span>Notion</span></div>
+
+<section class="container">
+  <span class="eyebrow">What you get</span>
+  <h2 class="big">Automation that fits the business you already run</h2>
+  <p class="sublead">No rip and replace, no six-month transformation. We connect what you have, then hand you the numbers.</p>
+  <div class="grid3" style="margin-top:var(--s32)">
+    <div class="feature">
+      <div class="ic"><svg class="icon lg" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg></div>
+      <h3>Live in days</h3>
+      <p>Your first workflow ships in a day, not a quarter. Every one after that gets faster.</p>
+    </div>
+    <div class="feature">
+      <div class="ic"><svg class="icon lg" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M6 8.5v3a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3M12 13.5v2"/></svg></div>
+      <h3>Fits your stack</h3>
+      <p>It plugs into the tools your team already opens every morning. Nothing new to learn.</p>
+    </div>
+    <div class="feature">
+      <div class="ic"><svg class="icon lg" viewBox="0 0 24 24"><path d="M4 18V9M10 18V5M16 18v-6M4 21h16"/></svg></div>
+      <h3>Measured, not promised</h3>
+      <p>Hours returned and cost avoided, reported monthly against the baseline we set on day one.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="metrics grid3">
+    <div class="metric"><b>1.4M</b><span>tasks automated across client workflows</span></div>
+    <div class="metric"><b>63%</b><span>of manual handling hours returned</span></div>
+    <div class="metric"><b>24/7</b><span>running whether anyone is watching or not</span></div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="grid2" style="align-items:center;gap:var(--s48)">
+    <div>
+      <span class="eyebrow">In their words</span>
+      <p class="quote" style="margin-top:var(--s16)">“The reporting alone paid for it. We stopped guessing which jobs were bleeding hours.”</p>
+      <div class="row" style="margin-top:var(--s24)">
+        <span class="avatar lg">JM</span>
+        <div><b style="display:block">Operations Director</b><span class="dim" style="font-size:14px">Wholesale distribution, 90 staff</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Where teams start</h3>
+      <div class="stack" style="margin-top:var(--s16)">
+        <div class="row"><span class="badge badge--ok">1</span> Quote and invoice chasing</div>
+        <div class="row"><span class="badge badge--ok">2</span> Lead routing and follow-up</div>
+        <div class="row"><span class="badge badge--ok">3</span> Reconciliation and reporting</div>
+        <div class="row"><span class="badge badge--ok">4</span> Onboarding and handover packs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="band">
+    <div class="ghost">S</div>
+    <h2>See what a week of your admin actually costs</h2>
+    <p>Thirty minutes, your numbers, a straight answer on what is worth automating first.</p>
+    <a class="btn btn--lg" style="background:#fff;color:var(--purple-800)" href="signup.html">Get started</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container row wrap" style="justify-content:space-between">
+    <span class="logo" style="font-size:var(--t-ui5)"><span class="mark sm">S</span>Selr AI</span>
+    <span>Intelligent Automation. Real Growth.</span>
+  </div>
+</footer>
+
+<script src="mode.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selr AI — Settings</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css">
+<style>
+  body{padding:var(--s32)}
+  .settings{display:grid;grid-template-columns:220px 1fr;gap:var(--s32)}
+  .sidenav a{display:block;padding:var(--s10) var(--s16);border-radius:var(--r-s);
+    text-decoration:none;font-size:14.5px;font-weight:500;color:var(--text-secondary)}
+  .sidenav a.on{background:var(--chip-hover);color:var(--text-accent);font-weight:600}
+  .block{padding:var(--s24) 0;border-bottom:1px solid var(--border-secondary);
+    display:grid;grid-template-columns:260px 1fr;gap:var(--s32)}
+  .block:last-child{border-bottom:none}
+  .block h4{font-size:var(--t-ui5)}
+  .block .hint{color:var(--text-secondary);font-size:13.5px;margin-top:var(--s4)}
+  .toggle{width:46px;height:26px;border-radius:var(--r-full);background:var(--border-primary);
+    position:relative;flex:0 0 46px;cursor:pointer}
+  .toggle i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:var(--r-full);
+    background:#fff;display:block;box-shadow:var(--shadow-sm);transition:left .16s ease}
+  .toggle.on{background:var(--purple-600)}
+  .toggle.on i{left:23px}
+  .optrow{display:flex;align-items:center;gap:var(--s16);padding:var(--s12) 0;
+    border-bottom:1px solid var(--border-secondary)}
+  .optrow:last-child{border-bottom:none}
+  .danger{border:1px solid var(--danger);border-radius:var(--r-l);padding:var(--s24);
+    background:var(--bg-danger)}
+  .danger h4{color:var(--danger)}
+  .integration{display:flex;align-items:center;gap:var(--s16);padding:var(--s16);
+    border:1px solid var(--border-primary);border-radius:var(--r-m)}
+  .integration .ic{width:40px;height:40px;border-radius:var(--r-s);display:grid;place-items:center;
+    background:var(--bg-tertiary);font-weight:800;font-size:13px;color:var(--text-secondary)}
+  @media(max-width:900px){.settings,.block{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="modebar"><button data-mode="light">Light</button><button data-mode="dark">Dark</button></div>
+
+<div class="window" style="min-height:940px">
+  <div class="dots"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></div>
+  <nav class="rail"><div class="tile a">S</div><div class="tile b">A</div><div class="tile add">+</div></nav>
+
+  <main class="main">
+    <div class="pagehead">
+      <div class="crumb">Home page &nbsp;/&nbsp; <b>Settings</b></div>
+      <div class="row"><span class="avatar">AW</span> <b>Alex Wilkerson</b></div>
+    </div>
+
+    <div class="content">
+      <h1 style="font-size:var(--t-ui1)">Settings</h1>
+
+      <div class="settings">
+        <nav class="sidenav stack" style="gap:var(--s2)">
+          <a href="#" class="on">Profile</a><a href="#">Workspace</a><a href="#">Members</a>
+          <a href="#">Integrations</a><a href="#">Notifications</a><a href="#">Billing</a>
+          <a href="#">Security</a><a href="#">API keys</a>
+        </nav>
+
+        <div class="stack" style="gap:var(--s24)">
+          <div class="card">
+            <h3>Profile</h3>
+            <p class="desc">How you appear to everyone in the workspace.</p>
+
+            <div class="block">
+              <div><h4>Photo</h4><p class="hint">PNG or JPG, at least 200 by 200.</p></div>
+              <div class="row"><span class="avatar lg">AW</span>
+                <a class="btn btn--ghost btn--sm" href="#">Upload</a>
+                <a class="btn btn--ghost btn--sm" href="#">Remove</a></div>
+            </div>
+
+            <div class="block">
+              <div><h4>Name</h4><p class="hint">Shown on every report you publish.</p></div>
+              <div class="grid2" style="gap:var(--s12)">
+                <input class="input" value="Alex"><input class="input" value="Wilkerson">
+              </div>
+            </div>
+
+            <div class="block">
+              <div><h4>Work email</h4><p class="hint">Used for sign-in and alerts.</p></div>
+              <div><input class="input" value="alex@company.com.au">
+                <span class="badge badge--ok" style="margin-top:var(--s8)">Verified</span></div>
+            </div>
+
+            <div class="block">
+              <div><h4>Time zone</h4><p class="hint">Schedules and reports follow this.</p></div>
+              <div><input class="input" value="Brisbane · AEST (UTC+10)"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Notifications</h3>
+            <p class="desc">Choose what reaches you and where.</p>
+            <div style="margin-top:var(--s16)">
+              <div class="optrow"><div><b>Workflow failures</b><div class="hint">The moment a run fails.</div></div>
+                <span class="toggle on spacer"><i></i></span></div>
+              <div class="optrow"><div><b>Weekly summary</b><div class="hint">Monday morning, hours returned and cost avoided.</div></div>
+                <span class="toggle on spacer"><i></i></span></div>
+              <div class="optrow"><div><b>New integrations</b><div class="hint">When a tool you use becomes connectable.</div></div>
+                <span class="toggle spacer"><i></i></span></div>
+              <div class="optrow"><div><b>Product updates</b><div class="hint">Occasional, never more than monthly.</div></div>
+                <span class="toggle spacer"><i></i></span></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Integrations</h3>
+            <p class="desc">Connected tools this workspace can read and write.</p>
+            <div class="grid2" style="margin-top:var(--s16);gap:var(--s12)">
+              <div class="integration"><span class="ic">XR</span><div><b>Xero</b><div class="hint">Connected</div></div>
+                <span class="badge badge--ok spacer">On</span></div>
+              <div class="integration"><span class="ic">SL</span><div><b>Slack</b><div class="hint">Connected</div></div>
+                <span class="badge badge--ok spacer">On</span></div>
+              <div class="integration"><span class="ic">ST</span><div><b>Stripe</b><div class="hint">Needs reauthorisation</div></div>
+                <span class="badge badge--warn spacer">Check</span></div>
+              <div class="integration"><span class="ic">NT</span><div><b>Notion</b><div class="hint">Not connected</div></div>
+                <a class="btn btn--ghost btn--sm spacer" href="#">Connect</a></div>
+            </div>
+          </div>
+
+          <div class="danger">
+            <h4>Delete workspace</h4>
+            <p class="hint" style="color:inherit;opacity:.85;margin:var(--s6) 0 var(--s16)">
+              Every workflow, run history and report goes with it. This cannot be undone.</p>
+            <button class="btn btn--sm" style="background:var(--danger);color:#fff">Delete workspace</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="mode.js"></script>
+<script>
+  document.querySelectorAll('.toggle').forEach(t =>
+    t.addEventListener('click', () => t.classList.toggle('on')));
+</script>
+</body>
+</html>

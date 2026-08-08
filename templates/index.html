@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selr AI — Screen templates</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css">
+<style>
+  body{padding:var(--s32)}
+  .wrap{max-width:1240px;margin:0 auto}
+  header{border-bottom:1px solid var(--border-primary);padding-bottom:var(--s28);margin-bottom:var(--s40)}
+  header h1{font-size:var(--t-h2);margin:var(--s12) 0 var(--s10)}
+  .eyebrow{font:700 12px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--text-accent)}
+  .lead{color:var(--text-secondary);max-width:64ch;font-size:var(--t-p2)}
+  h2.sec{font:700 12px var(--font);letter-spacing:.13em;text-transform:uppercase;
+    color:var(--text-tertiary);margin:var(--s40) 0 var(--s16)}
+  .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s24)}
+  .tpl{border:1px solid var(--border-primary);border-radius:var(--r-l);overflow:hidden;
+    background:var(--bg-secondary);box-shadow:var(--shadow-md);text-decoration:none;color:inherit;
+    display:flex;flex-direction:column;transition:transform .14s ease,box-shadow .14s ease}
+  .tpl:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .shot{height:200px;overflow:hidden;position:relative;background:var(--bg-primary);
+    border-bottom:1px solid var(--border-secondary)}
+  .shot iframe{width:1440px;height:1000px;border:0;transform:scale(.278);transform-origin:0 0;
+    pointer-events:none}
+  .meta{padding:var(--s16) var(--s20)}
+  .meta b{display:block;font-size:var(--t-ui5);letter-spacing:var(--track)}
+  .meta span{display:block;color:var(--text-secondary);font-size:13.5px;margin-top:var(--s4)}
+  .note{margin-top:var(--s40);padding:var(--s24);border-radius:var(--r-l);
+    background:var(--bg-secondary);border:1px solid var(--border-primary)}
+  .note h3{font-size:var(--t-ui4);margin-bottom:var(--s8)}
+  .note p{color:var(--text-secondary);font-size:14.5px;margin-bottom:var(--s8)}
+  .note p:last-child{margin-bottom:0}
+  code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--text-accent)}
+  @media(max-width:980px){.gal{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:660px){.gal{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="modebar"><button data-mode="light">Light</button><button data-mode="dark">Dark</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Selr AI · screen templates</span>
+    <h1>Every screen, one system</h1>
+    <p class="lead">Production HTML, on the token contract, light and dark from the same variables. Open one, copy it, change the content. Never retype a hex.</p>
+  </header>
+
+  <h2 class="sec">Libraries — every building block</h2>
+  <div class="gal">
+    <a class="tpl" href="charts.html"><div class="shot"><iframe src="charts.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Every chart · 65</b><span>All 44 medium, 12 large and 9 extra-large cards, from one engine</span></div></a>
+    <a class="tpl" href="tables.html"><div class="shot"><iframe src="tables.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Every table · 16</b><span>Basic through sortable, grouped, sticky, editable, empty and mobile</span></div></a>
+    <a class="tpl" href="components.html"><div class="shot"><iframe src="components.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Every component</b><span>18 variant sets and 11 standalone, same names as Figma</span></div></a>
+    <a class="tpl" href="icons.html"><div class="shot"><iframe src="icons.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Every icon · 110</b><span>One grid, one stroke, line and solid, click to copy</span></div></a>
+    <a class="tpl" href="forms.html"><div class="shot"><iframe src="forms.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Every form control</b><span>Inputs, states, upload, date picker, wizard, layout</span></div></a>
+    <a class="tpl" href="overlays.html"><div class="shot"><iframe src="overlays.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Overlays and feedback</b><span>Modal, drawer, sheet, toast, alert, banner, menu, loading</span></div></a>
+    <a class="tpl" href="patterns.html"><div class="shot"><iframe src="patterns.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Page patterns</b><span>Board, timeline, notifications, calendar, search, 404, onboarding, profile</span></div></a>
+  </div>
+
+  <h2 class="sec">Product screens</h2>
+  <div class="gal">
+    <a class="tpl" href="dashboard.html"><div class="shot"><iframe src="dashboard.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Dashboard</b><span>Sidebar, KPI strip, four chart cards</span></div></a>
+    <a class="tpl" href="table.html"><div class="shot"><iframe src="table.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Data table</b><span>Toolbar, filters, status rows, pager, empty state</span></div></a>
+    <a class="tpl" href="settings.html"><div class="shot"><iframe src="settings.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Settings</b><span>Section nav, toggles, integrations, danger zone</span></div></a>
+  </div>
+
+  <h2 class="sec">Entry screens</h2>
+  <div class="gal">
+    <a class="tpl" href="login.html"><div class="shot"><iframe src="login.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Log in</b><span>Split layout, social buttons, brand panel</span></div></a>
+    <a class="tpl" href="signup.html"><div class="shot"><iframe src="signup.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Create account</b><span>Stepper, password strength, terms</span></div></a>
+  </div>
+
+  <h2 class="sec">Marketing screens</h2>
+  <div class="gal">
+    <a class="tpl" href="landing.html"><div class="shot"><iframe src="landing.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Landing page</b><span>Hero, logo bar, features, metrics, quote, CTA band</span></div></a>
+    <a class="tpl" href="pricing.html"><div class="shot"><iframe src="pricing.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Pricing</b><span>Three tiers, featured plan, FAQ</span></div></a>
+  </div>
+
+  <h2 class="sec">Navigation</h2>
+  <div class="gal">
+    <a class="tpl" href="navigation.html"><div class="shot"><iframe src="navigation.html" scrolling="no"></iframe></div>
+      <div class="meta"><b>Menu bars</b><span>Marketing nav, app nav, sidebar expanded and collapsed, tabs, mobile bar, command palette</span></div></a>
+  </div>
+
+  <div class="note">
+    <h3>How to use one</h3>
+    <p>Copy the template plus <code>tokens.css</code> and <code>base.css</code>. Everything colour, spacing and radius is already a variable, so a theme change is one file.</p>
+    <p>The Light/Dark switch at the top is a development affordance. In production, set <code>data-mode</code> on the <code>&lt;html&gt;</code> element and drop <code>mode.js</code>.</p>
+    <p>Type is Manrope, and it ships with the kit in <code>fonts/</code> — every weight, every machine, no install needed.</p>
+  </div>
+</div>
+
+<script src="mode.js"></script>
+<script>
+// keep every preview frame on the same mode as the gallery shell
+(function(){
+  const frames = () => Array.from(document.querySelectorAll('.shot iframe'));
+  const broadcast = () => {
+    const mode = document.documentElement.dataset.mode || 'light';
+    frames().forEach(f => { try { f.contentWindow.postMessage({mode}, '*'); } catch(e){} });
+  };
+  document.querySelector('.modebar').addEventListener('click', () => setTimeout(broadcast, 0));
+  frames().forEach(f => f.addEventListener('load', broadcast));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selr AI — Pricing</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css">
+<style>
+  body{background:var(--bg-secondary)}
+  .container{max-width:1160px;margin:0 auto;padding:0 var(--s32)}
+  .head{text-align:center;padding:var(--s56) 0 var(--s32)}
+  .head h1{font-size:var(--t-h2);max-width:18ch;margin:0 auto}
+  .head p{color:var(--text-secondary);font-size:var(--t-p1);max-width:52ch;margin:var(--s16) auto 0}
+  .switch{display:inline-flex;margin-top:var(--s28)}
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s24);padding-bottom:var(--s56)}
+  .plan{border:1px solid var(--border-primary);border-radius:var(--r-xl);padding:var(--s32);
+    background:var(--bg-secondary);display:flex;flex-direction:column}
+  .plan.featured{border-color:var(--purple-600);box-shadow:0 0 0 3px rgba(103,54,226,.12),var(--shadow-md);position:relative}
+  .plan.featured::after{content:"Most chosen";position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+    background:var(--purple-600);color:#fff;font:700 11px var(--font);letter-spacing:.04em;
+    padding:4px var(--s12);border-radius:var(--r-full)}
+  .plan h3{font-size:var(--t-ui3)}
+  .plan .who{color:var(--text-secondary);font-size:14px;margin-top:var(--s6);min-height:42px}
+  .price{display:flex;align-items:baseline;gap:var(--s6);margin:var(--s20) 0 var(--s4)}
+  .price b{font-size:var(--t-h2);font-weight:600;letter-spacing:var(--track);line-height:1}
+  .price span{color:var(--text-secondary);font-size:14.5px}
+  .feats{list-style:none;padding:0;margin:var(--s24) 0 var(--s28);display:flex;
+    flex-direction:column;gap:var(--s12);font-size:14.5px}
+  .feats li{display:flex;gap:var(--s10);align-items:flex-start;color:var(--text-secondary)}
+  .feats svg{color:var(--success);margin-top:2px}
+  .feats li.off{color:var(--text-disabled)}
+  .feats li.off svg{color:var(--text-disabled)}
+  .plan .btn{margin-top:auto}
+  .faq{border-top:1px solid var(--border-secondary);padding:var(--s56) 0}
+  .q{padding:var(--s20) 0;border-bottom:1px solid var(--border-secondary)}
+  .q b{display:flex;align-items:center;font-size:var(--t-ui5)}
+  .q p{color:var(--text-secondary);font-size:14.5px;margin-top:var(--s8);max-width:70ch}
+  @media(max-width:900px){.plans{grid-template-columns:1fr}.head h1{font-size:var(--t-sub1)}}
+</style>
+</head>
+<body>
+<div class="modebar" style="padding:var(--s16) var(--s32) 0"><button data-mode="light">Light</button><button data-mode="dark">Dark</button></div>
+
+<div class="topnav" style="border-bottom:1px solid var(--border-secondary)">
+  <span class="logo"><span class="mark sm">S</span>Selr AI</span>
+  <nav class="links"><a href="landing.html">Platform</a><a href="#">Solutions</a><a href="#" class="active">Pricing</a><a href="#">Resources</a></nav>
+  <div class="right">
+    <a class="btn btn--ghost btn--sm" href="login.html">Log in</a>
+    <a class="btn btn--primary btn--sm" href="signup.html">Get started</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="head">
+    <h1>Pick the level of help you actually want</h1>
+    <p>Every plan includes the platform. What changes is how much of the build we take off your hands.</p>
+    <div class="switch tabs"><span class="on">Monthly</span><span>Yearly · save 2 months</span></div>
+  </div>
+
+  <div class="plans">
+    <div class="plan">
+      <h3>Starter</h3>
+      <p class="who">For a team proving the idea on one workflow.</p>
+      <div class="price"><b>$—</b><span>/ month</span></div>
+      <span class="caption">Pricing set per engagement</span>
+      <ul class="feats">
+        <li><svg class="icon sm" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>Up to 3 live workflows</li>
+        <li><svg class="icon sm" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>Standard integrations</li>
+        <li><svg class="icon sm" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>Monthly reporting</li>
+        <li class="off"><svg class="icon sm" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></svg>Dedicated build sessions</li>
+        <li class="off"><svg class="icon sm" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></svg>Custom integrations</li>
+      </ul>
+      <a class="btn btn--secondary btn--block" href="signup.html">Get started</a>
+    </div>
+
+    <div class="plan featured">
+      <h3>Growth</h3>
+      <p class="who">For a business automating across departments.</p>
+      <div class="price"><b>$—</b><span>/ month</span></div>
+      <span class="caption">Pricing set per engagement</span>
+      <ul class="feats">
+        <li><svg class="icon sm" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>Unlimited workflows</li>
+        <li><svg class="icon sm" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>All integrations</li>
+        <li><svg class="icon sm" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>Weekly reporting and review</li>
+        <li><svg class="icon sm" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>Dedicated build sessions</li>
+        <li class="off"><svg class="icon sm" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></svg>Custom integrations</li>
+      </ul>
+      <a class="btn btn--primary btn--block" href="signup.html">Get started</a>
+    </div>
+
+    <div class="plan">
+      <h3>Partner</h3>
+      <p class="who">For a group running automation as core infrastructure.</p>
+      <div class="price"><b>Talk to us</b></div>
+      <span class="caption">Scoped to the environment</span>
+      <ul class="feats">
+        <li><svg class="icon sm" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>Everything in Growth</li>
+        <li><svg class="icon sm" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>Custom integrations</li>
+        <li><svg class="icon sm" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>Private deployment options</li>
+        <li><svg class="icon sm" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>Quarterly strategy review</li>
+        <li><svg class="icon sm" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg>Onboarding for your team</li>
+      </ul>
+      <a class="btn btn--secondary btn--block" href="#">Book a call</a>
+    </div>
+  </div>
+
+  <div class="faq">
+    <h2 style="font-size:var(--t-sub1);margin-bottom:var(--s16)">Questions people actually ask</h2>
+    <div class="q"><b>How fast does the first workflow go live?</b>
+      <p>Usually within a day of the kickoff session, because we start with something you already do manually every week.</p></div>
+    <div class="q"><b>Does it replace the tools we use now?</b>
+      <p>No. It connects them. Nothing your team opens each morning changes.</p></div>
+    <div class="q"><b>What happens to the automations if we stop?</b>
+      <p>They are documented and handed over. The logic stays readable, not locked in a black box.</p></div>
+    <div class="q"><b>How is the result measured?</b>
+      <p>Against a baseline taken on day one: handling hours before, handling hours after, and cost avoided.</p></div>
+  </div>
+</div>
+
+<script src="mode.js"></script>
+</body>
+</html>

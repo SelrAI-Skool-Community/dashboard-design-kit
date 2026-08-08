@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selr AI — Every table</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css">
+<style>
+  body{padding:var(--s32)}
+  .wrap{max-width:1240px;margin:0 auto}
+  header{border-bottom:1px solid var(--border-primary);padding-bottom:var(--s28);margin-bottom:var(--s32)}
+  header h1{font-size:var(--t-h2);margin:var(--s12) 0 var(--s10)}
+  .eyebrow{font:700 12px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--text-accent)}
+  .lead{color:var(--text-secondary);max-width:66ch;font-size:var(--t-p2)}
+  h2.sec{font:700 12px var(--font);letter-spacing:.13em;text-transform:uppercase;
+    color:var(--text-tertiary);margin:var(--s40) 0 var(--s12)}
+  .about{color:var(--text-secondary);font-size:14px;margin-bottom:var(--s16);max-width:70ch}
+  .box{border:1px solid var(--border-primary);border-radius:var(--r-l);overflow:hidden;
+    background:var(--bg-secondary);box-shadow:var(--shadow-md)}
+  .num{text-align:right;font-variant-numeric:tabular-nums}
+  .sort{display:inline-flex;align-items:center;gap:var(--s4);cursor:pointer}
+  .sort svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+  .group td{background:var(--bg-tertiary);font-weight:700;font-size:13px;
+    letter-spacing:.03em;text-transform:uppercase;color:var(--text-secondary)}
+  .dense td,.dense th{padding:var(--s8) var(--s12)}
+  .expand td{background:var(--bg-tertiary)}
+  .scrollbox{max-height:260px;overflow:auto}
+  .scrollbox thead th{position:sticky;top:0;z-index:1}
+  .dot{display:inline-flex;align-items:center;gap:var(--s8)}
+  .dot i{width:8px;height:8px;border-radius:var(--r-full);display:block}
+  .bar{height:8px;border-radius:var(--r-full);background:var(--c-basic);width:120px;overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--c4);border-radius:var(--r-full)}
+  .cell-edit{border:1.5px solid var(--purple-600);border-radius:var(--r-xs);padding:var(--s4) var(--s8);
+    box-shadow:0 0 0 3px rgba(103,54,226,.16);display:inline-block;min-width:90px}
+  .pager{display:flex;align-items:center;gap:var(--s12);padding:var(--s16);
+    border-top:1px solid var(--border-secondary);font-size:14px;color:var(--text-secondary)}
+  .pnum{width:32px;height:32px;display:grid;place-items:center;border-radius:var(--r-s);font-weight:600}
+  .pnum.on{background:var(--purple-600);color:#fff}
+  .state{padding:var(--s48) var(--s24);text-align:center}
+  .state .ic{width:60px;height:60px;border-radius:var(--r-xl);display:grid;place-items:center;
+    background:var(--bg-tertiary);color:var(--text-tertiary);margin:0 auto var(--s16)}
+  .skel{height:14px;border-radius:var(--r-full);background:var(--bg-tertiary);display:block}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+  .skel{animation:pulse 1.6s ease-in-out infinite}
+  .cardlist{display:flex;flex-direction:column;gap:var(--s12);padding:var(--s16)}
+  .mrow{border:1px solid var(--border-primary);border-radius:var(--r-m);padding:var(--s16)}
+  .mrow .top{display:flex;align-items:center;gap:var(--s12)}
+  .mrow .grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s8);margin-top:var(--s12);font-size:13.5px}
+  .mrow .grid span{color:var(--text-tertiary)}
+</style>
+</head>
+<body>
+<div class="modebar"><button data-mode="light">Light</button><button data-mode="dark">Dark</button></div>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Selr AI · table library</span>
+  <h1>Every table pattern</h1>
+  <p class="lead">Sixteen table behaviours, one set of primitives. Pick the row that matches the job, copy the markup, change the columns.</p>
+</header>
+
+<h2 class="sec">1 · Basic</h2>
+<p class="about">Header, rows, hover. The default until a requirement says otherwise.</p>
+<div class="box"><table class="table">
+  <thead><tr><th>Workflow</th><th>Owner</th><th class="num">Runs</th><th>Last run</th></tr></thead>
+  <tbody>
+    <tr><td>Invoice chase</td><td>Operations</td><td class="num">4,182</td><td class="muted">2 min ago</td></tr>
+    <tr><td>Lead routing</td><td>Growth</td><td class="num">12,904</td><td class="muted">14 min ago</td></tr>
+    <tr><td>Reconciliation</td><td>Finance</td><td class="num">908</td><td class="muted">1 hr ago</td></tr>
+  </tbody></table></div>
+
+<h2 class="sec">2 · With avatars and secondary text</h2>
+<p class="about">Two lines per cell. Use when the identity matters more than the value.</p>
+<div class="box"><table class="table">
+  <thead><tr><th>Person</th><th>Team</th><th>Access</th><th class="num">Runs owned</th></tr></thead>
+  <tbody>
+    <tr><td><div class="who"><span class="avatar sm">AW</span><div><b>A. Wilkerson</b><div class="caption">Operations lead</div></div></div></td>
+        <td>Operations</td><td><span class="badge badge--soft">Admin</span></td><td class="num">18</td></tr>
+    <tr><td><div class="who"><span class="avatar sm">JM</span><div><b>J. Moreau</b><div class="caption">Finance</div></div></div></td>
+        <td>Finance</td><td><span class="badge badge--soft">Editor</span></td><td class="num">6</td></tr>
+    <tr><td><div class="who"><span class="avatar sm">RK</span><div><b>R. Kaur</b><div class="caption">Growth</div></div></div></td>
+        <td>Growth</td><td><span class="badge badge--soft">Viewer</span></td><td class="num">2</td></tr>
+  </tbody></table></div>
+
+<h2 class="sec">3 · Selectable</h2>
+<p class="about">Checkbox column plus a bulk action bar once anything is ticked.</p>
+<div class="box">
+  <div class="row" style="padding:var(--s12) var(--s16);border-bottom:1px solid var(--border-secondary);background:var(--bg-tertiary)">
+    <b style="font-size:14px">2 selected</b>
+    <a class="btn btn--ghost btn--sm spacer" href="#">Pause</a>
+    <a class="btn btn--ghost btn--sm" href="#">Export</a>
+    <a class="btn btn--sm" style="background:var(--danger);color:#fff" href="#">Delete</a>
+  </div>
+  <table class="table">
+  <thead><tr><th style="width:44px"><input type="checkbox"></th><th>Workflow</th><th>Status</th><th class="num">Runs</th></tr></thead>
+  <tbody>
+    <tr><td><input type="checkbox" checked></td><td>Invoice chase</td><td><span class="dot"><i style="background:var(--success)"></i>Live</span></td><td class="num">4,182</td></tr>
+    <tr><td><input type="checkbox" checked></td><td>Lead routing</td><td><span class="dot"><i style="background:var(--success)"></i>Live</span></td><td class="num">12,904</td></tr>
+    <tr><td><input type="checkbox"></td><td>Reconciliation</td><td><span class="dot"><i style="background:var(--warning)"></i>Degraded</span></td><td class="num">908</td></tr>
+  </tbody></table></div>
+
+<h2 class="sec">4 · Sortable headers</h2>
+<p class="about">The active column carries the arrow, the rest carry the affordance only.</p>
+<div class="box"><table class="table">
+  <thead><tr>
+    <th><span class="sort">Workflow <svg viewBox="0 0 24 24"><path d="M8 10l4-4 4 4M8 14l4 4 4-4"/></svg></span></th>
+    <th><span class="sort" style="color:var(--text-accent)">Runs <svg viewBox="0 0 24 24"><path d="M6 14l6-6 6 6"/></svg></span></th>
+    <th><span class="sort">Success <svg viewBox="0 0 24 24"><path d="M8 10l4-4 4 4M8 14l4 4 4-4"/></svg></span></th>
+  </tr></thead>
+  <tbody>
+    <tr><td>Lead routing</td><td class="num">12,904</td><td>98.7%</td></tr>
+    <tr><td>Invoice chase</td><td class="num">4,182</td><td>99.2%</td></tr>
+    <tr><td>Reconciliation</td><td class="num">908</td><td>91.4%</td></tr>
+  </tbody></table></div>
+
+<h2 class="sec">5 · Status and badges</h2>
+<p class="about">Colour carries meaning: green live, orange degraded, red failing, grey paused.</p>
+<div class="box"><table class="table">
+  <thead><tr><th>Workflow</th><th>Status</th><th>Health</th><th>Owner</th></tr></thead>
+  <tbody>
+    <tr><td>Invoice chase</td><td><span class="dot"><i style="background:var(--success)"></i>Live</span></td><td><span class="badge badge--ok">99.2%</span></td><td>Operations</td></tr>
+    <tr><td>Reconciliation</td><td><span class="dot"><i style="background:var(--warning)"></i>Degraded</span></td><td><span class="badge badge--warn">91.4%</span></td><td>Finance</td></tr>
+    <tr><td>Onboarding pack</td><td><span class="dot"><i style="background:var(--danger)"></i>Failing</span></td><td><span class="badge badge--bad">72.0%</span></td><td>People</td></tr>
+    <tr><td>Quote builder</td><td><span class="dot"><i style="background:var(--text-tertiary)"></i>Paused</span></td><td><span class="badge badge--soft">—</span></td><td>Sales</td></tr>
+  </tbody></table></div>
+
+<h2 class="sec">6 · Expandable rows</h2>
+<p class="about">The chevron row opens a detail panel in the same table body.</p>
+<div class="box"><table class="table">
+  <thead><tr><th style="width:44px"></th><th>Run</th><th>Started</th><th>Duration</th><th>Result</th></tr></thead>
+  <tbody>
+    <tr><td><svg class="icon dim" viewBox="0 0 24 24"><path d="M6 14l6-6 6 6"/></svg></td>
+        <td><b>#40128</b></td><td class="muted">09:14</td><td>1.2s</td><td><span class="badge badge--ok">Success</span></td></tr>
+    <tr class="expand"><td></td><td colspan="4">
+      <div class="stack" style="gap:var(--s6);font-size:13.5px;color:var(--text-secondary)">
+        <div><b style="color:var(--text-primary)">Trigger</b> · webhook from Xero</div>
+        <div><b style="color:var(--text-primary)">Steps</b> · fetch invoice → match contact → post to Slack</div>
+        <div><b style="color:var(--text-primary)">Output</b> · 1 message sent</div>
+      </div></td></tr>
+    <tr><td><svg class="icon dim" viewBox="0 0 24 24"><path d="M6 10l6 6 6-6"/></svg></td>
+        <td><b>#40127</b></td><td class="muted">09:02</td><td>0.9s</td><td><span class="badge badge--ok">Success</span></td></tr>
+  </tbody></table></div>
+
+<h2 class="sec">7 · Grouped rows</h2>
+<p class="about">A full-width band splits the body without leaving the table.</p>
+<div class="box"><table class="table">
+  <thead><tr><th>Item</th><th>Owner</th><th class="num">Amount</th></tr></thead>
+  <tbody>
+    <tr class="group"><td colspan="3">Operations</td></tr>
+    <tr><td>Invoice chase</td><td>A. Wilkerson</td><td class="num">$4,182</td></tr>
+    <tr><td>Supplier sync</td><td>A. Wilkerson</td><td class="num">$1,940</td></tr>
+    <tr class="group"><td colspan="3">Finance</td></tr>
+    <tr><td>Reconciliation</td><td>J. Moreau</td><td class="num">$908</td></tr>
+  </tbody></table></div>
+
+<h2 class="sec">8 · Dense</h2>
+<p class="about">Same table, tighter padding. For screens that show a hundred rows at once.</p>
+<div class="box"><table class="table dense">
+  <thead><tr><th>Run</th><th>Workflow</th><th>Status</th><th class="num">ms</th><th>Time</th></tr></thead>
+  <tbody>
+    <tr><td>#40128</td><td>Invoice chase</td><td>OK</td><td class="num">1,204</td><td class="muted">09:14</td></tr>
+    <tr><td>#40127</td><td>Invoice chase</td><td>OK</td><td class="num">903</td><td class="muted">09:02</td></tr>
+    <tr><td>#40126</td><td>Lead routing</td><td>OK</td><td class="num">412</td><td class="muted">08:58</td></tr>
+    <tr><td>#40125</td><td>Reconciliation</td><td>Retry</td><td class="num">6,140</td><td class="muted">08:41</td></tr>
+    <tr><td>#40124</td><td>Lead routing</td><td>OK</td><td class="num">388</td><td class="muted">08:33</td></tr>
+  </tbody></table></div>
+
+<h2 class="sec">9 · Financial</h2>
+<p class="about">Numerals right-aligned and tabular so decimal points line up. Totals row in bold.</p>
+<div class="box"><table class="table">
+  <thead><tr><th>Account</th><th class="num">Debit</th><th class="num">Credit</th><th class="num">Balance</th></tr></thead>
+  <tbody>
+    <tr><td>Operating</td><td class="num">12,480.00</td><td class="num">8,220.50</td><td class="num">4,259.50</td></tr>
+    <tr><td>Reserve</td><td class="num">0.00</td><td class="num">30,000.00</td><td class="num">30,000.00</td></tr>
+    <tr><td>Tax set-aside</td><td class="num">2,140.00</td><td class="num">9,600.00</td><td class="num">7,460.00</td></tr>
+    <tr style="font-weight:700"><td>Total</td><td class="num">14,620.00</td><td class="num">47,820.50</td><td class="num">41,719.50</td></tr>
+  </tbody></table></div>
+
+<h2 class="sec">10 · Inline actions</h2>
+<p class="about">Actions live at the row end. Destructive ones stay a menu item, never a bare button.</p>
+<div class="box"><table class="table">
+  <thead><tr><th>Workflow</th><th>Status</th><th style="width:180px"></th></tr></thead>
+  <tbody>
+    <tr><td>Invoice chase</td><td><span class="dot"><i style="background:var(--success)"></i>Live</span></td>
+      <td><div class="row" style="justify-content:flex-end">
+        <a class="btn btn--ghost btn--sm" href="#">Pause</a>
+        <a class="btn btn--ghost btn--sm" href="#">Edit</a>
+        <svg class="icon dim" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></svg>
+      </div></td></tr>
+    <tr><td>Quote builder</td><td><span class="dot"><i style="background:var(--text-tertiary)"></i>Paused</span></td>
+      <td><div class="row" style="justify-content:flex-end">
+        <a class="btn btn--secondary btn--sm" href="#">Resume</a>
+        <a class="btn btn--ghost btn--sm" href="#">Edit</a>
+        <svg class="icon dim" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></svg>
+      </div></td></tr>
+  </tbody></table></div>
+
+<h2 class="sec">11 · With progress and sparklines</h2>
+<p class="about">A chart inside a cell stays small enough to read as a value, not a graph.</p>
+<div class="box"><table class="table">
+  <thead><tr><th>Team</th><th>Rollout</th><th class="num">Complete</th><th>Trend</th></tr></thead>
+  <tbody id="sparkrows"></tbody></table></div>
+
+<h2 class="sec">12 · Sticky header, scrolling body</h2>
+<p class="about">The header pins while the body scrolls. Use above about fifteen rows.</p>
+<div class="box"><div class="scrollbox"><table class="table">
+  <thead><tr><th>Run</th><th>Workflow</th><th class="num">ms</th></tr></thead>
+  <tbody id="manyrows"></tbody></table></div></div>
+
+<h2 class="sec">13 · Editable cell</h2>
+<p class="about">The cell in edit state keeps the same row height so nothing jumps.</p>
+<div class="box"><table class="table">
+  <thead><tr><th>Field</th><th>Value</th><th></th></tr></thead>
+  <tbody>
+    <tr><td>Retry limit</td><td><span class="cell-edit">3</span></td>
+      <td><div class="row" style="justify-content:flex-end"><a class="btn btn--primary btn--sm" href="#">Save</a><a class="btn btn--ghost btn--sm" href="#">Cancel</a></div></td></tr>
+    <tr><td>Timeout</td><td>30s</td><td class="muted" style="text-align:right">Click to edit</td></tr>
+  </tbody></table></div>
+
+<h2 class="sec">14 · Pagination</h2>
+<p class="about">Count on the left, controls on the right. Always show the total.</p>
+<div class="box">
+  <table class="table"><tbody>
+    <tr><td>Invoice chase</td><td class="num">4,182</td></tr>
+    <tr><td>Lead routing</td><td class="num">12,904</td></tr>
+  </tbody></table>
+  <div class="pager"><span>Showing 1–2 of 42</span><span class="spacer"></span>
+    <span class="pnum">‹</span><span class="pnum on">1</span><span class="pnum">2</span>
+    <span class="pnum">3</span><span class="pnum">…</span><span class="pnum">9</span><span class="pnum">›</span></div>
+</div>
+
+<h2 class="sec">15 · Empty, loading and error</h2>
+<p class="about">Three states one table will always need. Each says what to do next.</p>
+<div class="grid3" style="gap:var(--s20)">
+  <div class="box"><div class="state">
+    <div class="ic"><svg class="icon lg" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></div>
+    <h3>Nothing here yet</h3>
+    <p class="muted" style="margin:var(--s8) auto var(--s20);max-width:32ch;font-size:14px">Start from a template or connect a tool.</p>
+    <a class="btn btn--primary btn--sm" href="#">New workflow</a></div></div>
+
+  <div class="box"><div style="padding:var(--s24)">
+    <div class="stack" style="gap:var(--s16)">
+      <span class="skel" style="width:60%"></span><span class="skel" style="width:85%"></span>
+      <span class="skel" style="width:72%"></span><span class="skel" style="width:90%"></span>
+      <span class="skel" style="width:50%"></span></div></div></div>
+
+  <div class="box"><div class="state">
+    <div class="ic" style="background:var(--danger-tint);color:var(--danger)">
+      <svg class="icon lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg></div>
+    <h3>Could not load runs</h3>
+    <p class="muted" style="margin:var(--s8) auto var(--s20);max-width:32ch;font-size:14px">The connection timed out. Nothing was changed.</p>
+    <a class="btn btn--secondary btn--sm" href="#">Try again</a></div></div>
+</div>
+
+<h2 class="sec">16 · Mobile — table as cards</h2>
+<p class="about">Below about 640px a table stops being a table. Same data, stacked.</p>
+<div class="box" style="max-width:420px"><div class="cardlist">
+  <div class="mrow"><div class="top"><span class="avatar sm">IN</span><b>Invoice chase</b>
+      <span class="badge badge--ok spacer">Live</span></div>
+    <div class="grid"><div><span>Owner</span><br>Operations</div><div><span>Runs</span><br>4,182</div>
+      <div><span>Success</span><br>99.2%</div><div><span>Last run</span><br>2 min ago</div></div></div>
+  <div class="mrow"><div class="top"><span class="avatar sm">RC</span><b>Reconciliation</b>
+      <span class="badge badge--warn spacer">Degraded</span></div>
+    <div class="grid"><div><span>Owner</span><br>Finance</div><div><span>Runs</span><br>908</div>
+      <div><span>Success</span><br>91.4%</div><div><span>Last run</span><br>1 hr ago</div></div></div>
+</div></div>
+
+</div>
+
+<script src="mode.js"></script>
+<script src="charts.js"></script>
+<script>
+const teams = [['Operations',92,[20,28,26,34,32,40]],['Finance',74,[10,18,14,22,20,28]],
+               ['Sales',58,[30,24,28,22,26,20]],['People',36,[6,10,8,14,12,18]]];
+document.getElementById('sparkrows').innerHTML = teams.map(([t,p,d],i)=>
+  `<tr><td><b>${t}</b></td>
+    <td><span class="bar"><i style="width:${p}%"></i></span></td>
+    <td class="num">${p}%</td>
+    <td>${Charts.spark(d,{id:100+i,w:110,colour:i===3?'var(--c-negative)':'var(--c4)'})}</td></tr>`).join('');
+
+let rows = '';
+for (let i = 0; i < 22; i++)
+  rows += `<tr><td>#${40128 - i}</td><td>${['Invoice chase','Lead routing','Reconciliation'][i%3]}</td>
+    <td class="num">${(400 + ((i*137)%900)).toLocaleString()}</td></tr>`;
+document.getElementById('manyrows').innerHTML = rows;
+</script>
+</body>
+</html>

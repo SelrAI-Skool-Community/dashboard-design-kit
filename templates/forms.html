@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selr AI — Every form control</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css">
+<style>
+  body{padding:var(--s32)}
+  .wrap{max-width:1240px;margin:0 auto}
+  header{border-bottom:1px solid var(--border-primary);padding-bottom:var(--s28);margin-bottom:var(--s24)}
+  header h1{font-size:var(--t-h2);margin:var(--s12) 0 var(--s10)}
+  .eyebrow{font:700 12px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--text-accent)}
+  .lead{color:var(--text-secondary);max-width:66ch;font-size:var(--t-p2)}
+  h2.sec{font:700 12px var(--font);letter-spacing:.13em;text-transform:uppercase;
+    color:var(--text-tertiary);margin:var(--s40) 0 var(--s12)}
+  .about{color:var(--text-secondary);font-size:14px;margin-bottom:var(--s16);max-width:70ch}
+  .hint{font-size:13px;color:var(--text-tertiary);margin-top:var(--s4)}
+  .err{color:var(--danger)} .ok{color:var(--success)}
+  .input.err{border-color:var(--danger)} .input.err:focus{box-shadow:0 0 0 3px rgba(255,27,27,.16)}
+  .input.ok{border-color:var(--success)}
+  .input:disabled{background:var(--bg-tertiary);color:var(--text-disabled);cursor:not-allowed}
+  select.input{appearance:none;background-image:none}
+  .selwrap{position:relative}
+  .selwrap .chev{position:absolute;right:var(--s14,14px);top:50%;transform:translateY(-50%);
+    pointer-events:none;color:var(--text-tertiary)}
+  .switch{width:46px;height:26px;border-radius:var(--r-full);background:var(--border-primary);
+    position:relative;flex:0 0 46px;cursor:pointer}
+  .switch i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:var(--r-full);
+    background:#fff;display:block;box-shadow:var(--shadow-sm);transition:left .16s ease}
+  .switch.on{background:var(--purple-600)} .switch.on i{left:23px}
+  .opt{display:flex;gap:var(--s12);align-items:flex-start;padding:var(--s14,14px) var(--s16);
+    border:1px solid var(--border-primary);border-radius:var(--r-m);cursor:pointer}
+  .opt.on{border-color:var(--purple-600);background:var(--btn-secondary-hover)}
+  .opt b{font-size:14.5px;display:block}
+  .opt span{font-size:13.5px;color:var(--text-secondary)}
+  .drop{border:1.5px dashed var(--border-primary);border-radius:var(--r-l);padding:var(--s32);
+    text-align:center;color:var(--text-secondary)}
+  .drop.on{border-color:var(--purple-600);background:var(--btn-secondary-hover)}
+  .file{display:flex;align-items:center;gap:var(--s12);padding:var(--s12) var(--s16);
+    border:1px solid var(--border-primary);border-radius:var(--r-m)}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--s4);max-width:300px}
+  .cal span{aspect-ratio:1;display:grid;place-items:center;border-radius:var(--r-s);font-size:13.5px}
+  .cal .hd{font:700 11px var(--font);color:var(--text-tertiary);text-transform:uppercase}
+  .cal .off{color:var(--text-disabled)}
+  .cal .on{background:var(--purple-600);color:#fff;font-weight:700}
+  .cal .rng{background:var(--purple-100)}
+  :root[data-mode="dark"] .cal .rng{background:var(--purple-900)}
+  .steps{display:flex;align-items:center;gap:var(--s8)}
+  .step{display:flex;align-items:center;gap:var(--s10);font-size:14px;color:var(--text-tertiary)}
+  .step i{width:28px;height:28px;border-radius:var(--r-full);display:grid;place-items:center;
+    border:1.5px solid var(--border-primary);font:700 12px var(--font);flex:0 0 28px}
+  .step.done{color:var(--text-primary)} .step.done i{background:var(--success);border-color:var(--success);color:#fff}
+  .step.now{color:var(--text-accent);font-weight:600} .step.now i{border-color:var(--purple-600);color:var(--purple-600)}
+  .steps hr{flex:1;border:none;border-top:1px solid var(--border-primary);min-width:24px}
+  .range{width:100%;accent-color:var(--purple-600)}
+  .tagin{display:flex;flex-wrap:wrap;gap:var(--s8);padding:var(--s10);border:1px solid var(--border-primary);
+    border-radius:var(--r-s);align-items:center}
+  .tagin input{border:none;outline:none;background:none;flex:1;min-width:120px;font:400 15px var(--font);color:var(--text-primary)}
+  .tg{display:inline-flex;align-items:center;gap:var(--s6);background:var(--purple-100);
+    color:var(--purple-800);border-radius:var(--r-full);padding:4px var(--s10);font:600 13px var(--font)}
+  :root[data-mode="dark"] .tg{background:var(--purple-900);color:var(--purple-200)}
+</style>
+</head>
+<body>
+<div class="modebar"><button data-mode="light">Light</button><button data-mode="dark">Dark</button></div>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Selr AI · form controls</span>
+  <h1>Every input, every state</h1>
+  <p class="lead">One focus ring, one radius, one error colour. If a control is not here it does not exist in the system yet.</p>
+</header>
+
+<h2 class="sec">1 · Text input states</h2>
+<p class="about">Default, focus, filled, success, error, disabled and read-only. The focus ring is always the purple halo.</p>
+<div class="card grid3">
+  <div class="field"><label>Default</label><input class="input" placeholder="Placeholder"></div>
+  <div class="field"><label>Focus</label><input class="input" value="Typing" style="border-color:var(--purple-600);box-shadow:0 0 0 3px rgba(103,54,226,.16)"></div>
+  <div class="field"><label>Filled</label><input class="input" value="Invoice chase"></div>
+  <div class="field"><label>Success</label><input class="input ok" value="alex@company.com.au">
+    <span class="hint ok">Address verified</span></div>
+  <div class="field"><label>Error</label><input class="input err" value="alex@company">
+    <span class="hint err">That does not look like a full address</span></div>
+  <div class="field"><label>Disabled</label><input class="input" value="Locked by admin" disabled></div>
+</div>
+
+<h2 class="sec">2 · With icons and affixes</h2>
+<p class="about">Leading icon for meaning, trailing for action. Prefix and suffix stay inside the field.</p>
+<div class="card grid3">
+  <div class="field"><label>Search</label><div class="input-group"><span id="i-search"></span>
+    <input class="input" placeholder="Search workflows"></div></div>
+  <div class="field"><label>Password</label><div class="input-group"><span id="i-lock"></span>
+    <input class="input" type="password" value="••••••••••"></div></div>
+  <div class="field"><label>Amount</label><div class="input-group"><span id="i-dollar"></span>
+    <input class="input" value="16,000.00"></div></div>
+</div>
+
+<h2 class="sec">3 · Select, multi-select and textarea</h2>
+<p class="about">Native select styled to match, so keyboard and mobile behaviour stay free.</p>
+<div class="card grid3">
+  <div class="field"><label>Owner</label>
+    <div class="selwrap"><select class="input"><option>Operations</option><option>Finance</option><option>Growth</option></select>
+      <span class="chev" id="i-chev"></span></div></div>
+  <div class="field"><label>Tags</label>
+    <div class="tagin"><span class="tg">finance <span id="t1"></span></span>
+      <span class="tg">weekly <span id="t2"></span></span><input placeholder="Add tag"></div></div>
+  <div class="field"><label>Notes</label>
+    <textarea class="input" rows="3" placeholder="What should this workflow do?"></textarea>
+    <span class="hint">0 of 500 characters</span></div>
+</div>
+
+<h2 class="sec">4 · Checkbox, radio and switch</h2>
+<p class="about">Cards for a real choice, bare controls for a list. The switch commits instantly, the checkbox waits for save.</p>
+<div class="card grid3">
+  <div class="stack">
+    <label class="check"><input type="checkbox" checked> Email me on failure</label>
+    <label class="check"><input type="checkbox"> Email me weekly</label>
+    <label class="check"><input type="checkbox" disabled> Email me hourly</label>
+    <label class="check"><input type="radio" name="r" checked> Every run</label>
+    <label class="check"><input type="radio" name="r"> Failures only</label>
+  </div>
+  <div class="stack">
+    <div class="opt on"><span class="switch on"><i></i></span><div><b>Retry on failure</b><span>Up to three attempts, backing off.</span></div></div>
+    <div class="opt"><span class="switch"><i></i></span><div><b>Pause on error</b><span>Stop the workflow until someone looks.</span></div></div>
+  </div>
+  <div class="stack">
+    <div class="opt on"><input type="radio" name="p" checked><div><b>Growth</b><span>Unlimited workflows, weekly review.</span></div></div>
+    <div class="opt"><input type="radio" name="p"><div><b>Starter</b><span>Up to three live workflows.</span></div></div>
+  </div>
+</div>
+
+<h2 class="sec">5 · File upload</h2>
+<p class="about">Dropzone, active state, and the uploaded row with progress and remove.</p>
+<div class="card grid2">
+  <div class="stack">
+    <div class="drop" id="d1"></div>
+    <div class="drop on" id="d2"></div>
+  </div>
+  <div class="stack">
+    <div class="file"><span id="f1"></span><div style="flex:1"><b style="font-size:14px">contacts-export.csv</b>
+      <div class="hint">1.2 MB · uploaded</div></div><span class="ok" id="f1ok"></span></div>
+    <div class="file"><span id="f2"></span><div style="flex:1"><b style="font-size:14px">invoices-2026.zip</b>
+      <div style="height:6px;border-radius:360px;background:var(--c-basic);margin-top:var(--s8);overflow:hidden">
+        <i style="display:block;height:100%;width:48%;background:var(--c4);border-radius:360px"></i></div></div>
+      <span class="dim" id="f2x"></span></div>
+    <div class="file" style="border-color:var(--danger)"><span class="err" id="f3"></span>
+      <div style="flex:1"><b style="font-size:14px">payroll.pdf</b>
+        <div class="hint err">Too large. The limit is 10 MB.</div></div><span class="dim" id="f3x"></span></div>
+  </div>
+</div>
+
+<h2 class="sec">6 · Date picker and range</h2>
+<p class="about">Month grid with a selected day and a highlighted range. Presets sit beside it, never inside.</p>
+<div class="card row" style="align-items:flex-start;gap:var(--s32);flex-wrap:wrap">
+  <div>
+    <div class="row" style="margin-bottom:var(--s12)"><b>August 2026</b>
+      <span class="spacer dim" id="c-prev"></span><span class="dim" id="c-next"></span></div>
+    <div class="cal" id="cal"></div>
+  </div>
+  <div class="stack" style="gap:var(--s6);min-width:180px">
+    <span class="caption">Presets</span>
+    <a class="pill" href="#">Today</a><a class="pill" href="#">Last 7 days</a>
+    <a class="pill" style="background:var(--chip-selected);color:var(--text-inverted);border-color:transparent" href="#">Last 30 days</a>
+    <a class="pill" href="#">This quarter</a><a class="pill" href="#">Custom range</a>
+  </div>
+</div>
+
+<h2 class="sec">7 · Slider and stepper</h2>
+<p class="about">A slider for a rough value, a stepper for an exact one.</p>
+<div class="card grid2">
+  <div class="field"><label>Retry backoff · 30 seconds</label><input class="range" type="range" value="30" max="120"></div>
+  <div class="field"><label>Retry limit</label>
+    <div class="row"><button class="btn btn--ghost btn--sm" style="padding:var(--s8) var(--s12)" id="s-minus"></button>
+      <input class="input" value="3" style="width:80px;text-align:center">
+      <button class="btn btn--ghost btn--sm" style="padding:var(--s8) var(--s12)" id="s-plus"></button></div></div>
+</div>
+
+<h2 class="sec">8 · Multi-step wizard</h2>
+<p class="about">Done, current and upcoming. The current step is the only one in accent.</p>
+<div class="card">
+  <div class="steps" id="wiz"></div>
+  <div class="grid2" style="margin-top:var(--s28)">
+    <div class="field"><label>Workflow name</label><input class="input" value="Invoice chase"></div>
+    <div class="field"><label>Trigger</label>
+      <div class="selwrap"><select class="input"><option>Webhook from Xero</option><option>Schedule</option></select>
+        <span class="chev" id="i-chev2"></span></div></div>
+  </div>
+  <div class="row" style="margin-top:var(--s16)"><button class="btn btn--ghost">Back</button>
+    <button class="btn btn--primary spacer">Continue</button></div>
+</div>
+
+<h2 class="sec">9 · Form layout — the default</h2>
+<p class="about">Label left, control right, help under the control. One column of controls, never two for related fields.</p>
+<div class="card" style="max-width:720px">
+  <h3>Notification settings</h3>
+  <p class="desc">Applies to everyone in this workspace.</p>
+  <div style="margin-top:var(--s24)">
+    <div class="grid2" style="gap:var(--s24);align-items:start;padding-bottom:var(--s20);border-bottom:1px solid var(--border-secondary)">
+      <div><b style="font-size:14.5px">Failure alerts</b><p class="hint">Sent the moment a run fails.</p></div>
+      <div class="field" style="margin:0"><input class="input" value="ops@company.com.au"></div>
+    </div>
+    <div class="grid2" style="gap:var(--s24);align-items:start;padding:var(--s20) 0">
+      <div><b style="font-size:14.5px">Weekly summary</b><p class="hint">Monday 8am, Brisbane time.</p></div>
+      <div><span class="switch on"><i></i></span></div>
+    </div>
+  </div>
+  <div class="row" style="justify-content:flex-end;gap:var(--s12);margin-top:var(--s8)">
+    <button class="btn btn--ghost">Cancel</button><button class="btn btn--primary">Save changes</button></div>
+</div>
+</div>
+
+<script src="mode.js"></script>
+<script src="icons.js"></script>
+<script>
+const put = (id, html) => { const e = document.getElementById(id); if (e) e.innerHTML = html; };
+put('i-search', Icons.svg('search')); put('i-lock', Icons.svg('lock')); put('i-dollar', Icons.svg('dollar'));
+put('i-chev', Icons.svg('chevron-down')); put('i-chev2', Icons.svg('chevron-down'));
+put('t1', Icons.svg('close','sm')); put('t2', Icons.svg('close','sm'));
+put('c-prev', Icons.svg('chevron-left')); put('c-next', Icons.svg('chevron-right'));
+put('s-minus', Icons.svg('minus')); put('s-plus', Icons.svg('plus'));
+put('f1', Icons.svg('file')); put('f2', Icons.svg('file')); put('f3', Icons.svg('alert-circle'));
+put('f1ok', Icons.svg('check-circle')); put('f2x', Icons.svg('close','sm')); put('f3x', Icons.svg('close','sm'));
+
+put('d1', Icons.svg('upload','lg') +
+  `<b style="display:block;margin-top:var(--s10);color:var(--text-primary)">Drop files here</b>
+   <span style="font-size:13.5px">or <a href="#" style="color:var(--text-accent);font-weight:600">browse</a> · CSV, XLSX or PDF up to 10 MB</span>`);
+put('d2', Icons.svg('download','lg') +
+  `<b style="display:block;margin-top:var(--s10);color:var(--text-accent)">Release to upload</b>
+   <span style="font-size:13.5px">3 files ready</span>`);
+
+// August 2026 starts on a Saturday
+const cal = ['S','M','T','W','T','F','S'].map(d => `<span class="hd">${d}</span>`).join('') +
+  Array.from({length:6}, () => '<span class="off"></span>').join('') +
+  Array.from({length:31}, (_, i) => {
+    const d = i + 1;
+    const cls = d === 6 ? 'on' : (d > 6 && d < 13 ? 'rng' : '');
+    return `<span class="${cls}">${d}</span>`;
+  }).join('');
+put('cal', cal);
+
+put('wiz', [['done','1','Basics'],['done','2','Trigger'],['now','3','Steps'],['','4','Review']]
+  .map(([c,n,t],i) => `${i?'<hr>':''}<span class="step ${c}"><i>${c==='done'?'✓':n}</i>${t}</span>`).join(''));
+
+document.querySelectorAll('.switch').forEach(s => s.addEventListener('click', () => s.classList.toggle('on')));
+</script>
+</body>
+</html>

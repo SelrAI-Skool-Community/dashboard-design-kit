@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selr AI — Program overview</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css">
+<style>
+  body{padding:var(--s32)}
+  .window{height:1064px}
+  .sidebar{border-radius:var(--r-xl) 0 0 var(--r-xl)}
+  .main{border-radius:0 var(--r-xl) var(--r-xl) 0}
+  .brand{display:flex;align-items:center;justify-content:space-between;padding:var(--s24) var(--s20) var(--s16)}
+  .brand .name{display:flex;align-items:center;gap:var(--s8);font-weight:700;font-size:19px;letter-spacing:var(--track)}
+  .search{margin:0 var(--s16) var(--s20);display:flex;align-items:center;gap:var(--s8);
+    padding:var(--s10) var(--s12);border:1px solid var(--border-primary);border-radius:var(--r-s);
+    color:var(--text-tertiary);font-size:14px}
+  .search kbd{margin-left:auto;font:500 12px var(--font);color:var(--text-tertiary)}
+  .topbar{display:flex;align-items:center;justify-content:space-between;
+    padding:var(--s20) var(--s32);border-bottom:1px solid var(--border-secondary)}
+  .user{display:flex;align-items:center;gap:var(--s12);font-weight:600;font-size:15px}
+  h1{font-size:36px;font-weight:600;letter-spacing:-.025em;margin:var(--s8) 0 0}
+  .filters{display:flex;align-items:center;gap:var(--s12)}
+  .filters .right{margin-left:auto}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);margin-top:var(--s24)}
+  .kpi{padding:0 var(--s24);border-left:1px solid var(--border-secondary)}
+  .kpi:first-child{padding-left:0;border-left:none}
+  .kpi .lab{color:var(--text-secondary);font-size:14px}
+  .kpi .row{display:flex;align-items:center;justify-content:space-between;gap:var(--s16);margin-top:var(--s4)}
+  .kpi .val{font-size:34px;font-weight:600;letter-spacing:-.03em;line-height:1.1}
+  .kpi .delta{margin-top:var(--s10);font-size:13.5px;color:var(--text-secondary);
+    display:flex;align-items:center;gap:var(--s6)}
+  .kpi .delta b{font-weight:700}
+  .up{color:var(--success)} .down{color:var(--danger)}
+  .tabs{margin-top:var(--s20)}
+  .tabs span{flex:1;text-align:center}
+  .big{font-size:32px;font-weight:600;letter-spacing:-.03em;margin-top:var(--s12);
+    display:flex;align-items:center;gap:var(--s10)}
+  .tag{font:700 12px var(--font);background:var(--purple-100);color:var(--purple-800);
+    padding:3px var(--s8);border-radius:var(--r-full)}
+  :root[data-mode="dark"] .tag{background:var(--purple-900);color:var(--purple-200)}
+  .trend{margin-left:auto;font-size:20px;font-weight:600;color:var(--text-accent);letter-spacing:var(--track)}
+  svg.chart{display:block;width:100%;height:auto;margin-top:var(--s16)}
+  .legend{display:flex;gap:var(--s16);flex-wrap:wrap;margin-top:var(--s12);font-size:13px;color:var(--text-secondary)}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:var(--s6)}
+  .axis{fill:var(--text-tertiary);font:500 11px var(--font)}
+  .gridline{stroke:var(--grid-line);stroke-width:1}
+</style>
+</head>
+<body>
+
+<div class="modebar"><button data-mode="light">Light</button><button data-mode="dark">Dark</button></div>
+
+<div class="window">
+
+  <div class="dots"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></div>
+
+  <!-- icon rail -->
+  <nav class="rail">
+    <div class="tile a">S</div>
+    <div class="tile b">A</div>
+    <div class="tile add">+</div>
+  </nav>
+
+  <!-- sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="name">Selr AI
+        <svg class="icon muted" viewBox="0 0 24 24"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></svg>
+      </span>
+      <svg class="icon muted" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg>
+    </div>
+
+    <div class="search">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      Search <kbd>⌘ +K</kbd>
+    </div>
+
+    <div class="seclabel">Main menu</div>
+    <div class="nav">
+      <a href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</a>
+      <a href="#"><svg class="icon" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Test</a>
+      <a href="#" class="active"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Reports</a>
+    </div>
+
+    <div class="seclabel">Managements</div>
+    <div class="nav">
+      <a href="#"><svg class="icon" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Compliance
+        <svg class="icon chev muted" viewBox="0 0 24 24"><path d="M6 14l6-6 6 6"/></svg></a>
+      <a href="#" class="sub">Frameworks</a>
+      <a href="#" class="sub">Controls</a>
+      <a href="#" class="sub">Policies</a>
+      <a href="#" class="sub">Audits</a>
+      <a href="#" class="sub">Documents</a>
+      <a href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M4 8a4 4 0 0 1 4-4M4 12a8 8 0 0 1 8-8"/><circle cx="6" cy="17" r="2.5"/><path d="M12 20h7"/></svg>Trust center</a>
+      <a href="#"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>Risk</a>
+      <a href="#"><svg class="icon" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 3h6v3H9z"/></svg>Vendor</a>
+      <a href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Assets <span class="badge">New</span></a>
+      <a href="#"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>Personnel</a>
+    </div>
+
+    <div class="foot nav">
+      <a href="#"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 7.5 19.4l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 14a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.1-2.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 10 3.6V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.6 1.6 0 0 0 20.4 10H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>Settings</a>
+      <a href="#"><svg class="icon" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 16l-4-4 4-4M6 12h9"/></svg>Log out</a>
+    </div>
+  </aside>
+
+  <!-- main -->
+  <main class="main">
+    <div class="topbar">
+      <div class="crumb">Home page &nbsp;/&nbsp; <b>Reports</b></div>
+      <div class="user">
+        <span class="avatar">AW</span> Alex Wilkerson
+        <svg class="icon muted" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+
+    <div class="content">
+      <h1>Program overview</h1>
+
+      <div class="filters">
+        <span class="pill">Last 30 days <svg class="icon muted" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        <span class="pill">Frameworks <svg class="icon muted" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        <span class="pill right"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Filters</span>
+      </div>
+
+      <!-- Program task -->
+      <section class="card">
+        <h3>Program task</h3>
+        <p class="desc">How often you remediated within SLA</p>
+        <div class="kpis">
+          <div class="kpi">
+            <div class="lab">Remediated by due date</div>
+            <div class="row"><div class="val">87%</div>
+              <svg class="chart" style="width:96px;margin:0" viewBox="0 0 96 40" preserveAspectRatio="none">
+                <defs><linearGradient id="sp1" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="var(--c4)" stop-opacity=".28"/><stop offset="1" stop-color="var(--c4)" stop-opacity="0"/></linearGradient></defs>
+                <path d="M0 30 L14 26 L26 32 L38 14 L50 22 L62 8 L74 18 L86 6 L96 12 L96 40 L0 40 Z" fill="url(#sp1)"/>
+                <path d="M0 30 L14 26 L26 32 L38 14 L50 22 L62 8 L74 18 L86 6 L96 12" fill="none" stroke="var(--c4)" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="delta"><b class="up">▲ 4.5%</b> than last month</div>
+          </div>
+          <div class="kpi">
+            <div class="lab">Remediated past due date</div>
+            <div class="row"><div class="val">0%</div>
+              <svg class="chart" style="width:96px;margin:0" viewBox="0 0 96 40" preserveAspectRatio="none">
+                <defs><linearGradient id="sp2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="var(--danger)" stop-opacity=".26"/><stop offset="1" stop-color="var(--danger)" stop-opacity="0"/></linearGradient></defs>
+                <path d="M0 20 L12 12 L24 28 L36 10 L48 26 L60 14 L72 30 L84 18 L96 24 L96 40 L0 40 Z" fill="url(#sp2)"/>
+                <path d="M0 20 L12 12 L24 28 L36 10 L48 26 L60 14 L72 30 L84 18 L96 24" fill="none" stroke="var(--danger)" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="delta"><b class="down">▼ 12%</b> than last month</div>
+          </div>
+          <div class="kpi">
+            <div class="lab">Remediated within due date</div>
+            <div class="row"><div class="val">4%</div>
+              <svg class="chart" style="width:96px;margin:0" viewBox="0 0 96 40" preserveAspectRatio="none">
+                <defs><linearGradient id="sp3" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="var(--c3)" stop-opacity=".3"/><stop offset="1" stop-color="var(--c3)" stop-opacity="0"/></linearGradient></defs>
+                <path d="M0 28 L14 30 L26 18 L38 24 L50 10 L62 20 L74 8 L86 16 L96 10 L96 40 L0 40 Z" fill="url(#sp3)"/>
+                <path d="M0 28 L14 30 L26 18 L38 24 L50 10 L62 20 L74 8 L86 16 L96 10" fill="none" stroke="var(--c3)" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="delta"><b class="up">▲ 6%</b> than last month</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid2">
+        <!-- Balance -->
+        <section class="card">
+          <h3><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>Balance</h3>
+          <p class="desc">Monitor how your money is being utilised</p>
+          <div class="tabs"><span class="on">Week</span><span>Month</span><span>Year</span></div>
+          <svg class="chart" viewBox="0 0 560 230">
+            <defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="var(--c4)" stop-opacity=".26"/><stop offset="1" stop-color="var(--c4)" stop-opacity="0"/></linearGradient></defs>
+            <g class="axis">
+              <text x="0" y="24">300</text><text x="0" y="84">200</text><text x="0" y="144">100</text><text x="0" y="196">/km</text>
+            </g>
+            <g>
+              <line class="gridline" x1="42" y1="20" x2="560" y2="20"/>
+              <line class="gridline" x1="42" y1="80" x2="560" y2="80"/>
+              <line class="gridline" x1="42" y1="140" x2="560" y2="140"/>
+              <line class="gridline" x1="42" y1="190" x2="560" y2="190"/>
+            </g>
+            <path d="M52 22 L52 150 L126 150 L126 120 L200 120 L200 152 L274 152 L274 128 L348 128 L348 158 L422 158 L422 168 L422 190 L52 190 Z" fill="url(#area)"/>
+            <path d="M52 22 L52 150 L126 150 L126 120 L200 120 L200 152 L274 152 L274 128 L348 128 L348 158 L422 158 L422 168"
+                  fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M422 168 L560 168" fill="none" stroke="var(--c4)" stroke-width="2.5" stroke-dasharray="2 7" stroke-linecap="round"/>
+            <circle cx="52"  cy="22"  r="5.5" fill="var(--bg-secondary)" stroke="var(--c4)" stroke-width="3"/>
+            <circle cx="422" cy="168" r="5.5" fill="var(--bg-secondary)" stroke="var(--c4)" stroke-width="3"/>
+            <g class="axis" text-anchor="middle">
+              <text x="60"  y="216">Mon</text><text x="134" y="216">Tue</text><text x="208" y="216">Wed</text>
+              <text x="282" y="216">Thu</text><text x="356" y="216">Fri</text><text x="430" y="216">Sat</text><text x="504" y="216">Sun</text>
+            </g>
+          </svg>
+        </section>
+
+        <!-- Revenue -->
+        <section class="card">
+          <h3><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h5M9.5 14.5h5"/></svg>Revenue 1</h3>
+          <p class="desc">Available revenue in your wallet</p>
+          <div class="big">$16,000.00 <span class="tag">+456</span>
+            <span class="trend">↗ 2.03</span></div>
+          <svg class="chart" viewBox="0 0 560 230">
+            <defs>
+              <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                <rect width="7" height="7" fill="var(--c-basic)"/>
+                <line x1="0" y1="0" x2="0" y2="7" stroke="var(--bg-secondary)" stroke-width="3"/>
+              </pattern>
+            </defs>
+            <g class="axis">
+              <text x="0" y="24">400</text><text x="0" y="76">300</text><text x="0" y="128">200</text><text x="0" y="180">100</text>
+            </g>
+            <g>
+              <line class="gridline" x1="42" y1="20" x2="560" y2="20"/>
+              <line class="gridline" x1="42" y1="72" x2="560" y2="72"/>
+              <line class="gridline" x1="42" y1="124" x2="560" y2="124"/>
+              <line class="gridline" x1="42" y1="176" x2="560" y2="176"/>
+            </g>
+            <g>
+              <rect x="56"  y="136" width="54" height="54"  rx="8" fill="url(#hatch)"/>
+              <rect x="130" y="56"  width="54" height="134" rx="8" fill="url(#hatch)"/>
+              <rect x="204" y="104" width="54" height="86"  rx="8" fill="url(#hatch)"/>
+              <rect x="278" y="44"  width="54" height="146" rx="8" fill="var(--c4)"/>
+              <rect x="352" y="128" width="54" height="62"  rx="8" fill="url(#hatch)"/>
+              <rect x="426" y="92"  width="54" height="98"  rx="8" fill="url(#hatch)"/>
+              <rect x="500" y="118" width="54" height="72"  rx="8" fill="url(#hatch)"/>
+            </g>
+            <g>
+              <rect x="256" y="12" width="98" height="26" rx="8" fill="var(--bg-inverted)"/>
+              <text x="305" y="29" text-anchor="middle" fill="var(--text-inverted)" font="700 13px Manrope" style="font:700 13px Manrope,sans-serif">$27,632</text>
+            </g>
+            <g class="axis" text-anchor="middle">
+              <text x="83"  y="216">Jan</text><text x="157" y="216">Feb</text><text x="231" y="216">Mar</text>
+              <text x="305" y="216">Apr</text><text x="379" y="216">May</text><text x="453" y="216">Jun</text><text x="527" y="216">Jul</text>
+            </g>
+          </svg>
+        </section>
+      </div>
+
+      <div class="grid2">
+        <!-- Total value 2 -->
+        <section class="card">
+          <h3><svg class="icon" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/></svg>Total value 2</h3>
+          <p class="desc">Distribution across every active account</p>
+          <svg class="chart" viewBox="0 0 560 200" id="hexwrap"></svg>
+          <div class="legend">
+            <span><i style="background:var(--c1)"></i>Idle</span>
+            <span><i style="background:var(--c2)"></i>Low</span>
+            <span><i style="background:var(--c3)"></i>Medium</span>
+            <span><i style="background:var(--c4)"></i>High</span>
+            <span><i style="background:var(--c5)"></i>Peak</span>
+          </div>
+        </section>
+
+        <!-- Fear & Greed -->
+        <section class="card">
+          <h3><svg class="icon" viewBox="0 0 24 24"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-5"/></svg>Fear &amp; Greed index</h3>
+          <p class="desc">Market sentiment, last 24 hours</p>
+          <svg class="chart" viewBox="0 0 560 210">
+            <g fill="none" stroke-width="26" stroke-linecap="round">
+              <path d="M110 172 A170 170 0 0 1 450 172" stroke="var(--c-basic)"/>
+              <path d="M110 172 A170 170 0 0 1 386 71"  stroke="var(--c4)"/>
+            </g>
+            <circle cx="386" cy="71" r="11" fill="var(--bg-secondary)" stroke="var(--c4)" stroke-width="5"/>
+            <text x="280" y="150" text-anchor="middle" style="font:600 46px Manrope,sans-serif;letter-spacing:-.03em" fill="var(--text-primary)">72</text>
+            <text x="280" y="180" text-anchor="middle" class="axis" style="font:600 14px Manrope,sans-serif" fill="var(--text-secondary)">Greed</text>
+            <text x="104" y="200" text-anchor="middle" class="axis">0</text>
+            <text x="456" y="200" text-anchor="middle" class="axis">100</text>
+          </svg>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="mode.js"></script>
+<script>
+
+// hexagon distribution grid — Total value 2
+(function(){
+  const svg = document.getElementById('hexwrap');
+  const R = 11, W = Math.sqrt(3) * R, H = 1.5 * R;
+  const rows = [9, 12, 15, 18, 21, 18, 15, 12, 9];
+  const tone = ['var(--c1)','var(--c1)','var(--c2)','var(--c2)','var(--c3)','var(--c3)','var(--c4)'];
+  let y = 24, ns = 'http://www.w3.org/2000/svg', out = '';
+  rows.forEach((n, ri) => {
+    const startX = 280 - (n - 1) * W / 2;
+    for (let i = 0; i < n; i++) {
+      const cx = startX + i * W, cy = y;
+      const pts = [];
+      for (let k = 0; k < 6; k++) {
+        const a = Math.PI / 180 * (60 * k - 30);
+        pts.push((cx + R * Math.cos(a)).toFixed(1) + ',' + (cy + R * Math.sin(a)).toFixed(1));
+      }
+      // radial density falloff from the centre of the cluster
+      const mid = ri === 4 && i === Math.floor(n / 2);
+      const dx = (cx - 280) / 150, dy = (cy - 118) / 78;
+      const d = Math.min(1, Math.sqrt(dx * dx + dy * dy));
+      const step = ['var(--c4)','var(--c3)','var(--c3)','var(--c2)','var(--c2)','var(--c1)'];
+      const fill = mid ? 'var(--c5)' : step[Math.min(5, Math.round(d * 5))];
+      out += '<polygon points="' + pts.join(' ') + '" fill="' + fill + '"/>';
+    }
+    y += H + 3;
+  });
+  svg.innerHTML = out;
+})();
+</script>
+</body>
+</html>

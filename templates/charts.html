@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selr AI — Every chart</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css">
+<style>
+  body{padding:var(--s32)}
+  .wrap{max-width:1400px;margin:0 auto}
+  header{border-bottom:1px solid var(--border-primary);padding-bottom:var(--s28);margin-bottom:var(--s32)}
+  header h1{font-size:var(--t-h2);margin:var(--s12) 0 var(--s10)}
+  .eyebrow{font:700 12px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--text-accent)}
+  .lead{color:var(--text-secondary);max-width:66ch;font-size:var(--t-p2)}
+  h2.sec{font:700 12px var(--font);letter-spacing:.13em;text-transform:uppercase;
+    color:var(--text-tertiary);margin:var(--s40) 0 var(--s16);display:flex;align-items:center;gap:var(--s12)}
+  h2.sec b{font:700 12px var(--font);color:var(--text-accent)}
+  .gal{display:grid;gap:var(--s20)}
+  .gal.md{grid-template-columns:repeat(3,1fr)}
+  .gal.lg{grid-template-columns:repeat(2,1fr)}
+  .gal.xl{grid-template-columns:repeat(2,1fr)}
+  .cc{background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--r-l);
+    padding:var(--s20);box-shadow:var(--shadow-md);display:flex;flex-direction:column}
+  .cc .top{display:flex;align-items:baseline;gap:var(--s8);margin-bottom:var(--s4)}
+  .cc h3{font-size:var(--t-ui4)}
+  .cc .kind{margin-left:auto;font:600 10.5px var(--font);letter-spacing:.06em;text-transform:uppercase;
+    color:var(--text-tertiary)}
+  .cc .desc{color:var(--text-secondary);font-size:13.5px}
+  .cc .body{margin-top:var(--s12)}
+  svg.chart{display:block;width:100%;height:auto}
+  .axis{fill:var(--text-tertiary);font:500 11px var(--font)}
+  .gridline{stroke:var(--grid-line);stroke-width:1}
+  .legend{display:flex;gap:var(--s16);flex-wrap:wrap;margin-top:var(--s12);font-size:12.5px;color:var(--text-secondary)}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:var(--s6)}
+  .note{margin-top:var(--s40);padding:var(--s24);border-radius:var(--r-l);
+    background:var(--bg-secondary);border:1px solid var(--border-primary)}
+  .note h3{font-size:var(--t-ui4);margin-bottom:var(--s8)}
+  .note p{color:var(--text-secondary);font-size:14.5px;margin-bottom:var(--s8)}
+  .note p:last-child{margin-bottom:0}
+  code{font:12.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--text-accent)}
+  @media(max-width:1180px){.gal.md{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:820px){.gal.md,.gal.lg,.gal.xl{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="modebar"><button data-mode="light">Light</button><button data-mode="dark">Dark</button></div>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Selr AI · chart library</span>
+    <h1>Every chart in the kit, rebuilt</h1>
+    <p class="lead">All 65 chart cards from the Figma file, on Selr tokens, from one engine. Nobody has to work out how to draw a graph again — find the shape you want, copy the call.</p>
+  </header>
+
+  <h2 class="sec">Medium cards <b id="cnt-md"></b> · 544 × 408 in Figma</h2>
+  <div class="gal md" id="md"></div>
+
+  <h2 class="sec">Large cards <b id="cnt-lg"></b> · 1088 × 680 in Figma</h2>
+  <div class="gal lg" id="lg"></div>
+
+  <h2 class="sec">Extra large cards <b id="cnt-xl"></b> · 1088 × 680 in Figma</h2>
+  <div class="gal xl" id="xl"></div>
+
+  <div class="note">
+    <h3>How to use one</h3>
+    <p>Every chart is one call into <code>charts.js</code>. Example: <code>Charts.bars([12,28,19,44,22,31], {highlight:3, tip:'$27,632', hatch:true, xLabels:[…]})</code>.</p>
+    <p>Colours are always token variables (<code>--c1</code> to <code>--c5</code>, <code>--c-negative</code>), so light and dark come free and a rebrand is one file.</p>
+    <p>The engine is deterministic. No random data, so a render is reproducible and a screenshot diff means something.</p>
+  </div>
+</div>
+
+<script src="mode.js"></script>
+<script src="charts.js"></script>
+<script>
+const C = window.Charts;
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul'];
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const QTR = ['Q1','Q2','Q3','Q4'];
+
+const legend = items => `<div class="legend">${items.map((l,i)=>
+  `<span><i style="background:var(--c${[4,3,2,5,1][i%5]})"></i>${l}</span>`).join('')}</div>`;
+
+/* ── the 44 medium cards ─────────────────────────────────────────── */
+const MD = [
+  ['Revenue 1','Bars','Wallet balance by month, one month called out',
+    () => C.bars([120,300,190,340,150,230,180],{hatch:true,highlight:3,tip:'$27,632',xLabels:MONTHS,yLabels:['400','300','200','100']})],
+  ['Revenue 2','Area','Revenue trend with a dashed forecast tail',
+    () => C.line([120,180,150,240,210,300,280,340],{id:2,forecastFrom:5,xLabels:MONTHS.concat('Aug'),yLabels:['400','300','200','100']})],
+  ['Revenue 3','Stacked','Revenue split by product line',
+    () => C.stacked([[60,40,30],[80,50,20],[70,60,40],[110,40,30],[90,70,50],[130,50,30]],{xLabels:MONTHS.slice(0,6)})],
+  ['Analytics 1','Multi-line','This period against last',
+    () => C.lines([{data:[40,80,60,120,100,160,140]},{data:[30,50,70,80,90,110,120],dashed:true,colour:'var(--c3)'}],{xLabels:DAYS})],
+  ['Analytics 2','Line','Single series with endpoint markers',
+    () => C.line([300,120,140,110,150,120,130,90],{id:3,xLabels:DAYS.concat('—'),yLabels:['300','200','100','0']})],
+  ['Analytics 3','Bars','Volume per weekday',
+    () => C.bars([44,68,52,96,74,58,86],{xLabels:DAYS})],
+  ['Transfer history 1','H-bars','Largest transfers this week',
+    () => C.hbars([{label:'Amazon',value:2840},{label:'Netflix',value:1920},{label:'Sephora',value:1460},{label:'Uber',value:980},{label:'Spotify',value:620}])],
+  ['Transfer history 2','H-bars','Same list, incoming only',
+    () => C.hbars([{label:'Stripe',value:5200},{label:'Client A',value:3100},{label:'Client B',value:2400},{label:'Refunds',value:700}])],
+  ['Transfer history 3','Donut','Transfers by channel',
+    () => C.donut([{value:44,label:'Card'},{value:28,label:'Transfer'},{value:18,label:'Direct'},{value:10,label:'Other'}],{centre:'1,204',sub:'transfers'})],
+  ['Balance 1','Area','Balance across the week with forecast',
+    () => C.line([300,120,140,110,150,120,130],{id:4,forecastFrom:5,xLabels:DAYS,yLabels:['300','200','100','0']})],
+  ['Balance','Line','Balance, no fill',
+    () => C.line([80,140,120,200,180,240,220],{id:5,area:false,xLabels:DAYS,yLabels:['300','200','100','0']})],
+  ['Balance statistics 2','Stacked','Held against available',
+    () => C.stacked([[70,30],[90,40],[60,50],[110,30],[95,45],[130,35],[120,60]],{xLabels:DAYS})],
+  ['Activity','Heatmap','Activity by hour and day',
+    () => C.heat({cols:20})],
+  ['Time activity','Heatmap','Denser grid, same engine',
+    () => C.heat({cols:24,cell:16})],
+  ['Transaction report','Waterfall','How the closing balance was reached',
+    () => C.waterfall([{label:'Open',value:40,total:true},{label:'Sales',value:38},{label:'Fees',value:-12},{label:'Refunds',value:-8},{label:'Close',value:22,total:true}])],
+  ['Statistic','Bars','Simple count per period',
+    () => C.bars([28,44,36,52,40,62],{xLabels:MONTHS.slice(0,6)})],
+  ['Savings','Radial','Progress toward the savings target',
+    () => C.radial(68,{sub:'of $40,000 target'})],
+  ['Income','Area','Income by month',
+    () => C.line([90,120,110,160,150,210,190],{id:6,xLabels:MONTHS})],
+  ['Price Analysis','Candles','Open, high, low, close',
+    () => C.candles({n:20})],
+  ['Price Analytics','Candles','Wider window',
+    () => C.candles({n:28})],
+  ['Saved Money','Progress','Saving goals side by side',
+    () => C.progress([{label:'Emergency fund',value:82},{label:'New equipment',value:46},{label:'Tax set-aside',value:64}])],
+  ['Average expenses','Donut','Where the money went',
+    () => C.donut([{value:38,label:'Payroll'},{value:24,label:'Software'},{value:20,label:'Rent'},{value:18,label:'Other'}],{centre:'$18.4k',sub:'per month'})],
+  ['Receiving payment','Bullet','Actual against target',
+    () => C.bullet([{label:'This month',value:74,target:90,max:120},{label:'Last month',value:96,target:90,max:120}])],
+  ['Spending over time','Area','Spend trend',
+    () => C.line([40,70,60,110,90,140,120,170],{id:7,xLabels:MONTHS.concat('Aug')})],
+  ['Sales activity','Bars','Deals closed per month',
+    () => C.bars([12,22,18,30,26,38],{highlight:5,tip:'38 deals',xLabels:MONTHS.slice(0,6)})],
+  ['Investment 1','Line','Portfolio value',
+    () => C.line([100,130,120,180,160,220,240],{id:8,xLabels:MONTHS})],
+  ['Investment 2','Treemap','Allocation by holding',
+    () => C.treemap([{label:'Equities',value:52},{label:'Bonds',value:22},{label:'Cash',value:14},{label:'Other',value:12}])],
+  ['Total value 1','Donut','Value by account',
+    () => C.donut([{value:46,label:'Operating'},{value:30,label:'Reserve'},{value:24,label:'Tax'}],{centre:'$412k',sub:'total value'})],
+  ['Total value 2','Hex cluster','Distribution density across accounts',
+    () => C.hex()],
+  ['Total value 3','Treemap','Value by entity',
+    () => C.treemap([{label:'Trading',value:60},{label:'Holdings',value:20},{label:'Trust',value:12},{label:'Other',value:8}])],
+  ['Target 2','Radial','Progress to quarterly target',
+    () => C.radial(82,{sub:'of Q3 target'})],
+  ['Target 3','Bullet','Three targets at a glance',
+    () => C.bullet([{label:'Revenue',value:88,target:100,max:120},{label:'Margin',value:62,target:70,max:120},{label:'Retention',value:104,target:95,max:120}])],
+  ['Fear &amp; Greed index','Gauge','Sentiment on a 0 to 100 dial',
+    () => C.gauge(72,{label:'72',sub:'Greed'})],
+  ['Flow report 1','Waterfall','Cash in and out',
+    () => C.waterfall([{label:'Open',value:50,total:true},{label:'In',value:44},{label:'Out',value:-26},{label:'Fees',value:-6},{label:'Close',value:62,total:true}])],
+  ['Flow report 2','Stacked','Flow by category',
+    () => C.stacked([[40,20,10],[50,30,20],[35,25,15],[60,20,25],[45,35,10]],{xLabels:QTR.concat('Q5')})],
+  ['Personal account','Progress','Account health checks',
+    () => C.progress([{label:'Verification',value:100},{label:'Two-factor',value:100},{label:'Payout method',value:40}])],
+  ['Progress','Progress','Rollout progress by team',
+    () => C.progress([{label:'Operations',value:92},{label:'Finance',value:74},{label:'Sales',value:58},{label:'People',value:36}])],
+  ['Progress 2','Radial','One number, one ring',
+    () => C.radial(46,{sub:'onboarding complete'})],
+  ['Analytics performance 1','Radar','Performance across six axes',
+    () => C.radar([{label:'Speed',value:82},{label:'Cost',value:64},{label:'Quality',value:90},{label:'Reach',value:56},{label:'Retention',value:74},{label:'Support',value:68}])],
+  ['Analytics performance 2','Multi-line','Three series compared',
+    () => C.lines([{data:[30,60,50,90,80,120]},{data:[20,40,60,55,70,85],colour:'var(--c3)'},{data:[10,25,20,45,38,52],colour:'var(--c2)'}],{xLabels:MONTHS.slice(0,6)})],
+  ['Money spend 1','Donut','Spend by category',
+    () => C.donut([{value:34,label:'Groceries'},{value:26,label:'Transport'},{value:22,label:'Housing'},{value:18,label:'Leisure'}],{centre:'$4.2k',sub:'this month'})],
+  ['Money spend 2','H-bars','Same data as ranked bars',
+    () => C.hbars([{label:'Groceries',value:1420},{label:'Transport',value:1080},{label:'Housing',value:920},{label:'Leisure',value:760}])],
+  ['Key insights','Bullet','Three headline measures',
+    () => C.bullet([{label:'Hours saved',value:96,target:80,max:120},{label:'Cost avoided',value:64,target:75,max:120}])],
+  ['Balance statistics','Line','Balance against a flat baseline',
+    () => C.lines([{data:[60,90,80,130,110,150,140]},{data:[100,100,100,100,100,100,100],colour:'var(--c-quarterly)',dashed:true}],{xLabels:DAYS})]
+];
+
+/* ── the 12 large cards ──────────────────────────────────────────── */
+const LG = [
+  ['Statistic spending','Scatter','Spend against volume with a trend band',
+    () => C.scatter({w:640,h:300,xLabels:MONTHS,yLabels:['$4k','$3k','$2k','$1k']}), ['Groceries','Transport','Housing','Leisure']],
+  ['Product analytic','Stacked','Revenue by product across the year',
+    () => C.stacked([[60,40,30],[80,50,20],[70,60,40],[110,40,30],[90,70,50],[130,50,30],[120,60,45],[140,55,35]],{w:640,h:300,xLabels:MONTHS.concat('Aug')})],
+  ['KPI Statistic','Bars','The headline measure, one bar called out',
+    () => C.bars([120,300,190,340,150,230,180,260],{w:640,h:300,hatch:true,highlight:3,tip:'$27,632',xLabels:MONTHS.concat('Aug')})],
+  ['Salary funnel analytics','Funnel','Applied through to hired',
+    () => C.funnel([{label:'Applied',value:4200},{label:'Screened',value:2100},{label:'Interviewed',value:840},{label:'Offered',value:260},{label:'Hired',value:180}],{w:640})],
+  ['Contextual banner click','Multi-line','Click-through by placement',
+    () => C.lines([{data:[20,45,38,70,62,96,88,120]},{data:[12,26,30,42,38,58,54,72],colour:'var(--c3)'}],{w:640,h:300,xLabels:MONTHS.concat('Aug')})],
+  ['Top expenses','H-bars','The ten biggest line items',
+    () => C.hbars([{label:'Payroll',value:48200},{label:'Software',value:18600},{label:'Rent',value:14400},{label:'Contractors',value:9800},{label:'Travel',value:6200},{label:'Marketing',value:4800}],{w:640})],
+  ['Total profit 1','Area','Profit trend with forecast',
+    () => C.line([80,140,120,200,180,260,240,320],{w:640,h:300,id:20,forecastFrom:5,xLabels:MONTHS.concat('Aug')})],
+  ['Total profit 2','Bars','Profit by month',
+    () => C.bars([60,110,90,160,140,210,190,250],{w:640,h:300,highlight:7,tip:'$250k',xLabels:MONTHS.concat('Aug')})],
+  ['Total profit 3','Stacked','Profit split by entity',
+    () => C.stacked([[40,25],[70,30],[55,35],[100,40],[85,45],[130,50],[115,55],[150,60]],{w:640,h:300,xLabels:MONTHS.concat('Aug')})],
+  ['Key trends','Multi-line','Four trends on one axis',
+    () => C.lines([{data:[20,50,44,80,72,110]},{data:[15,32,40,52,60,78],colour:'var(--c3)'},{data:[30,28,36,34,44,48],colour:'var(--c2)'},{data:[8,14,12,22,26,30],colour:'var(--c5)'}],{w:640,h:300,xLabels:MONTHS.slice(0,6)})],
+  ['Active on site','Heatmap','Sessions by hour across the week',
+    () => C.heat({w:640,cols:30,cell:16})],
+  ['Cash flow','Waterfall','Opening to closing, step by step',
+    () => C.waterfall([{label:'Open',value:60,total:true},{label:'Receipts',value:52},{label:'Payroll',value:-28},{label:'Suppliers',value:-14},{label:'Tax',value:-9},{label:'Close',value:61,total:true}],{w:640,h:300})]
+];
+
+/* ── the 9 extra-large cards ─────────────────────────────────────── */
+const XL = [
+  ['World','Dot map','Every region active',              () => C.map('world',{w:640})],
+  ['Europe','Dot map','Europe highlighted',              () => C.map('europe',{w:640})],
+  ['Asia','Dot map','Asia highlighted',                  () => C.map('asia',{w:640})],
+  ['North America','Dot map','North America highlighted',() => C.map('north america',{w:640})],
+  ['Australia','Dot map','Australia highlighted',        () => C.map('australia',{w:640})],
+  ['South America','Dot map','South America highlighted',() => C.map('south america',{w:640})],
+  ['Global spending overview 1','Map + bars','Map above spend by month',
+    () => C.map('world',{w:640}) + C.bars([120,300,190,340,150,230],{w:640,h:200,hatch:true,highlight:3,tip:'$27,632',xLabels:MONTHS.slice(0,6)})],
+  ['Global spending overview 2','Map + donut','Map above spend by region',
+    () => C.map('world',{w:640}) + C.donut([{value:38,label:'EMEA'},{value:30,label:'APAC'},{value:20,label:'Americas'},{value:12,label:'Other'}],{w:640,h:210,centre:'$1.2M',sub:'global spend'})],
+  ['Global spending overview 3','Map + h-bars','Map above the top markets',
+    () => C.map('world',{w:640}) + C.hbars([{label:'Australia',value:420},{label:'United Kingdom',value:310},{label:'Singapore',value:240},{label:'United States',value:180}],{w:640})]
+];
+
+function card([title, kind, desc, draw, leg]) {
+  const el = document.createElement('div');
+  el.className = 'cc';
+  el.innerHTML = `<div class="top"><h3>${title}</h3><span class="kind">${kind}</span></div>
+    <p class="desc">${desc}</p><div class="body">${draw()}</div>${leg ? legend(leg) : ''}`;
+  return el;
+}
+[['md', MD], ['lg', LG], ['xl', XL]].forEach(([id, set]) => {
+  const host = document.getElementById(id);
+  set.forEach(c => host.appendChild(card(c)));
+  document.getElementById('cnt-' + id).textContent = set.length;
+});
+</script>
+</body>
+</html>

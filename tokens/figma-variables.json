@@ -1,0 +1,1138 @@
+{
+  "collections": [
+    {
+      "name": "00 - Global",
+      "modes": [
+        "Main"
+      ],
+      "variables": [
+        {
+          "name": "Purple/100",
+          "type": "COLOR",
+          "values": {
+            "Main": "#F2EDFF"
+          }
+        },
+        {
+          "name": "Purple/200",
+          "type": "COLOR",
+          "values": {
+            "Main": "#D5C4FF"
+          }
+        },
+        {
+          "name": "Purple/400",
+          "type": "COLOR",
+          "values": {
+            "Main": "#9B73FF"
+          }
+        },
+        {
+          "name": "Purple/500",
+          "type": "COLOR",
+          "values": {
+            "Main": "#7E4BFF"
+          }
+        },
+        {
+          "name": "Purple/600",
+          "type": "COLOR",
+          "values": {
+            "Main": "#6736E2"
+          }
+        },
+        {
+          "name": "Purple/700",
+          "type": "COLOR",
+          "values": {
+            "Main": "#5024C0"
+          }
+        },
+        {
+          "name": "Purple/800",
+          "type": "COLOR",
+          "values": {
+            "Main": "#3C159E"
+          }
+        },
+        {
+          "name": "Purple/900",
+          "type": "COLOR",
+          "values": {
+            "Main": "#230670"
+          }
+        },
+        {
+          "name": "Gray/Cloud",
+          "type": "COLOR",
+          "values": {
+            "Main": "#EDEFF7"
+          }
+        },
+        {
+          "name": "Gray/Smoke",
+          "type": "COLOR",
+          "values": {
+            "Main": "#D3D6E0"
+          }
+        },
+        {
+          "name": "Gray/Steel",
+          "type": "COLOR",
+          "values": {
+            "Main": "#BCBFCC"
+          }
+        },
+        {
+          "name": "Gray/Space",
+          "type": "COLOR",
+          "values": {
+            "Main": "#9DA2B3"
+          }
+        },
+        {
+          "name": "Gray/Graphite",
+          "type": "COLOR",
+          "values": {
+            "Main": "#6E7180"
+          }
+        },
+        {
+          "name": "Gray/Arsenic",
+          "type": "COLOR",
+          "values": {
+            "Main": "#40424D"
+          }
+        },
+        {
+          "name": "Gray/Phantom",
+          "type": "COLOR",
+          "values": {
+            "Main": "#1E1E24"
+          }
+        },
+        {
+          "name": "Gray/Black",
+          "type": "COLOR",
+          "values": {
+            "Main": "#0A0A0A"
+          }
+        },
+        {
+          "name": "Gray/True",
+          "type": "COLOR",
+          "values": {
+            "Main": "#000000"
+          }
+        },
+        {
+          "name": "Neutral/100",
+          "type": "COLOR",
+          "values": {
+            "Main": "#F8F8F8"
+          }
+        },
+        {
+          "name": "Neutral/200",
+          "type": "COLOR",
+          "values": {
+            "Main": "#EDEDED"
+          }
+        },
+        {
+          "name": "Neutral/400",
+          "type": "COLOR",
+          "values": {
+            "Main": "#ABABAB"
+          }
+        },
+        {
+          "name": "Success/base",
+          "type": "COLOR",
+          "values": {
+            "Main": "#26B759"
+          }
+        },
+        {
+          "name": "Success/mid",
+          "type": "COLOR",
+          "values": {
+            "Main": "#B5FFCF"
+          }
+        },
+        {
+          "name": "Success/tint",
+          "type": "COLOR",
+          "values": {
+            "Main": "#E0FFEB"
+          }
+        },
+        {
+          "name": "Warning/base",
+          "type": "COLOR",
+          "values": {
+            "Main": "#F39A46"
+          }
+        },
+        {
+          "name": "Warning/mid",
+          "type": "COLOR",
+          "values": {
+            "Main": "#F9BE85"
+          }
+        },
+        {
+          "name": "Warning/tint",
+          "type": "COLOR",
+          "values": {
+            "Main": "#FFE9D4"
+          }
+        },
+        {
+          "name": "Danger/base",
+          "type": "COLOR",
+          "values": {
+            "Main": "#FF1B1B"
+          }
+        },
+        {
+          "name": "Danger/mid",
+          "type": "COLOR",
+          "values": {
+            "Main": "#FF8A8A"
+          }
+        },
+        {
+          "name": "Danger/tint",
+          "type": "COLOR",
+          "values": {
+            "Main": "#FFE0E0"
+          }
+        },
+        {
+          "name": "White",
+          "type": "COLOR",
+          "values": {
+            "Main": "#FFFFFF"
+          }
+        },
+        {
+          "name": "Black",
+          "type": "COLOR",
+          "values": {
+            "Main": "#0A0A0A"
+          }
+        }
+      ]
+    },
+    {
+      "name": "01 - Color Styles",
+      "modes": [
+        "Light Mode",
+        "Dark Mode"
+      ],
+      "variables": [
+        {
+          "name": "Background/Surface/primary",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Cloud",
+              "resolved": "#EDEFF7"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Black",
+              "resolved": "#0A0A0A"
+            }
+          }
+        },
+        {
+          "name": "Background/Surface/secondary",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "White",
+              "resolved": "#FFFFFF"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Phantom",
+              "resolved": "#1E1E24"
+            }
+          }
+        },
+        {
+          "name": "Background/Surface/tertiary",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Neutral/100",
+              "resolved": "#F8F8F8"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Arsenic",
+              "resolved": "#40424D"
+            }
+          }
+        },
+        {
+          "name": "Background/Surface/inverted",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Black",
+              "resolved": "#0A0A0A"
+            },
+            "Dark Mode": {
+              "alias": "White",
+              "resolved": "#FFFFFF"
+            }
+          }
+        },
+        {
+          "name": "Background/Surface/accent",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/600",
+              "resolved": "#6736E2"
+            },
+            "Dark Mode": {
+              "alias": "Purple/500",
+              "resolved": "#7E4BFF"
+            }
+          }
+        },
+        {
+          "name": "Background/Surface/danger",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Danger/tint",
+              "resolved": "#FFE0E0"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Phantom",
+              "resolved": "#1E1E24"
+            }
+          }
+        },
+        {
+          "name": "Background/Button/primary-active",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/600",
+              "resolved": "#6736E2"
+            },
+            "Dark Mode": {
+              "alias": "Purple/600",
+              "resolved": "#6736E2"
+            }
+          }
+        },
+        {
+          "name": "Background/Button/primary-hover",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/700",
+              "resolved": "#5024C0"
+            },
+            "Dark Mode": {
+              "alias": "Purple/700",
+              "resolved": "#5024C0"
+            }
+          }
+        },
+        {
+          "name": "Background/Button/primary-pressed",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/800",
+              "resolved": "#3C159E"
+            },
+            "Dark Mode": {
+              "alias": "Purple/800",
+              "resolved": "#3C159E"
+            }
+          }
+        },
+        {
+          "name": "Background/Button/primary-disabled",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Neutral/200",
+              "resolved": "#EDEDED"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Arsenic",
+              "resolved": "#40424D"
+            }
+          }
+        },
+        {
+          "name": "Background/Button/secondary-active",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "White",
+              "resolved": "#FFFFFF"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Phantom",
+              "resolved": "#1E1E24"
+            }
+          }
+        },
+        {
+          "name": "Background/Button/secondary-hover",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/100",
+              "resolved": "#F2EDFF"
+            },
+            "Dark Mode": {
+              "alias": "Purple/900",
+              "resolved": "#230670"
+            }
+          }
+        },
+        {
+          "name": "Background/Button/secondary-pressed",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/200",
+              "resolved": "#D5C4FF"
+            },
+            "Dark Mode": {
+              "alias": "Purple/800",
+              "resolved": "#3C159E"
+            }
+          }
+        },
+        {
+          "name": "Background/Button/secondary-disabled",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Neutral/200",
+              "resolved": "#EDEDED"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Arsenic",
+              "resolved": "#40424D"
+            }
+          }
+        },
+        {
+          "name": "Background/Chip/active",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "White",
+              "resolved": "#FFFFFF"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Phantom",
+              "resolved": "#1E1E24"
+            }
+          }
+        },
+        {
+          "name": "Background/Chip/hover",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Cloud",
+              "resolved": "#EDEFF7"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Arsenic",
+              "resolved": "#40424D"
+            }
+          }
+        },
+        {
+          "name": "Background/Chip/pressed",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Smoke",
+              "resolved": "#D3D6E0"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Graphite",
+              "resolved": "#6E7180"
+            }
+          }
+        },
+        {
+          "name": "Background/Chip/selected",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Black",
+              "resolved": "#0A0A0A"
+            },
+            "Dark Mode": {
+              "alias": "White",
+              "resolved": "#FFFFFF"
+            }
+          }
+        },
+        {
+          "name": "Background/Indicator/primary",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/600",
+              "resolved": "#6736E2"
+            },
+            "Dark Mode": {
+              "alias": "Purple/400",
+              "resolved": "#9B73FF"
+            }
+          }
+        },
+        {
+          "name": "Background/Indicator/black",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Black",
+              "resolved": "#0A0A0A"
+            },
+            "Dark Mode": {
+              "alias": "White",
+              "resolved": "#FFFFFF"
+            }
+          }
+        },
+        {
+          "name": "Background/Indicator/white",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "White",
+              "resolved": "#FFFFFF"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Phantom",
+              "resolved": "#1E1E24"
+            }
+          }
+        },
+        {
+          "name": "Typography/primary",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Black",
+              "resolved": "#0A0A0A"
+            },
+            "Dark Mode": {
+              "alias": "White",
+              "resolved": "#FFFFFF"
+            }
+          }
+        },
+        {
+          "name": "Typography/secondary",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Arsenic",
+              "resolved": "#40424D"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Steel",
+              "resolved": "#BCBFCC"
+            }
+          }
+        },
+        {
+          "name": "Typography/tertiary",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Graphite",
+              "resolved": "#6E7180"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Space",
+              "resolved": "#9DA2B3"
+            }
+          }
+        },
+        {
+          "name": "Typography/disabled",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Steel",
+              "resolved": "#BCBFCC"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Graphite",
+              "resolved": "#6E7180"
+            }
+          }
+        },
+        {
+          "name": "Typography/accent",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/600",
+              "resolved": "#6736E2"
+            },
+            "Dark Mode": {
+              "alias": "Purple/400",
+              "resolved": "#9B73FF"
+            }
+          }
+        },
+        {
+          "name": "Typography/primary-inverted",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "White",
+              "resolved": "#FFFFFF"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Black",
+              "resolved": "#0A0A0A"
+            }
+          }
+        },
+        {
+          "name": "Typography/secondary-inverted",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Smoke",
+              "resolved": "#D3D6E0"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Graphite",
+              "resolved": "#6E7180"
+            }
+          }
+        },
+        {
+          "name": "Border/primary",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Smoke",
+              "resolved": "#D3D6E0"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Arsenic",
+              "resolved": "#40424D"
+            }
+          }
+        },
+        {
+          "name": "Border/secondary",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Cloud",
+              "resolved": "#EDEFF7"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Phantom",
+              "resolved": "#1E1E24"
+            }
+          }
+        },
+        {
+          "name": "Border/tertiary",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Steel",
+              "resolved": "#BCBFCC"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Graphite",
+              "resolved": "#6E7180"
+            }
+          }
+        },
+        {
+          "name": "Charts/Context/primary-1",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/100",
+              "resolved": "#F2EDFF"
+            },
+            "Dark Mode": {
+              "alias": "Purple/900",
+              "resolved": "#230670"
+            }
+          }
+        },
+        {
+          "name": "Charts/Context/primary-2",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/200",
+              "resolved": "#D5C4FF"
+            },
+            "Dark Mode": {
+              "alias": "Purple/800",
+              "resolved": "#3C159E"
+            }
+          }
+        },
+        {
+          "name": "Charts/Context/primary-3",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/400",
+              "resolved": "#9B73FF"
+            },
+            "Dark Mode": {
+              "alias": "Purple/500",
+              "resolved": "#7E4BFF"
+            }
+          }
+        },
+        {
+          "name": "Charts/Context/primary-4",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/600",
+              "resolved": "#6736E2"
+            },
+            "Dark Mode": {
+              "alias": "Purple/600",
+              "resolved": "#6736E2"
+            }
+          }
+        },
+        {
+          "name": "Charts/Context/primary-5",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/800",
+              "resolved": "#3C159E"
+            },
+            "Dark Mode": {
+              "alias": "Purple/400",
+              "resolved": "#9B73FF"
+            }
+          }
+        },
+        {
+          "name": "Charts/Context/primary-alt",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Purple/700",
+              "resolved": "#5024C0"
+            },
+            "Dark Mode": {
+              "alias": "Purple/200",
+              "resolved": "#D5C4FF"
+            }
+          }
+        },
+        {
+          "name": "Charts/Context/secondary",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Success/base",
+              "resolved": "#26B759"
+            },
+            "Dark Mode": {
+              "alias": "Success/base",
+              "resolved": "#26B759"
+            }
+          }
+        },
+        {
+          "name": "Charts/Context/tertiary",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Warning/base",
+              "resolved": "#F39A46"
+            },
+            "Dark Mode": {
+              "alias": "Warning/base",
+              "resolved": "#F39A46"
+            }
+          }
+        },
+        {
+          "name": "Charts/Context/quarterly",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Space",
+              "resolved": "#9DA2B3"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Graphite",
+              "resolved": "#6E7180"
+            }
+          }
+        },
+        {
+          "name": "Charts/Context/basic",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Gray/Cloud",
+              "resolved": "#EDEFF7"
+            },
+            "Dark Mode": {
+              "alias": "Gray/Arsenic",
+              "resolved": "#40424D"
+            }
+          }
+        },
+        {
+          "name": "Charts/Context/negative",
+          "type": "COLOR",
+          "values": {
+            "Light Mode": {
+              "alias": "Danger/base",
+              "resolved": "#FF1B1B"
+            },
+            "Dark Mode": {
+              "alias": "Danger/base",
+              "resolved": "#FF1B1B"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Spacing",
+      "modes": [
+        "Value"
+      ],
+      "variables": [
+        {
+          "name": "Spacing/0",
+          "type": "FLOAT",
+          "values": {
+            "Value": 0
+          }
+        },
+        {
+          "name": "Spacing/2",
+          "type": "FLOAT",
+          "values": {
+            "Value": 2
+          }
+        },
+        {
+          "name": "Spacing/4",
+          "type": "FLOAT",
+          "values": {
+            "Value": 4
+          }
+        },
+        {
+          "name": "Spacing/6",
+          "type": "FLOAT",
+          "values": {
+            "Value": 6
+          }
+        },
+        {
+          "name": "Spacing/8",
+          "type": "FLOAT",
+          "values": {
+            "Value": 8
+          }
+        },
+        {
+          "name": "Spacing/10",
+          "type": "FLOAT",
+          "values": {
+            "Value": 10
+          }
+        },
+        {
+          "name": "Spacing/12",
+          "type": "FLOAT",
+          "values": {
+            "Value": 12
+          }
+        },
+        {
+          "name": "Spacing/16",
+          "type": "FLOAT",
+          "values": {
+            "Value": 16
+          }
+        },
+        {
+          "name": "Spacing/20",
+          "type": "FLOAT",
+          "values": {
+            "Value": 20
+          }
+        },
+        {
+          "name": "Spacing/24",
+          "type": "FLOAT",
+          "values": {
+            "Value": 24
+          }
+        },
+        {
+          "name": "Spacing/28",
+          "type": "FLOAT",
+          "values": {
+            "Value": 28
+          }
+        },
+        {
+          "name": "Spacing/32",
+          "type": "FLOAT",
+          "values": {
+            "Value": 32
+          }
+        },
+        {
+          "name": "Spacing/40",
+          "type": "FLOAT",
+          "values": {
+            "Value": 40
+          }
+        },
+        {
+          "name": "Spacing/48",
+          "type": "FLOAT",
+          "values": {
+            "Value": 48
+          }
+        },
+        {
+          "name": "Spacing/56",
+          "type": "FLOAT",
+          "values": {
+            "Value": 56
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Corner Radius",
+      "modes": [
+        "Value"
+      ],
+      "variables": [
+        {
+          "name": "3XS",
+          "type": "FLOAT",
+          "values": {
+            "Value": 2
+          }
+        },
+        {
+          "name": "2XS",
+          "type": "FLOAT",
+          "values": {
+            "Value": 4
+          }
+        },
+        {
+          "name": "XS",
+          "type": "FLOAT",
+          "values": {
+            "Value": 6
+          }
+        },
+        {
+          "name": "S",
+          "type": "FLOAT",
+          "values": {
+            "Value": 8
+          }
+        },
+        {
+          "name": "M",
+          "type": "FLOAT",
+          "values": {
+            "Value": 12
+          }
+        },
+        {
+          "name": "L",
+          "type": "FLOAT",
+          "values": {
+            "Value": 16
+          }
+        },
+        {
+          "name": "XL",
+          "type": "FLOAT",
+          "values": {
+            "Value": 20
+          }
+        },
+        {
+          "name": "2XL",
+          "type": "FLOAT",
+          "values": {
+            "Value": 24
+          }
+        },
+        {
+          "name": "3XL",
+          "type": "FLOAT",
+          "values": {
+            "Value": 32
+          }
+        },
+        {
+          "name": "4XL",
+          "type": "FLOAT",
+          "values": {
+            "Value": 40
+          }
+        },
+        {
+          "name": "Full",
+          "type": "FLOAT",
+          "values": {
+            "Value": 360
+          }
+        }
+      ]
+    }
+  ],
+  "textStyles": [
+    {
+      "name": "Marketing/Heading 1",
+      "family": "Manrope",
+      "weight": "semibold",
+      "size": 64,
+      "letterSpacingEm": -0.02
+    },
+    {
+      "name": "Marketing/Heading 2",
+      "family": "Manrope",
+      "weight": "semibold",
+      "size": 48,
+      "letterSpacingEm": -0.02
+    },
+    {
+      "name": "Marketing/Subheader 1",
+      "family": "Manrope",
+      "weight": "semibold",
+      "size": 32,
+      "letterSpacingEm": -0.02
+    },
+    {
+      "name": "Marketing/Subheader 2",
+      "family": "Manrope",
+      "weight": "semibold",
+      "size": 24,
+      "letterSpacingEm": -0.02
+    },
+    {
+      "name": "Marketing/Paragraph 1",
+      "family": "Manrope",
+      "weight": "regular",
+      "size": 18,
+      "letterSpacingEm": 0
+    },
+    {
+      "name": "Marketing/Paragraph 2",
+      "family": "Manrope",
+      "weight": "regular",
+      "size": 16,
+      "letterSpacingEm": 0
+    },
+    {
+      "name": "UI/Header 1",
+      "family": "Manrope",
+      "weight": "semibold",
+      "size": 32,
+      "letterSpacingEm": 0
+    },
+    {
+      "name": "UI/Header 2",
+      "family": "Manrope",
+      "weight": "semibold",
+      "size": 24,
+      "letterSpacingEm": 0
+    },
+    {
+      "name": "UI/Header 3",
+      "family": "Manrope",
+      "weight": "semibold",
+      "size": 20,
+      "letterSpacingEm": 0
+    },
+    {
+      "name": "UI/Header 4",
+      "family": "Manrope",
+      "weight": "semibold",
+      "size": 17,
+      "letterSpacingEm": 0
+    },
+    {
+      "name": "UI/Header 5",
+      "family": "Manrope",
+      "weight": "semibold",
+      "size": 15,
+      "letterSpacingEm": 0
+    },
+    {
+      "name": "UI/Title 1",
+      "family": "Manrope",
+      "weight": "medium",
+      "size": 20,
+      "letterSpacingEm": 0
+    },
+    {
+      "name": "UI/Title 2",
+      "family": "Manrope",
+      "weight": "medium",
+      "size": 18,
+      "letterSpacingEm": 0
+    },
+    {
+      "name": "UI/Title 3",
+      "family": "Manrope",
+      "weight": "medium",
+      "size": 15,
+      "letterSpacingEm": 0
+    },
+    {
+      "name": "UI/Body",
+      "family": "Manrope",
+      "weight": "regular",
+      "size": 15,
+      "letterSpacingEm": 0
+    },
+    {
+      "name": "UI/Caption",
+      "family": "Manrope",
+      "weight": "medium",
+      "size": 12,
+      "letterSpacingEm": 0
+    }
+  ]
+}

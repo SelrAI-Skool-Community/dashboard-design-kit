@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selr AI — Page patterns</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css">
+<style>
+  body{padding:var(--s32)}
+  .wrap{max-width:1240px;margin:0 auto}
+  header{border-bottom:1px solid var(--border-primary);padding-bottom:var(--s28);margin-bottom:var(--s24)}
+  header h1{font-size:var(--t-h2);margin:var(--s12) 0 var(--s10)}
+  .eyebrow{font:700 12px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--text-accent)}
+  .lead{color:var(--text-secondary);max-width:66ch;font-size:var(--t-p2)}
+  h2.sec{font:700 12px var(--font);letter-spacing:.13em;text-transform:uppercase;
+    color:var(--text-tertiary);margin:var(--s40) 0 var(--s12)}
+  .about{color:var(--text-secondary);font-size:14px;margin-bottom:var(--s16);max-width:70ch}
+
+  .kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s16)}
+  .col{background:var(--bg-primary);border-radius:var(--r-l);padding:var(--s12);min-height:280px}
+  .col h4{display:flex;align-items:center;gap:var(--s8);padding:var(--s4) var(--s8) var(--s12);font-size:14px}
+  .col h4 span{margin-left:auto;font:700 11px var(--font);color:var(--text-tertiary)}
+  .kcard{background:var(--bg-secondary);border:1px solid var(--border-primary);border-radius:var(--r-m);
+    padding:var(--s14,14px);margin-bottom:var(--s10);box-shadow:var(--shadow-sm)}
+  .kcard b{font-size:14px;display:block}
+  .kcard .meta{display:flex;align-items:center;gap:var(--s8);margin-top:var(--s10)}
+
+  .tl{position:relative;padding-left:var(--s32)}
+  .tl::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:var(--border-primary)}
+  .tlrow{position:relative;padding-bottom:var(--s24)}
+  .tlrow .dot{position:absolute;left:calc(var(--s32) * -1);top:2px;width:24px;height:24px;
+    border-radius:var(--r-full);display:grid;place-items:center;background:var(--bg-secondary);
+    border:2px solid var(--border-primary)}
+  .tlrow b{font-size:14.5px}
+  .tlrow p{font-size:13.5px;color:var(--text-secondary);margin-top:2px}
+
+  .notif{display:flex;gap:var(--s12);padding:var(--s16);border-bottom:1px solid var(--border-secondary)}
+  .notif:last-child{border-bottom:none}
+  .notif.unread{background:var(--btn-secondary-hover)}
+  .notif b{font-size:14.5px}
+  .notif p{font-size:13.5px;color:var(--text-secondary);margin-top:2px}
+
+  .month{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--border-secondary);
+    border:1px solid var(--border-secondary);border-radius:var(--r-m);overflow:hidden}
+  .month .d{background:var(--bg-secondary);min-height:88px;padding:var(--s8)}
+  .month .hd{background:var(--bg-tertiary);min-height:0;padding:var(--s8);
+    font:700 11px var(--font);text-transform:uppercase;color:var(--text-tertiary);text-align:center}
+  .month .n{font-size:12.5px;color:var(--text-tertiary)}
+  .month .today .n{background:var(--purple-600);color:#fff;border-radius:var(--r-full);
+    width:22px;height:22px;display:grid;place-items:center;font-weight:700}
+  .ev{font:600 11px var(--font);border-radius:var(--r-2xs);padding:2px var(--s6);margin-top:var(--s4);
+    display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+  .result{padding:var(--s16) 0;border-bottom:1px solid var(--border-secondary)}
+  .result:last-child{border-bottom:none}
+  .result a{font-size:var(--t-ui4);font-weight:600;color:var(--text-accent);text-decoration:none;letter-spacing:var(--track)}
+  .result .path{font-size:12.5px;color:var(--text-tertiary);margin-top:2px}
+  .result p{font-size:14px;color:var(--text-secondary);margin-top:var(--s6)}
+  mark{background:var(--purple-100);color:var(--purple-800);border-radius:3px;padding:0 3px}
+  :root[data-mode="dark"] mark{background:var(--purple-900);color:var(--purple-200)}
+
+  .errpage{text-align:center;padding:var(--s56) var(--s24)}
+  .errpage .code{font-size:96px;font-weight:600;letter-spacing:-.04em;line-height:1;
+    background:linear-gradient(150deg,var(--purple-500),var(--purple-900));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+
+  .checklist .item{display:flex;gap:var(--s12);align-items:flex-start;padding:var(--s16) 0;
+    border-bottom:1px solid var(--border-secondary)}
+  .checklist .item:last-child{border-bottom:none}
+  .checklist .tick{width:26px;height:26px;border-radius:var(--r-full);display:grid;place-items:center;
+    border:1.5px solid var(--border-primary);flex:0 0 26px}
+  .checklist .done .tick{background:var(--success);border-color:var(--success);color:#fff}
+  .checklist .done b{color:var(--text-tertiary);text-decoration:line-through}
+
+  .profile{display:flex;gap:var(--s24);align-items:center;flex-wrap:wrap}
+  .cover{height:120px;border-radius:var(--r-l) var(--r-l) 0 0;
+    background:linear-gradient(120deg,var(--purple-600),var(--purple-900))}
+
+  .comment{display:flex;gap:var(--s12);padding:var(--s16) 0;border-bottom:1px solid var(--border-secondary)}
+  .comment:last-child{border-bottom:none}
+  .comment .body{background:var(--bg-tertiary);border-radius:var(--r-m);padding:var(--s12) var(--s16);flex:1}
+  @media(max-width:900px){.kanban{grid-template-columns:1fr 1fr}}
+  @media(max-width:640px){.kanban{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="modebar"><button data-mode="light">Light</button><button data-mode="dark">Dark</button></div>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Selr AI · page patterns</span>
+  <h1>The rest of the screens</h1>
+  <p class="lead">Board, timeline, notifications, calendar, search, error pages, onboarding, profile and comments. The layouts every product needs and nobody should redraw.</p>
+</header>
+
+<h2 class="sec">1 · Board</h2>
+<p class="about">Four columns, count in the header, cards carry one badge and one owner.</p>
+<div class="kanban" id="kanban"></div>
+
+<h2 class="sec">2 · Activity timeline</h2>
+<p class="about">One rail, one dot per event, tone carried by the dot only.</p>
+<div class="card"><div class="tl" id="tl"></div></div>
+
+<h2 class="sec">3 · Notifications</h2>
+<p class="about">Unread rows tint, read rows do not. Grouped by day, newest first.</p>
+<div class="card" style="padding:0;max-width:620px">
+  <div class="row" style="padding:var(--s16);border-bottom:1px solid var(--border-secondary)">
+    <b>Notifications</b><span class="badge spacer">4 new</span>
+    <a href="#" style="font-size:13.5px;font-weight:600;color:var(--text-accent);text-decoration:none;margin-left:var(--s12)">Mark all read</a>
+  </div>
+  <div id="notifs"></div>
+</div>
+
+<h2 class="sec">4 · Calendar month</h2>
+<p class="about">Events as pills inside the day cell, today marked on the number, never the whole cell.</p>
+<div class="card">
+  <div class="row" style="margin-bottom:var(--s16)"><b style="font-size:var(--t-ui3)">August 2026</b>
+    <div class="tabs spacer"><span>Day</span><span>Week</span><span class="on">Month</span></div></div>
+  <div class="month" id="month"></div>
+</div>
+
+<h2 class="sec">5 · Search results</h2>
+<p class="about">Query echoed, count stated, match highlighted. Filters live to the side, never above.</p>
+<div class="card">
+  <div class="row" style="gap:var(--s12);margin-bottom:var(--s16)">
+    <div class="input-group" style="flex:1"><span id="i-s"></span><input class="input" value="invoice"></div>
+    <span class="pill">All types</span><span class="pill">Any time</span>
+  </div>
+  <p class="caption" style="margin-bottom:var(--s8)">42 results for “invoice”</p>
+  <div id="results"></div>
+</div>
+
+<h2 class="sec">6 · Error pages</h2>
+<p class="about">Number, one sentence, one way out. Never a stack trace in front of a customer.</p>
+<div class="grid2">
+  <div class="card errpage"><div class="code">404</div>
+    <h3 style="margin-top:var(--s16)">That page has moved on</h3>
+    <p class="muted" style="margin:var(--s8) auto var(--s24);max-width:34ch;font-size:14.5px">
+      The link is dead or the workflow was deleted.</p>
+    <a class="btn btn--primary" href="dashboard.html">Back to the dashboard</a></div>
+  <div class="card errpage"><div class="code">500</div>
+    <h3 style="margin-top:var(--s16)">Something broke on our side</h3>
+    <p class="muted" style="margin:var(--s8) auto var(--s24);max-width:34ch;font-size:14.5px">
+      Nothing you did caused it and nothing was lost. We have been told.</p>
+    <a class="btn btn--secondary" href="#">Try again</a></div>
+</div>
+
+<h2 class="sec">7 · Onboarding checklist</h2>
+<p class="about">Progress at the top, one action per row, done rows strike through and grey out.</p>
+<div class="card" style="max-width:620px">
+  <div class="row"><b style="font-size:var(--t-ui4)">Get set up</b><span class="caption spacer">3 of 5 done</span></div>
+  <div style="height:6px;border-radius:360px;background:var(--c-basic);margin:var(--s12) 0 var(--s8);overflow:hidden">
+    <i style="display:block;height:100%;width:60%;background:var(--c4);border-radius:360px"></i></div>
+  <div class="checklist" id="check"></div>
+</div>
+
+<h2 class="sec">8 · Profile header</h2>
+<p class="about">Gradient cover, avatar overlapping, stats in a row, primary action on the right.</p>
+<div class="card" style="padding:0;overflow:hidden">
+  <div class="cover"></div>
+  <div style="padding:var(--s24)">
+    <div class="profile" style="margin-top:-56px">
+      <span class="avatar lg" style="width:88px;height:88px;flex-basis:88px;font-size:28px;
+        box-shadow:0 0 0 4px var(--bg-secondary)">AW</span>
+      <div style="margin-top:56px"><h3 style="font-size:var(--t-ui2)">Alex Wilkerson</h3>
+        <p class="muted" style="font-size:14.5px">Operations lead · Brisbane · joined March 2026</p></div>
+      <div class="row spacer" style="margin-top:56px">
+        <button class="btn btn--ghost">Message</button><button class="btn btn--primary">Edit profile</button></div>
+    </div>
+    <div class="row" style="gap:var(--s40);margin-top:var(--s24);padding-top:var(--s20);border-top:1px solid var(--border-secondary)">
+      <div><b style="font-size:var(--t-ui2);letter-spacing:var(--track)">18</b><div class="caption">Workflows owned</div></div>
+      <div><b style="font-size:var(--t-ui2);letter-spacing:var(--track)">4,182</b><div class="caption">Runs this month</div></div>
+      <div><b style="font-size:var(--t-ui2);letter-spacing:var(--track)">99.2%</b><div class="caption">Success rate</div></div>
+    </div>
+  </div>
+</div>
+
+<h2 class="sec">9 · Comments</h2>
+<p class="about">Avatar outside the bubble so a long thread still scans down one edge.</p>
+<div class="card" style="max-width:720px">
+  <div id="comments"></div>
+  <div class="row" style="margin-top:var(--s16);gap:var(--s12)">
+    <span class="avatar sm">AW</span>
+    <input class="input" placeholder="Write a comment">
+    <button class="btn btn--primary" id="send-btn">Send</button>
+  </div>
+</div>
+</div>
+
+<script src="mode.js"></script>
+<script src="icons.js"></script>
+<script>
+const put = (id, h) => { const e = document.getElementById(id); if (e) e.innerHTML = h; };
+put('i-s', Icons.svg('search'));
+document.getElementById('send-btn').insertAdjacentHTML('afterbegin', Icons.svg('send'));
+
+/* board */
+const COLS = [
+  ['Backlog', 4, [['Supplier sync','soft','RK'],['Payroll export','soft','JM']]],
+  ['In build', 3, [['Quote builder','warn','AW'],['Timesheet import','soft','RK']]],
+  ['In review', 2, [['Lead routing v2','soft','JM']]],
+  ['Live', 12, [['Invoice chase','ok','AW'],['Reconciliation','ok','JM']]]
+];
+put('kanban', COLS.map(([t, n, cards]) =>
+  `<div class="col"><h4>${t}<span>${n}</span></h4>` +
+  cards.map(([name, tone, who]) =>
+    `<div class="kcard"><b>${name}</b>
+      <div class="meta"><span class="badge badge--${tone}">${tone === 'ok' ? 'Live' : tone === 'warn' ? 'Blocked' : 'Ready'}</span>
+        <span class="avatar sm spacer">${who}</span></div></div>`).join('') +
+  `</div>`).join(''));
+
+/* timeline */
+put('tl', [
+  ['check-circle','var(--success)','Workflow published','Invoice chase went live · 09:14'],
+  ['edit','var(--text-accent)','Steps edited','Retry limit raised from 2 to 3 · 08:52'],
+  ['alert-triangle','var(--warning)','Retry triggered','Step 2 backed off once · 08:41'],
+  ['user-plus','var(--text-accent)','Access granted','R. Kaur added as editor · Yesterday'],
+  ['plus','var(--text-tertiary)','Workflow created','Draft started · Monday']
+].map(([ic,c,t,d]) =>
+  `<div class="tlrow"><span class="dot" style="color:${c};border-color:${c}">${Icons.svg(ic,'sm')}</span>
+    <b>${t}</b><p>${d}</p></div>`).join(''));
+
+/* notifications */
+put('notifs', [
+  [1,'alert-circle','var(--danger)','Onboarding pack failed','Step 2 could not reach Drive.','4 min ago'],
+  [1,'check-circle','var(--success)','Invoice chase published','Live and waiting on its trigger.','22 min ago'],
+  [1,'users','var(--text-accent)','R. Kaur joined the workspace','Invited by you.','1 hr ago'],
+  [1,'trending','var(--text-accent)','Weekly summary ready','1,482 hours returned this month.','3 hr ago'],
+  [0,'archive','var(--text-tertiary)','Quote builder archived','No runs in 60 days.','Yesterday']
+].map(([un,ic,c,t,d,w]) =>
+  `<div class="notif ${un ? 'unread' : ''}"><span style="color:${c}">${Icons.svg(ic)}</span>
+    <div style="flex:1"><b>${t}</b><p>${d}</p></div>
+    <span class="caption">${w}</span></div>`).join(''));
+
+/* calendar month — August 2026 begins on a Saturday */
+const EV = {4:[['Ops review','var(--c4)','#fff']],6:[['Board pack','var(--c3)','#fff'],['Payroll','var(--c2)','var(--purple-800)']],
+  12:[['Workshop','var(--c5)','#fff']],19:[['Reconcile','var(--c3)','#fff']],27:[['BAS due','var(--c-negative)','#fff']]};
+let m = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d => `<div class="hd">${d}</div>`).join('');
+for (let i = 0; i < 6; i++) m += '<div class="d"></div>';
+for (let d = 1; d <= 31; d++) {
+  const evs = (EV[d] || []).map(([t,bg,fg]) => `<span class="ev" style="background:${bg};color:${fg}">${t}</span>`).join('');
+  m += `<div class="d ${d === 6 ? 'today' : ''}"><span class="n">${d}</span>${evs}</div>`;
+}
+put('month', m);
+
+/* search results */
+put('results', [
+  ['Invoice chase','Workflows / Operations','Chases unpaid <mark>invoice</mark>s in Xero and posts a summary to Slack every morning.'],
+  ['Invoice reconciliation','Workflows / Finance','Matches bank lines against open <mark>invoice</mark>s and flags anything unmatched.'],
+  ['<mark>Invoice</mark> template v3','Documents / Finance','The current PDF layout used for every outbound <mark>invoice</mark>.'],
+  ['Run #40128','Runs / Invoice chase','Fetched one <mark>invoice</mark>, matched the contact, posted one message.']
+].map(([t,p,d]) => `<div class="result"><a href="#">${t}</a><div class="path">${p}</div><p>${d}</p></div>`).join(''));
+
+/* onboarding */
+put('check', [
+  [1,'Connect your first tool','Xero is connected.'],
+  [1,'Invite a teammate','R. Kaur accepted.'],
+  [1,'Publish a workflow','Invoice chase is live.'],
+  [0,'Set your failure alerts','Choose who hears about a failed run.'],
+  [0,'Set the weekly summary','Pick a day and a recipient.']
+].map(([done,t,d]) =>
+  `<div class="item ${done ? 'done' : ''}"><span class="tick">${done ? Icons.svg('check','sm') : ''}</span>
+    <div style="flex:1"><b style="font-size:14.5px">${t}</b>
+      <p style="font-size:13.5px;color:var(--text-secondary);margin-top:2px">${d}</p></div>
+    ${done ? '' : '<a class="btn btn--secondary btn--sm" href="#">Do it</a>'}</div>`).join(''));
+
+/* comments */
+put('comments', [
+  ['AW','Alex Wilkerson','2 hr ago','Raised the retry limit to 3. The Drive step keeps timing out on big packs.'],
+  ['JM','J. Moreau','1 hr ago','Makes sense. Worth splitting the pack step so a single failure does not take the run down.'],
+  ['RK','R. Kaur','24 min ago','I can do that today if nobody else has started.']
+].map(([i,n,w,t]) =>
+  `<div class="comment"><span class="avatar sm">${i}</span>
+    <div class="body"><div class="row"><b style="font-size:14px">${n}</b><span class="caption spacer">${w}</span></div>
+      <p style="font-size:14px;margin-top:var(--s6)">${t}</p></div></div>`).join(''));
+</script>
+</body>
+</html>

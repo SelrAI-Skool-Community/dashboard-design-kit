@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Selr AI — Create account</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css">
+<style>
+  body{padding:var(--s32);display:flex;flex-direction:column;min-height:100vh}
+  .shell{max-width:520px;margin:auto;width:100%}
+  .steps{display:flex;align-items:center;gap:var(--s8);margin-bottom:var(--s32)}
+  .steps i{height:4px;flex:1;border-radius:var(--r-full);background:var(--border-primary);display:block}
+  .steps i.on{background:var(--purple-600)}
+  .card h1{font-size:var(--t-sub1);margin-bottom:var(--s8)}
+  .lead{color:var(--text-secondary);margin-bottom:var(--s28)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s12)}
+  .strength{display:flex;gap:var(--s4);margin-top:var(--s8)}
+  .strength i{height:4px;flex:1;border-radius:var(--r-full);background:var(--border-primary)}
+  .strength i.on{background:var(--success)}
+  .terms{font-size:13.5px;color:var(--text-secondary);margin:var(--s16) 0 var(--s24);line-height:1.5}
+  .terms a{color:var(--text-accent);font-weight:600;text-decoration:none}
+  .foot{margin-top:var(--s20);text-align:center;font-size:14px;color:var(--text-secondary)}
+  .foot a{color:var(--text-accent);font-weight:600;text-decoration:none}
+  @media(max-width:560px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="modebar"><button data-mode="light">Light</button><button data-mode="dark">Dark</button></div>
+
+<div class="shell">
+  <div class="row" style="justify-content:center;margin-bottom:var(--s28)">
+    <span class="logo"><span class="mark">S</span>Selr AI</span>
+  </div>
+
+  <div class="card" style="padding:var(--s40)">
+    <div class="steps"><i class="on"></i><i class="on"></i><i></i></div>
+    <h1>Create your account</h1>
+    <p class="lead">Two minutes, then your first automation is live.</p>
+
+    <div class="two">
+      <div class="field"><label for="f">First name</label><input class="input" id="f" placeholder="Alex"></div>
+      <div class="field"><label for="l">Last name</label><input class="input" id="l" placeholder="Wilkerson"></div>
+    </div>
+
+    <div class="field"><label for="e">Work email</label>
+      <div class="input-group">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <input class="input" id="e" type="email" placeholder="you@company.com.au">
+      </div>
+    </div>
+
+    <div class="field"><label for="c">Company</label><input class="input" id="c" placeholder="Company name"></div>
+
+    <div class="field">
+      <label for="p">Password</label>
+      <div class="input-group">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        <input class="input" id="p" type="password" placeholder="At least 10 characters">
+      </div>
+      <div class="strength"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+      <span class="caption">Strong — add a symbol to max it out</span>
+    </div>
+
+    <p class="terms">By creating an account you agree to the <a href="#">Terms of Service</a> and the <a href="#">Privacy Policy</a>.</p>
+
+    <button class="btn btn--primary btn--lg btn--block">Create account
+      <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+
+    <p class="foot">Already have an account? <a href="login.html">Log in</a></p>
+  </div>
+</div>
+
+<script src="mode.js"></script>
+</body>
+</html>
