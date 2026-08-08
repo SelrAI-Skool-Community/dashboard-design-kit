@@ -19,6 +19,14 @@ git clone <this-repo-url> ~/.claude/skills/screen-design-kit
 Then just ask Claude: **"build me a dashboard for my business"** — the skill does
 the rest. You never touch the code unless you want to.
 
+## Set up your brand once (2 minutes, worth it)
+
+Say **"set up my brand"**. Claude asks for your website or Instagram, pulls your
+colours and logo from it (or just asks you), and saves it all to `brand/BRAND.md`.
+From then on every screen comes out in YOUR branding automatically — your colours,
+your logo, light and dark mode. Skip it and screens ship in the kit's default
+purple, which is polished but not yours.
+
 ## See everything first
 
 ```bash

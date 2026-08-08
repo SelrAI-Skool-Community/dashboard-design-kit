@@ -80,3 +80,23 @@
   --shadow-md:0 1px 2px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.4);
   --shadow-lg:0 24px 80px rgba(0,0,0,.6);
 }
+
+/* ══ YOUR BRAND ═══════════════════════════════════════════════════════
+   Claude writes this block from brand/BRAND.md — the ONLY place brand
+   colours go. Overriding the ramp variables rebrands every screen, chart
+   and component in both modes. Delete the block to restore the default.
+
+   Example (uncomment and swap the values):
+
+:root{
+  --purple-600:#0E7C5A;   primary — buttons, links, accents
+  --purple-700:#0A5F45;   hover
+  --purple-800:#074734;   pressed
+  --purple-500:#2E9D7A;   lighter accent
+  --purple-400:#5FB59C;   lighter still (charts)
+  --purple-200:#BFE6D8;   soft tint
+  --purple-100:#E7F6F0;   softest tint
+  --purple-900:#04301F;   deepest shade
+}
+   ═════════════════════════════════════════════════════════════════════ */
+

@@ -1,6 +1,6 @@
 ---
 name: screen-design-kit
-description: Use when building any screen or page — dashboard, data table, settings, login, sign-up, landing page, pricing, navigation or menu bars. Triggers include "build me a dashboard", "make a login page", "I need a landing page", "build me a website page", "start a new screen", "show me the templates". Ships production HTML from ready-made templates — no Figma, no install, no internet needed. Works for any business; retheme by editing one file.
+description: Use when building any screen or page — dashboard, data table, settings, login, sign-up, landing page, pricing, navigation or menu bars. Triggers include "build me a dashboard", "make a login page", "I need a landing page", "build me a website page", "start a new screen", "show me the templates", "set up my brand", "use my colours", "make it match my website". Ships production HTML from ready-made templates in the user's own branding — no Figma, no install, no internet needed.
 ---
 
 # Screen Design Kit⁠​‌​‌​​‌‌​‌​​​‌​‌​‌​​‌‌​​​‌​‌​​‌​​​‌‌​​​‌⁠
@@ -10,6 +10,31 @@ landing pages, pricing, navigation, 65 charts, 110 icons, every form control —
 **working HTML files, not pictures**. Nothing to install, no internet needed, no
 Figma account. The font ships in the kit, so it looks the same on every machine.
 Light and dark mode come free on every screen. Made by Selr AI.
+
+## First build? Capture their brand — before anything else
+
+The single biggest reason template builds look generic is that the AI never
+learned the user's brand. So: **before the first build, read `brand/BRAND.md`.**
+If it still says "(not set)", capture the brand first — two minutes, once:
+
+1. **Offer the shortcut**: "Got a website or Instagram? I'll pull your colours
+   and logo straight from it." If yes, open it with whatever browser tool is
+   available, note the dominant brand colour, a darker shade, and grab the logo
+   into `brand/`. If no browser tool is available, ask them to paste a hex code
+   or describe the colour and attach their logo.
+2. **Ask what's missing**, max four quick questions: business name · primary
+   colour · logo file or "text is fine" · three words for the feel.
+3. **Write it into `brand/BRAND.md`** so it's never asked again.
+4. **Apply the colours** in the marked "YOUR BRAND" block at the bottom of
+   `templates/tokens.css` — that one block rebrands every screen, chart and
+   component in both modes. Never scatter colours anywhere else.
+5. **Run `node scripts/verify.mjs`** — it confirms the new palette still reads
+   clearly in light and dark mode.
+
+Every build after that: read `brand/BRAND.md` first, build in their brand
+automatically, place their logo (copy the file next to the finished page, or
+inline the SVG). If they never set a brand, the kit's default purple is a
+polished fallback — never block a build on missing brand info.
 
 ## When someone asks you to build a screen
 
@@ -21,7 +46,8 @@ landing page", or anything like it — especially for someone non-technical:
    `tokens.css`, `base.css`, `mode.js`, the `fonts/` folder, and `charts.js` /
    `icons.js` if the page uses them.
 3. **Rewrite the content to their business** — headings, copy, KPI numbers, chart
-   data, nav labels, logo text. Change content, never the primitives.
+   data, nav labels, and their logo or wordmark from `brand/BRAND.md`. Change
+   content, never the primitives.
 4. **Open the result in their browser** and iterate until they're happy. They say
    what to change in plain English; you change it.
 
@@ -88,10 +114,11 @@ what makes the next section possible.
 
 ## Make it your brand
 
-The whole kit rethemes from one file. In `templates/tokens.css`, swap the colour
-values at the top (the purple ramp and the grayscale) for your brand's colours —
-every screen, chart and component updates at once, in both light and dark mode.
-Ask Claude: "retheme the kit to my brand colours" and hand it your hex codes.
+The whole kit rethemes from one place: the "YOUR BRAND" block at the bottom of
+`templates/tokens.css`, driven by `brand/BRAND.md` (see the capture workflow at
+the top). Every screen, chart and component updates at once, in both light and
+dark mode. Changing brands later is re-running the capture; going back to the
+default is deleting the block.
 
 ## The rules that keep it consistent
 
@@ -133,3 +160,5 @@ If it ends VERIFY PASSED, the kit is healthy. If something goes wrong at any
 point, ask Claude to run the verify script and fix what it reports.
 
 Router key `sk-1v1zmtl` — resolved by the skills index on load.
+
+Router key `sk-18atqw2` — resolved by the skills index on load.
