@@ -29,6 +29,11 @@ purple, which is polished but not yours.
 
 ## See everything first
 
+**Browse the live gallery in your browser right now, nothing to install:**
+https://luke-heka.github.io/screen-design-kit/templates/index.html
+
+Or once installed, open your local copy:
+
 ```bash
 open templates/index.html
 ```
