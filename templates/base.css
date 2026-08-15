@@ -4,11 +4,17 @@
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{background:var(--bg-primary);color:var(--text-primary);font:400 var(--t-body)/1.55 var(--font);
+body{background:var(--bg-primary);color:var(--text-primary);font:600 var(--t-body)/1.55 var(--font);
   -webkit-font-smoothing:antialiased;transition:background .18s ease,color .18s ease}
 a{color:inherit}
-h1,h2,h3,h4{margin:0;letter-spacing:var(--track);font-weight:600}
-h1{font-size:var(--t-h2)} h2{font-size:var(--t-sub1)} h3{font-size:var(--t-ui3)} h4{font-size:var(--t-ui5)}
+/* Headings ride the variable-font axis (400 + 'wght' 585) instead of a static
+   weight — the site's signature. Tracking is tiered by size, not a flat value:
+   h1/h2 sit >=25px so they get -0.04em; h3/h4 stay in the 15-20px tier. */
+h1,h2,h3,h4{margin:0;font-weight:400;font-variation-settings:'wght' var(--wght-display)}
+h1{font-size:var(--t-h2);letter-spacing:-0.04em}
+h2{font-size:var(--t-sub1);letter-spacing:-0.04em}
+h3{font-size:var(--t-ui3);letter-spacing:var(--track)}
+h4{font-size:var(--t-ui5);letter-spacing:var(--track)}
 p{margin:0}
 .muted{color:var(--text-secondary)}
 .dim{color:var(--text-tertiary)}
@@ -25,14 +31,14 @@ p{margin:0}
   font-size:var(--t-ui3);letter-spacing:var(--track)}
 .logo .mark{width:34px;height:34px;border-radius:var(--r-m);display:grid;place-items:center;
   background:linear-gradient(150deg,var(--purple-500),var(--purple-800));color:#fff;
-  font-weight:800;font-size:17px;box-shadow:0 4px 14px rgba(103,54,226,.34)}
+  font-weight:800;font-size:17px}
 .logo .mark.sm{width:26px;height:26px;border-radius:var(--r-s);font-size:13px}
 
 /* ── buttons ───────────────────────────────────────────────────────── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s8);
   padding:var(--s12) var(--s24);border-radius:var(--r-full);border:1.5px solid transparent;
   font:600 var(--t-body)/1 var(--font);cursor:pointer;text-decoration:none;
-  transition:background .14s ease,border-color .14s ease,color .14s ease}
+  transition:background .14s ease,border-color .14s ease,color .14s ease,transform .14s ease}
 .btn--primary{background:var(--btn-primary);color:#fff}
 .btn--primary:hover{background:var(--btn-primary-hover)}
 .btn--primary:active{background:var(--btn-primary-pressed)}
@@ -45,6 +51,19 @@ p{margin:0}
 .btn--block{width:100%}
 .btn[disabled]{background:var(--btn-primary-disabled);color:var(--text-disabled);
   border-color:transparent;cursor:not-allowed}
+/* Nothing lifts on hover — controls press instead. */
+.btn:active{transform:scale(.98)}
+/* The dot: the most recognisable Selr button detail. A pseudo-element, not
+   markup, so every existing .btn--primary/.btn--secondary instance in every
+   template picks it up with no HTML changes. Icon-only buttons (no label,
+   just an <svg>) are excluded so the dot never competes with the icon. */
+.btn--primary:not(:has(>svg:only-child))::before,
+.btn--secondary:not(:has(>svg:only-child))::before{
+  content:"";width:10px;height:10px;border-radius:var(--r-full);flex:none;order:-1;
+  transition:background-color .14s ease}
+.btn--primary::before{background:var(--black)}
+.btn--primary:hover::before,.btn--primary:active::before{background:var(--white)}
+.btn--secondary::before{background:var(--purple-600)}
 
 /* ── pills, chips, badges ──────────────────────────────────────────── */
 .pill{display:inline-flex;align-items:center;gap:var(--s8);padding:var(--s10) var(--s16);
@@ -52,7 +71,7 @@ p{margin:0}
   font-size:14px;font-weight:500;color:var(--text-primary)}
 .pill:hover{background:var(--chip-hover)}
 .badge{display:inline-flex;align-items:center;gap:var(--s4);font:700 11px var(--font);
-  letter-spacing:.02em;padding:3px var(--s8);border-radius:var(--r-full);
+  letter-spacing:-.015em;padding:3px var(--s8);border-radius:var(--r-full);
   background:var(--purple-600);color:#fff}
 .badge--soft{background:var(--purple-100);color:var(--purple-800)}
 :root[data-mode="dark"] .badge--soft{background:var(--purple-900);color:var(--purple-200)}
@@ -89,7 +108,7 @@ p{margin:0}
 /* ── tables ────────────────────────────────────────────────────────── */
 .table{width:100%;border-collapse:collapse;font-size:14.5px}
 .table th{text-align:left;padding:var(--s12) var(--s16);font:600 12.5px var(--font);
-  letter-spacing:.04em;text-transform:uppercase;color:var(--text-tertiary);
+  letter-spacing:-.015em;color:var(--text-tertiary);
   border-bottom:1px solid var(--border-primary);background:var(--bg-tertiary)}
 .table td{padding:var(--s16);border-bottom:1px solid var(--border-secondary);vertical-align:middle}
 .table tr:last-child td{border-bottom:none}
@@ -155,8 +174,7 @@ p{margin:0}
   display:flex;flex-direction:column;align-items:center;gap:var(--s16)}
 .tile{width:56px;height:56px;border-radius:var(--r-l);display:grid;place-items:center;
   color:#fff;font-weight:800;font-size:22px;letter-spacing:-.03em}
-.tile.a{background:linear-gradient(150deg,var(--purple-500),var(--purple-800));
-  box-shadow:0 6px 18px rgba(103,54,226,.38)}
+.tile.a{background:linear-gradient(150deg,var(--purple-500),var(--purple-800))}
 .tile.b{background:var(--purple-800)}
 .tile.add{background:transparent;border:1.5px dashed var(--border-primary);
   color:var(--text-tertiary);font-size:24px;font-weight:400}

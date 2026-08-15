@@ -7,22 +7,22 @@ const RAMPS = {
   "Purple/100": "#F2EDFF",
   "Purple/200": "#D5C4FF",
   "Purple/400": "#9B73FF",
-  "Purple/500": "#7E4BFF",
+  "Purple/500": "#8155F0",
   "Purple/600": "#6736E2",
   "Purple/700": "#5024C0",
   "Purple/800": "#3C159E",
   "Purple/900": "#230670",
-  "Gray/Cloud": "#EDEFF7",
-  "Gray/Smoke": "#D3D6E0",
-  "Gray/Steel": "#BCBFCC",
-  "Gray/Space": "#9DA2B3",
-  "Gray/Graphite": "#6E7180",
-  "Gray/Arsenic": "#40424D",
+  "Gray/Cloud": "#F7F5EF",
+  "Gray/Smoke": "#E3E3E3",
+  "Gray/Steel": "#C7C7C2",
+  "Gray/Space": "#A8A59D",
+  "Gray/Graphite": "#6E6A62",
+  "Gray/Arsenic": "#616161",
   "Gray/Phantom": "#1E1E24",
-  "Gray/Black": "#0A0A0A",
+  "Gray/Black": "#242424",
   "Gray/True": "#000000",
-  "Neutral/100": "#F8F8F8",
-  "Neutral/200": "#EDEDED",
+  "Neutral/100": "#FCFCFA",
+  "Neutral/200": "#F0EEE6",
   "Neutral/400": "#ABABAB",
   "Success/base": "#26B759",
   "Success/mid": "#B5FFCF",
@@ -33,8 +33,8 @@ const RAMPS = {
   "Danger/base": "#FF1B1B",
   "Danger/mid": "#FF8A8A",
   "Danger/tint": "#FFE0E0",
-  "White": "#FFFFFF",
-  "Black": "#0A0A0A"
+  "White": "#FFFFFA",
+  "Black": "#242424"
 };
 const SEMANTIC = {
   "Background/Surface/primary": [
@@ -70,8 +70,8 @@ const SEMANTIC = {
     "Purple/700"
   ],
   "Background/Button/primary-pressed": [
-    "Purple/800",
-    "Purple/800"
+    "Purple/700",
+    "Purple/700"
   ],
   "Background/Button/primary-disabled": [
     "Neutral/200",
@@ -208,17 +208,17 @@ const SEMANTIC = {
 };
 const SPACING = [0,2,4,6,8,10,12,16,20,24,28,32,40,48,56];
 const RADIUS = {
-  "3XS": 2,
-  "2XS": 4,
-  "XS": 6,
-  "S": 8,
-  "M": 12,
-  "L": 16,
+  "3XS": 20,
+  "2XS": 20,
+  "XS": 20,
+  "S": 20,
+  "M": 20,
+  "L": 30,
   "XL": 20,
-  "2XL": 24,
-  "3XL": 32,
+  "2XL": 30,
+  "3XL": 40,
   "4XL": 40,
-  "Full": 360
+  "Full": 999
 };
 const COLOR_SCOPES = ['FRAME_FILL','SHAPE_FILL','TEXT_FILL','STROKE_COLOR'];
 const rgb = h => ({ r: parseInt(h.slice(1,3),16)/255, g: parseInt(h.slice(3,5),16)/255, b: parseInt(h.slice(5,7),16)/255 });

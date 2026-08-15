@@ -9,24 +9,25 @@
   .wrap{max-width:1240px;margin:0 auto}
   header{border-bottom:1px solid var(--border-primary);padding-bottom:var(--s28);margin-bottom:var(--s24)}
   header h1{font-size:var(--t-h2);margin:var(--s12) 0 var(--s10)}
-  .eyebrow{font:700 12px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--text-accent)}
+  .eyebrow{font:700 12px var(--font);letter-spacing:-.015em;color:var(--text-accent)}
   .lead{color:var(--text-secondary);max-width:66ch;font-size:var(--t-p2)}
-  h2.sec{font:700 12px var(--font);letter-spacing:.13em;text-transform:uppercase;
+  h2.sec{font:700 12px var(--font);letter-spacing:-.015em;
     color:var(--text-tertiary);margin:var(--s40) 0 var(--s12)}
   .about{color:var(--text-secondary);font-size:14px;margin-bottom:var(--s16);max-width:70ch}
   .stage{position:relative;border:1px solid var(--border-primary);border-radius:var(--r-l);
     background:var(--bg-primary);min-height:340px;overflow:hidden;display:grid;place-items:center;padding:var(--s24)}
   .scrim{position:absolute;inset:0;background:rgba(10,10,18,.45);backdrop-filter:blur(2px)}
   .modal{position:relative;width:min(460px,100%);background:var(--bg-secondary);border-radius:var(--r-xl);
-    box-shadow:var(--shadow-lg);padding:var(--s28)}
+    border:1px solid rgba(227,227,227,.45);box-shadow:var(--shadow-lg);padding:var(--s28)}
   .modal h3{font-size:var(--t-ui3)}
   .modal .x{position:absolute;top:var(--s16);right:var(--s16);color:var(--text-tertiary);cursor:pointer}
   .modal .acts{display:flex;gap:var(--s12);justify-content:flex-end;margin-top:var(--s24)}
   .ic-round{width:48px;height:48px;border-radius:var(--r-full);display:grid;place-items:center;margin-bottom:var(--s16)}
   .drawer-stage{display:block;padding:0}
   .drawer{position:absolute;top:0;right:0;bottom:0;width:min(400px,80%);background:var(--bg-secondary);
-    box-shadow:var(--shadow-lg);padding:var(--s24);display:flex;flex-direction:column}
+    border-left:1px solid rgba(227,227,227,.45);box-shadow:var(--shadow-lg);padding:var(--s24);display:flex;flex-direction:column}
   .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--bg-secondary);
+    border-top:1px solid rgba(227,227,227,.45);
     border-radius:var(--r-2xl) var(--r-2xl) 0 0;box-shadow:var(--shadow-lg);padding:var(--s24)}
   .sheet .handle{width:44px;height:5px;border-radius:var(--r-full);background:var(--border-primary);margin:0 auto var(--s16)}
   .toasts{position:absolute;right:var(--s20);bottom:var(--s20);display:flex;flex-direction:column;

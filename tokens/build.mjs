@@ -71,7 +71,7 @@ dtcg.radius = {};
 for (const [k, v] of Object.entries(RADIUS)) dtcg.radius[k] = { $type: 'dimension', $value: `${v}px` };
 
 dtcg.typography = {};
-const WEIGHT = { semibold: 600, medium: 500, regular: 400 };
+const WEIGHT = { display: 585, semibold: 600, medium: 500, regular: 400 };
 for (const [name, size, role, track] of TYPE)
   nest(dtcg.typography, name, {
     $type: 'typography',

@@ -31,7 +31,7 @@
           "name": "Purple/500",
           "type": "COLOR",
           "values": {
-            "Main": "#7E4BFF"
+            "Main": "#8155F0"
           }
         },
         {
@@ -66,42 +66,42 @@
           "name": "Gray/Cloud",
           "type": "COLOR",
           "values": {
-            "Main": "#EDEFF7"
+            "Main": "#F7F5EF"
           }
         },
         {
           "name": "Gray/Smoke",
           "type": "COLOR",
           "values": {
-            "Main": "#D3D6E0"
+            "Main": "#E3E3E3"
           }
         },
         {
           "name": "Gray/Steel",
           "type": "COLOR",
           "values": {
-            "Main": "#BCBFCC"
+            "Main": "#C7C7C2"
           }
         },
         {
           "name": "Gray/Space",
           "type": "COLOR",
           "values": {
-            "Main": "#9DA2B3"
+            "Main": "#A8A59D"
           }
         },
         {
           "name": "Gray/Graphite",
           "type": "COLOR",
           "values": {
-            "Main": "#6E7180"
+            "Main": "#6E6A62"
           }
         },
         {
           "name": "Gray/Arsenic",
           "type": "COLOR",
           "values": {
-            "Main": "#40424D"
+            "Main": "#616161"
           }
         },
         {
@@ -115,7 +115,7 @@
           "name": "Gray/Black",
           "type": "COLOR",
           "values": {
-            "Main": "#0A0A0A"
+            "Main": "#242424"
           }
         },
         {
@@ -129,14 +129,14 @@
           "name": "Neutral/100",
           "type": "COLOR",
           "values": {
-            "Main": "#F8F8F8"
+            "Main": "#FCFCFA"
           }
         },
         {
           "name": "Neutral/200",
           "type": "COLOR",
           "values": {
-            "Main": "#EDEDED"
+            "Main": "#F0EEE6"
           }
         },
         {
@@ -213,14 +213,14 @@
           "name": "White",
           "type": "COLOR",
           "values": {
-            "Main": "#FFFFFF"
+            "Main": "#FFFFFA"
           }
         },
         {
           "name": "Black",
           "type": "COLOR",
           "values": {
-            "Main": "#0A0A0A"
+            "Main": "#242424"
           }
         }
       ]
@@ -238,11 +238,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Cloud",
-              "resolved": "#EDEFF7"
+              "resolved": "#F7F5EF"
             },
             "Dark Mode": {
               "alias": "Gray/Black",
-              "resolved": "#0A0A0A"
+              "resolved": "#242424"
             }
           }
         },
@@ -252,7 +252,7 @@
           "values": {
             "Light Mode": {
               "alias": "White",
-              "resolved": "#FFFFFF"
+              "resolved": "#FFFFFA"
             },
             "Dark Mode": {
               "alias": "Gray/Phantom",
@@ -266,11 +266,11 @@
           "values": {
             "Light Mode": {
               "alias": "Neutral/100",
-              "resolved": "#F8F8F8"
+              "resolved": "#FCFCFA"
             },
             "Dark Mode": {
               "alias": "Gray/Arsenic",
-              "resolved": "#40424D"
+              "resolved": "#616161"
             }
           }
         },
@@ -280,11 +280,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Black",
-              "resolved": "#0A0A0A"
+              "resolved": "#242424"
             },
             "Dark Mode": {
               "alias": "White",
-              "resolved": "#FFFFFF"
+              "resolved": "#FFFFFA"
             }
           }
         },
@@ -298,7 +298,7 @@
             },
             "Dark Mode": {
               "alias": "Purple/500",
-              "resolved": "#7E4BFF"
+              "resolved": "#8155F0"
             }
           }
         },
@@ -349,12 +349,12 @@
           "type": "COLOR",
           "values": {
             "Light Mode": {
-              "alias": "Purple/800",
-              "resolved": "#3C159E"
+              "alias": "Purple/700",
+              "resolved": "#5024C0"
             },
             "Dark Mode": {
-              "alias": "Purple/800",
-              "resolved": "#3C159E"
+              "alias": "Purple/700",
+              "resolved": "#5024C0"
             }
           }
         },
@@ -364,11 +364,11 @@
           "values": {
             "Light Mode": {
               "alias": "Neutral/200",
-              "resolved": "#EDEDED"
+              "resolved": "#F0EEE6"
             },
             "Dark Mode": {
               "alias": "Gray/Arsenic",
-              "resolved": "#40424D"
+              "resolved": "#616161"
             }
           }
         },
@@ -378,7 +378,7 @@
           "values": {
             "Light Mode": {
               "alias": "White",
-              "resolved": "#FFFFFF"
+              "resolved": "#FFFFFA"
             },
             "Dark Mode": {
               "alias": "Gray/Phantom",
@@ -420,11 +420,11 @@
           "values": {
             "Light Mode": {
               "alias": "Neutral/200",
-              "resolved": "#EDEDED"
+              "resolved": "#F0EEE6"
             },
             "Dark Mode": {
               "alias": "Gray/Arsenic",
-              "resolved": "#40424D"
+              "resolved": "#616161"
             }
           }
         },
@@ -434,7 +434,7 @@
           "values": {
             "Light Mode": {
               "alias": "White",
-              "resolved": "#FFFFFF"
+              "resolved": "#FFFFFA"
             },
             "Dark Mode": {
               "alias": "Gray/Phantom",
@@ -448,11 +448,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Cloud",
-              "resolved": "#EDEFF7"
+              "resolved": "#F7F5EF"
             },
             "Dark Mode": {
               "alias": "Gray/Arsenic",
-              "resolved": "#40424D"
+              "resolved": "#616161"
             }
           }
         },
@@ -462,11 +462,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Smoke",
-              "resolved": "#D3D6E0"
+              "resolved": "#E3E3E3"
             },
             "Dark Mode": {
               "alias": "Gray/Graphite",
-              "resolved": "#6E7180"
+              "resolved": "#6E6A62"
             }
           }
         },
@@ -476,11 +476,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Black",
-              "resolved": "#0A0A0A"
+              "resolved": "#242424"
             },
             "Dark Mode": {
               "alias": "White",
-              "resolved": "#FFFFFF"
+              "resolved": "#FFFFFA"
             }
           }
         },
@@ -504,11 +504,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Black",
-              "resolved": "#0A0A0A"
+              "resolved": "#242424"
             },
             "Dark Mode": {
               "alias": "White",
-              "resolved": "#FFFFFF"
+              "resolved": "#FFFFFA"
             }
           }
         },
@@ -518,7 +518,7 @@
           "values": {
             "Light Mode": {
               "alias": "White",
-              "resolved": "#FFFFFF"
+              "resolved": "#FFFFFA"
             },
             "Dark Mode": {
               "alias": "Gray/Phantom",
@@ -532,11 +532,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Black",
-              "resolved": "#0A0A0A"
+              "resolved": "#242424"
             },
             "Dark Mode": {
               "alias": "White",
-              "resolved": "#FFFFFF"
+              "resolved": "#FFFFFA"
             }
           }
         },
@@ -546,11 +546,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Arsenic",
-              "resolved": "#40424D"
+              "resolved": "#616161"
             },
             "Dark Mode": {
               "alias": "Gray/Steel",
-              "resolved": "#BCBFCC"
+              "resolved": "#C7C7C2"
             }
           }
         },
@@ -560,11 +560,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Graphite",
-              "resolved": "#6E7180"
+              "resolved": "#6E6A62"
             },
             "Dark Mode": {
               "alias": "Gray/Space",
-              "resolved": "#9DA2B3"
+              "resolved": "#A8A59D"
             }
           }
         },
@@ -574,11 +574,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Steel",
-              "resolved": "#BCBFCC"
+              "resolved": "#C7C7C2"
             },
             "Dark Mode": {
               "alias": "Gray/Graphite",
-              "resolved": "#6E7180"
+              "resolved": "#6E6A62"
             }
           }
         },
@@ -602,11 +602,11 @@
           "values": {
             "Light Mode": {
               "alias": "White",
-              "resolved": "#FFFFFF"
+              "resolved": "#FFFFFA"
             },
             "Dark Mode": {
               "alias": "Gray/Black",
-              "resolved": "#0A0A0A"
+              "resolved": "#242424"
             }
           }
         },
@@ -616,11 +616,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Smoke",
-              "resolved": "#D3D6E0"
+              "resolved": "#E3E3E3"
             },
             "Dark Mode": {
               "alias": "Gray/Graphite",
-              "resolved": "#6E7180"
+              "resolved": "#6E6A62"
             }
           }
         },
@@ -630,11 +630,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Smoke",
-              "resolved": "#D3D6E0"
+              "resolved": "#E3E3E3"
             },
             "Dark Mode": {
               "alias": "Gray/Arsenic",
-              "resolved": "#40424D"
+              "resolved": "#616161"
             }
           }
         },
@@ -644,7 +644,7 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Cloud",
-              "resolved": "#EDEFF7"
+              "resolved": "#F7F5EF"
             },
             "Dark Mode": {
               "alias": "Gray/Phantom",
@@ -658,11 +658,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Steel",
-              "resolved": "#BCBFCC"
+              "resolved": "#C7C7C2"
             },
             "Dark Mode": {
               "alias": "Gray/Graphite",
-              "resolved": "#6E7180"
+              "resolved": "#6E6A62"
             }
           }
         },
@@ -704,7 +704,7 @@
             },
             "Dark Mode": {
               "alias": "Purple/500",
-              "resolved": "#7E4BFF"
+              "resolved": "#8155F0"
             }
           }
         },
@@ -784,11 +784,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Space",
-              "resolved": "#9DA2B3"
+              "resolved": "#A8A59D"
             },
             "Dark Mode": {
               "alias": "Gray/Graphite",
-              "resolved": "#6E7180"
+              "resolved": "#6E6A62"
             }
           }
         },
@@ -798,11 +798,11 @@
           "values": {
             "Light Mode": {
               "alias": "Gray/Cloud",
-              "resolved": "#EDEFF7"
+              "resolved": "#F7F5EF"
             },
             "Dark Mode": {
               "alias": "Gray/Arsenic",
-              "resolved": "#40424D"
+              "resolved": "#616161"
             }
           }
         },
@@ -945,42 +945,42 @@
           "name": "3XS",
           "type": "FLOAT",
           "values": {
-            "Value": 2
+            "Value": 20
           }
         },
         {
           "name": "2XS",
           "type": "FLOAT",
           "values": {
-            "Value": 4
+            "Value": 20
           }
         },
         {
           "name": "XS",
           "type": "FLOAT",
           "values": {
-            "Value": 6
+            "Value": 20
           }
         },
         {
           "name": "S",
           "type": "FLOAT",
           "values": {
-            "Value": 8
+            "Value": 20
           }
         },
         {
           "name": "M",
           "type": "FLOAT",
           "values": {
-            "Value": 12
+            "Value": 20
           }
         },
         {
           "name": "L",
           "type": "FLOAT",
           "values": {
-            "Value": 16
+            "Value": 30
           }
         },
         {
@@ -994,14 +994,14 @@
           "name": "2XL",
           "type": "FLOAT",
           "values": {
-            "Value": 24
+            "Value": 30
           }
         },
         {
           "name": "3XL",
           "type": "FLOAT",
           "values": {
-            "Value": 32
+            "Value": 40
           }
         },
         {
@@ -1015,7 +1015,7 @@
           "name": "Full",
           "type": "FLOAT",
           "values": {
-            "Value": 360
+            "Value": 999
           }
         }
       ]
@@ -1025,114 +1025,114 @@
     {
       "name": "Marketing/Heading 1",
       "family": "Manrope",
-      "weight": "semibold",
+      "weight": "display",
       "size": 64,
-      "letterSpacingEm": -0.02
+      "letterSpacingEm": -0.04
     },
     {
       "name": "Marketing/Heading 2",
       "family": "Manrope",
-      "weight": "semibold",
+      "weight": "display",
       "size": 48,
-      "letterSpacingEm": -0.02
+      "letterSpacingEm": -0.04
     },
     {
       "name": "Marketing/Subheader 1",
       "family": "Manrope",
-      "weight": "semibold",
+      "weight": "display",
       "size": 32,
-      "letterSpacingEm": -0.02
+      "letterSpacingEm": -0.04
     },
     {
       "name": "Marketing/Subheader 2",
       "family": "Manrope",
-      "weight": "semibold",
+      "weight": "display",
       "size": 24,
-      "letterSpacingEm": -0.02
+      "letterSpacingEm": -0.04
     },
     {
       "name": "Marketing/Paragraph 1",
       "family": "Manrope",
       "weight": "regular",
       "size": 18,
-      "letterSpacingEm": 0
+      "letterSpacingEm": -0.03
     },
     {
       "name": "Marketing/Paragraph 2",
       "family": "Manrope",
       "weight": "regular",
       "size": 16,
-      "letterSpacingEm": 0
+      "letterSpacingEm": -0.03
     },
     {
       "name": "UI/Header 1",
       "family": "Manrope",
-      "weight": "semibold",
+      "weight": "display",
       "size": 32,
-      "letterSpacingEm": 0
+      "letterSpacingEm": -0.04
     },
     {
       "name": "UI/Header 2",
       "family": "Manrope",
-      "weight": "semibold",
+      "weight": "display",
       "size": 24,
-      "letterSpacingEm": 0
+      "letterSpacingEm": -0.04
     },
     {
       "name": "UI/Header 3",
       "family": "Manrope",
       "weight": "semibold",
       "size": 20,
-      "letterSpacingEm": 0
+      "letterSpacingEm": -0.03
     },
     {
       "name": "UI/Header 4",
       "family": "Manrope",
       "weight": "semibold",
       "size": 17,
-      "letterSpacingEm": 0
+      "letterSpacingEm": -0.03
     },
     {
       "name": "UI/Header 5",
       "family": "Manrope",
       "weight": "semibold",
       "size": 15,
-      "letterSpacingEm": 0
+      "letterSpacingEm": -0.03
     },
     {
       "name": "UI/Title 1",
       "family": "Manrope",
       "weight": "medium",
       "size": 20,
-      "letterSpacingEm": 0
+      "letterSpacingEm": -0.03
     },
     {
       "name": "UI/Title 2",
       "family": "Manrope",
       "weight": "medium",
       "size": 18,
-      "letterSpacingEm": 0
+      "letterSpacingEm": -0.03
     },
     {
       "name": "UI/Title 3",
       "family": "Manrope",
       "weight": "medium",
       "size": 15,
-      "letterSpacingEm": 0
+      "letterSpacingEm": -0.03
     },
     {
       "name": "UI/Body",
       "family": "Manrope",
       "weight": "regular",
       "size": 15,
-      "letterSpacingEm": 0
+      "letterSpacingEm": -0.03
     },
     {
       "name": "UI/Caption",
       "family": "Manrope",
       "weight": "medium",
       "size": 12,
-      "letterSpacingEm": 0
+      "letterSpacingEm": -0.015
     }
   ]
 }

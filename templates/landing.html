@@ -25,7 +25,7 @@
   .logos{display:flex;gap:var(--s40);align-items:center;justify-content:center;flex-wrap:wrap;
     padding:var(--s32) 0;border-bottom:1px solid var(--border-secondary)}
   .logos span{font-weight:700;font-size:19px;color:var(--text-tertiary);letter-spacing:var(--track)}
-  .eyebrow{font:700 12px var(--font);letter-spacing:.13em;text-transform:uppercase;color:var(--text-accent)}
+  .eyebrow{font:700 12px var(--font);letter-spacing:-.015em;color:var(--text-accent)}
   h2.big{font-size:var(--t-sub1);margin:var(--s12) 0 var(--s12);max-width:20ch}
   .sublead{color:var(--text-secondary);max-width:56ch}
   .feature{padding:var(--s28);border:1px solid var(--border-primary);border-radius:var(--r-l);
@@ -36,15 +36,16 @@
   .feature h3{font-size:var(--t-ui4);margin-bottom:var(--s8)}
   .feature p{color:var(--text-secondary);font-size:14.5px}
   .metrics{background:var(--bg-primary);border-radius:var(--r-2xl);padding:var(--s40)}
-  .metric b{display:block;font-size:var(--t-h2);font-weight:600;letter-spacing:var(--track);line-height:1}
+  .metric b{display:block;font-size:var(--t-h2);font-weight:400;font-variation-settings:'wght' var(--wght-display);letter-spacing:-.04em;line-height:1}
   .metric span{display:block;margin-top:var(--s8);color:var(--text-secondary);font-size:14.5px}
   .quote{font-size:var(--t-sub2);line-height:1.4;letter-spacing:var(--track);max-width:34ch}
   .band{background:linear-gradient(150deg,var(--purple-700),var(--purple-900));color:#fff;
     border-radius:var(--r-2xl);padding:var(--s48);position:relative;overflow:hidden;text-align:center}
   .band h2{font-size:var(--t-sub1);max-width:20ch;margin:0 auto}
   .band p{color:rgba(255,255,255,.72);margin:var(--s12) auto var(--s28);max-width:44ch}
-  .band .ghost{position:absolute;left:-60px;bottom:-180px;font-size:400px;font-weight:800;
-    color:rgba(255,255,255,.06);line-height:.8;letter-spacing:-.06em;pointer-events:none}
+  .band .ghost{position:absolute;left:-60px;bottom:-180px;font-size:400px;font-weight:400;
+    font-variation-settings:'wght' var(--wght-display-xl);
+    color:rgba(255,255,255,.06);line-height:.8;letter-spacing:-.04em;pointer-events:none}
   footer{border-top:1px solid var(--border-secondary);padding:var(--s40) 0;color:var(--text-secondary);font-size:14px}
   @media(max-width:900px){.heroGrid{grid-template-columns:1fr}.hero h1{font-size:var(--t-sub1)}}
 </style>
