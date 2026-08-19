@@ -36,6 +36,60 @@ automatically, place their logo (copy the file next to the finished page, or
 inline the SVG). If they never set a brand, the kit's default purple is a
 polished fallback — never block a build on missing brand info.
 
+## "Build me my dashboard" — start here, not with a single screen
+
+When someone asks for **their dashboard** (not one page — the whole thing), do
+not pick a template and hand back one screen. Build them the app:
+
+```bash
+node app/scan-kit.mjs     # looks at what they have actually connected
+node app/build.mjs        # writes 15 pages shaped around it
+open app/index.html
+```
+
+That is the entire flow. Two commands, and they have a working multi-page
+dashboard in their own brand with a left nav where every item goes somewhere.
+
+**What the scan does.** Reads the MCP servers in `~/.claude.json` and the Claude
+desktop config, probes `gh` / `vercel` / `stripe` for a live login, and lists the
+`*-connector` skills sitting in `~/.claude/skills`. Names only — never a token, a
+key, an email or a path, because the result gets deployed to a public URL.
+
+**Why that distinction matters.** Every connector skill ships with the workshop
+kit, so *everybody* has all 54 from day one. Having the skill proves nothing.
+Only a live MCP server or a real CLI login proves a connection, and that is what
+decides whether a page says "ready to build" or "connect one tool first".
+
+**What gets built.** Five pages are real immediately — Home, Connectors, Skills
+and kits, Brand, Settings — because they describe the attendee's own machine and
+need nothing connected. The other ten are designed placeholders in one of three
+tiers, each carrying the exact prompt that builds it:
+
+| Tier | When | What it says |
+|---|---|---|
+| Ready to build | they have a tool for it connected | names the tools, hands over a prompt that pulls real data |
+| Connect one tool first | the connector is in their kit, not connected | hands over the prompt that connects it |
+| Your idea goes here | nothing in the kit covers it | hands over a starting prompt |
+
+**Building one of those pages later.** They paste the page's own prompt. Copy the
+closest template out of `templates/`, keep `app/`'s nav and shell exactly as they
+are, and write the finished page over the placeholder. Never restyle the shell
+for one page — every page shares it.
+
+**After they connect anything new**, re-run both commands. Pages that just became
+possible light up green in the nav on their own.
+
+**It deploys as-is** — `cd app && vercel deploy --prod`. Plain HTML, no build
+step, no framework.
+
+### Never ship the gallery frame into the app
+
+`templates/` pages are gallery cards: they wear a `.window` frame, a 30px radius,
+fake macOS traffic-light dots and a Light/Dark toggle so a screen can be compared
+side by side. **None of that belongs in `app/`.** A production dashboard is full
+bleed, sets `data-mode` on `<html>`, and has no floating toggle. `scripts/verify.mjs`
+enforces both rules and will fail an app page that carries preview chrome.
+
 ## When someone asks you to build a screen
 
 This is the whole workflow. Follow it for "build me a dashboard", "make me a

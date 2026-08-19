@@ -15,6 +15,7 @@ import { RAMPS, SEMANTIC, SPACING, RADIUS } from '../tokens/source.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const TPL = join(ROOT, 'templates');
+const APP = join(ROOT, 'app');
 const QUIET = process.argv.includes('--quiet');
 
 let failures = 0, checks = 0;
@@ -25,6 +26,17 @@ const group = t => { if (!QUIET) console.log('\n' + t); };
 const html = readdirSync(TPL).filter(f => f.endsWith('.html'));
 const js = readdirSync(TPL).filter(f => f.endsWith('.js'));
 const read = f => readFileSync(join(TPL, f), 'utf8');
+
+// templates/ is the gallery — preview frames, fake window chrome, a dev mode switch.
+// app/ is the production dashboard an attendee deploys; the same token system, but
+// none of the gallery furniture. Every page rule branches on the kind.
+const kindOf = p => p.startsWith(APP) ? 'app' : 'gallery';
+const appHtml = existsSync(APP) ? readdirSync(APP).filter(f => f.endsWith('.html')) : [];
+const pages = [
+  ...html.map(f => ({ file: f, dir: TPL, label: f })),
+  ...appHtml.map(f => ({ file: f, dir: APP, label: 'app/' + f }))
+].map(p => ({ ...p, path: join(p.dir, p.file), kind: kindOf(join(p.dir, p.file)) }));
+const readPage = p => readFileSync(p.path, 'utf8');
 
 /* ── 1. tokens are the single source of truth ────────────────────────── */
 group('Tokens');
@@ -107,47 +119,72 @@ for (const p of wrapped) {
 
 /* ── 3. every page is wired to the system ────────────────────────────── */
 group('Pages wired to the system');
-for (const f of html) {
-  const s = read(f);
+for (const p of pages) {
+  const s = readPage(p);
   const miss = [];
   if (!/^<!doctype html>/i.test(s.trim())) miss.push('doctype');
   if (!s.includes('tokens.css')) miss.push('tokens.css');
   if (!s.includes('base.css')) miss.push('base.css');
   if (!s.includes('data-mode=')) miss.push('data-mode on <html>');
-  if (!s.includes('class="modebar"')) miss.push('mode switch');
+  if (p.kind === 'gallery' && !s.includes('class="modebar"')) miss.push('mode switch');
   if (!s.includes('mode.js')) miss.push('mode.js');
   if (!/<title>/.test(s)) miss.push('<title>');
-  miss.length ? bad(`${f} — missing ${miss.join(', ')}`) : ok(`wired · ${f}`);
+  miss.length ? bad(`${p.label} — missing ${miss.join(', ')}`) : ok(`wired · ${p.label}`);
+}
+
+/* ── 3a. app pages carry none of the gallery furniture ───────────────── */
+const appPages = pages.filter(p => p.kind === 'app');
+if (appPages.length) {
+  group('Production app pages');
+  for (const p of appPages) {
+    const s = readPage(p);
+    const wrong = [];
+    if (s.includes('class="modebar"'))
+      wrong.push('app page ships the dev mode switch (modebar) — production pages set data-mode on <html> instead');
+    if (s.includes('class="dots"'))
+      wrong.push('app page ships fake window chrome (traffic-light dots)');
+    if (s.includes('class="window"'))
+      wrong.push('app page uses the preview window frame — production pages are full-bleed');
+    if (!/<html[^>]+data-mode=/.test(s))
+      wrong.push('app page must set data-mode on <html>');
+    wrong.length ? wrong.forEach(w => bad(`${p.label} — ${w}`)) : ok(`production-clean · ${p.label}`);
+  }
 }
 
 /* ── 4. no raw hex outside the allow-list ────────────────────────────── */
 group('No raw hex in pages');
-// Traffic-light dots are macOS chrome, not brand. The white-on-purple pairs are
-// contrast-locked. Everything else must come from a variable.
-const ALLOW = new Set(['#FF5F57', '#FEBC2E', '#28C840', '#fff', '#FFF', '#ffffff', '#FFFFFF']);
+// The white-on-purple pairs are contrast-locked, so the whites are allowed everywhere.
+// Traffic-light dots are macOS chrome the gallery draws around a preview — the
+// production app never draws a fake window, so they are not allowed there.
+const WHITES = ['#fff', '#FFF', '#ffffff', '#FFFFFF'];
+const ALLOW = {
+  gallery: new Set(['#FF5F57', '#FEBC2E', '#28C840', ...WHITES]),
+  app: new Set(WHITES)
+};
 // Only real CSS colour lengths — 3, 4, 6 or 8 hex digits. Longest first with a word
 // boundary so an id like #40128 is not mistaken for a colour.
 const HEX = /#(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{4}|[0-9a-fA-F]{3})\b/g;
-for (const f of html) {
-  const s = read(f);
-  const hits = [...s.matchAll(HEX)].map(m => m[0]).filter(h => !ALLOW.has(h));
+for (const p of pages) {
+  const s = readPage(p);
+  const hits = [...s.matchAll(HEX)].map(m => m[0]).filter(h => !ALLOW[p.kind].has(h));
   const uniq = [...new Set(hits)];
-  uniq.length ? bad(`${f} — raw hex: ${uniq.slice(0, 6).join(' ')}${uniq.length > 6 ? ' …' : ''}`)
-              : ok(`token-only · ${f}`);
+  uniq.length ? bad(`${p.label} — raw hex: ${uniq.slice(0, 6).join(' ')}${uniq.length > 6 ? ' …' : ''}`)
+              : ok(`token-only · ${p.label}`);
 }
 
 /* ── 5. every referenced file exists ─────────────────────────────────── */
 group('Links resolve');
-for (const f of html) {
-  const s = read(f);
+for (const p of pages) {
+  const s = readPage(p);
   const refs = [...s.matchAll(/(?:href|src)="([^"#][^"]*)"/g)].map(m => m[1])
     .filter(r => !/^(https?:|mailto:|data:|#)/.test(r));
-  const dead = refs.filter(r => !existsSync(join(TPL, r)));
-  dead.length ? bad(`${f} — dead links: ${[...new Set(dead)].join(', ')}`) : ok(`links resolve · ${f}`);
+  const dead = refs.filter(r => !existsSync(join(p.dir, r)));
+  dead.length ? bad(`${p.label} — dead links: ${[...new Set(dead)].join(', ')}`) : ok(`links resolve · ${p.label}`);
 }
 
 /* ── 6. the gallery lists every page ─────────────────────────────────── */
 group('Gallery coverage');
+// gallery-only by definition — app pages are a deployed product, not gallery cards
 const index = read('index.html');
 const listed = new Set([...index.matchAll(/class="tpl" href="([^"]+)"/g)].map(m => m[1]));
 const shouldList = html.filter(f => f !== 'index.html');
@@ -158,15 +195,15 @@ for (const l of listed)
 
 /* ── 7. tags balance ─────────────────────────────────────────────────── */
 group('Markup balance');
-for (const f of html) {
-  const s = read(f).replace(/<!--[\s\S]*?-->/g, '');
+for (const p of pages) {
+  const s = readPage(p).replace(/<!--[\s\S]*?-->/g, '');
   const off = [];
   for (const tag of ['div', 'table', 'tbody', 'thead', 'tr', 'td', 'th', 'span', 'section', 'aside', 'main', 'nav', 'svg', 'a', 'p']) {
     const o = (s.match(new RegExp(`<${tag}[\\s>]`, 'g')) || []).length;
     const c = (s.match(new RegExp(`</${tag}>`, 'g')) || []).length;
     if (o !== c) off.push(`${tag} ${o}/${c}`);
   }
-  off.length ? bad(`${f} — unbalanced: ${off.join(', ')}`) : ok(`balanced · ${f}`);
+  off.length ? bad(`${p.label} — unbalanced: ${off.join(', ')}`) : ok(`balanced · ${p.label}`);
 }
 
 /* ── 8. the engines are internally consistent ────────────────────────── */
@@ -244,7 +281,8 @@ const BANNED = new RegExp(Buffer.from(
   'bHVrZUB8bHVrZVwuaGVrYXxMdWtlIEhla2F8QGx1a2VzZWxyfEBsdWtlaGVrYXxNci1oZWthfFwrNjF8c2Vscmdyb3VwXC5jb21cLmF1fGhla3pcLmNvbVwuYXU=',
   'base64').toString(), 'i');
 let leaks = 0;
-for (const f of [...html, ...js]) if (BANNED.test(read(f))) { bad(`${f} contains a personal identifier`); leaks++; }
+for (const p of pages) if (BANNED.test(readPage(p))) { bad(`${p.label} contains a personal identifier`); leaks++; }
+for (const f of js) if (BANNED.test(read(f))) { bad(`${f} contains a personal identifier`); leaks++; }
 if (!leaks) ok('no names, emails or phone numbers in any template');
 
 /* ── 11. the handover stands on its own ──────────────────────────────── */

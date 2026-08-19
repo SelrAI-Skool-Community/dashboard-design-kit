@@ -1,0 +1,213 @@
+/* resolver key sk-1v1zmtl (skills-index lookup; keep)
+   Selr AI — the PRODUCTION shell for a real dashboard app.
+
+   This is the opposite of templates/base.css `.window`. That one deliberately
+   frames a screen so it reads as a preview in the gallery: max-width, a 1px
+   border, a 30px radius, a drop shadow, fake macOS traffic-light dots and a
+   32px page gutter. Correct for a gallery card. Wrong for the app somebody
+   actually deploys — it turns their business dashboard into a screenshot of a
+   business dashboard.
+
+   Nothing here caps, frames, rounds or floats the app. The page fills the
+   viewport, the sidebar is a real column with a divider, and every nav item
+   goes somewhere. Mode is set on <html data-mode>, never by a floating toggle.
+
+   Loads AFTER tokens.css and base.css. Reads the semantic layer only —
+   a raw hex in this file is a bug. */
+
+/* ── the shell ─────────────────────────────────────────────────────── */
+html,body{margin:0;padding:0;min-height:100%}
+body{background:var(--bg-primary)}
+
+.app{display:flex;min-height:100vh;align-items:stretch}
+
+/* ── sidebar ───────────────────────────────────────────────────────── */
+.app__nav{
+  width:264px;flex:0 0 264px;
+  background:var(--bg-secondary);
+  border-right:1px solid var(--border-secondary);   /* a divider, not a frame */
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  padding:var(--s24) var(--s12) var(--s16);
+  scrollbar-width:thin}
+.app__nav::-webkit-scrollbar{width:6px}
+.app__nav::-webkit-scrollbar-thumb{background:var(--border-primary);border-radius:var(--r-full)}
+
+.app__brand{display:flex;align-items:center;gap:var(--s10);padding:0 var(--s10) var(--s20);
+  font-weight:700;font-size:var(--t-ui4);letter-spacing:var(--track)}
+.app__brand .mark{width:30px;height:30px;border-radius:var(--r-s);display:grid;place-items:center;
+  background:linear-gradient(150deg,var(--purple-500),var(--purple-800));
+  color:#fff;font-weight:800;font-size:14px;flex:0 0 30px;overflow:hidden}
+.app__brand .mark img{width:100%;height:100%;object-fit:cover;display:block}
+
+.navgroup{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-tertiary);padding:var(--s16) var(--s10) var(--s6)}
+.navgroup:first-of-type{padding-top:var(--s4)}
+
+.navlist{display:flex;flex-direction:column;gap:1px}
+.navlist a,.navlist span.navitem{
+  display:flex;align-items:center;gap:var(--s10);
+  padding:var(--s8) var(--s10);border-radius:var(--r-s);
+  font-size:14px;font-weight:600;letter-spacing:var(--track);
+  color:var(--text-secondary);text-decoration:none;
+  transition:background .14s ease,color .14s ease}
+.navlist a:hover{background:var(--chip-hover);color:var(--text-primary)}
+.navlist a[aria-current="page"]{background:var(--purple-600);color:#fff}
+.navlist a[aria-current="page"] .icon{color:#fff}
+.navlist .icon{width:16px;height:16px;flex-basis:16px;stroke-width:1.7}
+
+/* the state dot — how a page tells you whether it can be built yet */
+.navdot{width:6px;height:6px;border-radius:var(--r-full);flex:0 0 6px;margin-left:auto;
+  background:var(--border-primary)}
+.navdot--ready{background:var(--success)}
+.navdot--connect{background:var(--warning)}
+.navlist a[aria-current="page"] .navdot{background:#fff}
+
+/* "Coming next" — present so the shape of the system is visible, but honest
+   about not being a link yet. */
+.navlist span.navitem{opacity:.5;cursor:default}
+.navtag{margin-left:auto;font:700 9px var(--font);letter-spacing:.07em;
+  padding:2px var(--s6);border-radius:var(--r-full);
+  background:var(--bg-tertiary);color:var(--text-tertiary)}
+
+.app__navfoot{margin-top:auto;padding:var(--s16) var(--s10) 0;
+  border-top:1px solid var(--border-secondary);
+  font-size:11.5px;line-height:1.5;color:var(--text-tertiary)}
+
+/* ── main column ───────────────────────────────────────────────────── */
+.app__main{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--bg-primary)}
+
+.app__bar{display:flex;align-items:center;gap:var(--s16);
+  padding:var(--s20) var(--s32);border-bottom:1px solid var(--border-secondary);
+  background:var(--bg-primary);position:sticky;top:0;z-index:5}
+.app__crumb{font-size:13px;font-weight:600;color:var(--text-tertiary);letter-spacing:var(--track)}
+.app__crumb b{color:var(--text-primary)}
+.app__baruser{margin-left:auto;display:flex;align-items:center;gap:var(--s10);
+  font-size:13.5px;font-weight:600}
+
+/* Content is padded, never boxed. The background runs edge to edge underneath
+   it, so a wide screen reads as a wide app — not as a card floating in a
+   gutter. The inner cap only stops text lines and tables running to 3000px. */
+.app__body{padding:var(--s32);width:100%;max-width:1600px}
+@media(min-width:2000px){.app__body{margin:0 auto}}
+
+.apphead{margin-bottom:var(--s24)}
+.apphead .eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--text-accent);margin-bottom:var(--s6)}
+.apphead h1{font-size:var(--t-ui1);letter-spacing:-0.04em}
+.apphead .sub{margin-top:var(--s8);color:var(--text-secondary);font-size:15px;max-width:62ch}
+
+/* ── the grid ──────────────────────────────────────────────────────── */
+.appgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s20)}
+.col-12{grid-column:span 12}
+.col-7{grid-column:span 12}
+.col-5{grid-column:span 12}
+@media(min-width:1100px){.col-7{grid-column:span 7}.col-5{grid-column:span 5}}
+
+/* ── the stub panel — the heart of this build ──────────────────────────
+   An unbuilt page is not an error and not a dead end. It says what it would
+   be, whether it can be built right now, and carries the exact words that
+   build it. Three tiers, because pretending everything is one step away is a
+   lie the attendee finds out about ten seconds later. */
+.stub{border-radius:var(--r-l);padding:var(--s40) var(--s32);text-align:center;
+  display:flex;flex-direction:column;align-items:center}
+.stub--ready{border:1.5px solid var(--purple-600);background:var(--bg-secondary)}
+.stub--connect{border:1.5px dashed var(--border-primary);background:var(--bg-secondary)}
+.stub--idea{border:1.5px dashed var(--border-primary);background:transparent}
+
+.stub__tier{font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
+  margin-bottom:var(--s12)}
+.stub--ready .stub__tier{color:var(--text-accent)}
+.stub--connect .stub__tier{color:var(--warning)}
+.stub--idea .stub__tier{color:var(--text-tertiary)}
+
+.stub h2{font-size:var(--t-sub2);letter-spacing:-0.04em;margin-bottom:var(--s10)}
+.stub .say{color:var(--text-secondary);font-size:15px;line-height:1.6;max-width:56ch;
+  margin:0 auto var(--s24)}
+.stub .say b{color:var(--text-primary);font-weight:700}
+
+/* the connectors this page would run on */
+.stub__logos{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s8);
+  margin-bottom:var(--s20)}
+.conn{display:inline-flex;align-items:center;gap:var(--s6);padding:var(--s6) var(--s12);
+  border-radius:var(--r-full);font-size:12.5px;font-weight:600;
+  background:var(--bg-tertiary);color:var(--text-secondary);border:1px solid transparent}
+.conn--on{background:var(--purple-100);color:var(--purple-800);border-color:var(--purple-200)}
+:root[data-mode="dark"] .conn--on{background:var(--purple-900);color:var(--purple-200);
+  border-color:var(--purple-800)}
+.conn--off{opacity:.55}
+.conn i{width:6px;height:6px;border-radius:var(--r-full);background:currentColor;flex:0 0 6px}
+
+/* what a page would show once it is built — the ideas list */
+.willshow{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s8);
+  margin:0 auto var(--s28);max-width:60ch}
+.willshow span{font-size:13px;font-weight:600;color:var(--text-secondary);
+  background:var(--bg-tertiary);padding:var(--s6) var(--s12);border-radius:var(--r-s)}
+
+/* ── copy-a-prompt ─────────────────────────────────────────────────── */
+.prompt{width:100%;max-width:620px;text-align:left;margin:0 auto}
+.prompt__box{background:var(--bg-tertiary);border:1px solid var(--border-secondary);
+  border-radius:var(--r-s);padding:var(--s16);font:500 13px/1.6 var(--font);
+  color:var(--text-secondary);white-space:pre-wrap;max-height:132px;overflow:hidden;
+  position:relative}
+.prompt__box::after{content:"";position:absolute;left:0;right:0;bottom:0;height:44px;
+  background:linear-gradient(transparent,var(--bg-tertiary))}
+.prompt__row{display:flex;align-items:center;gap:var(--s12);margin-top:var(--s16);
+  justify-content:center;flex-wrap:wrap}
+.prompt__hint{font-size:12.5px;color:var(--text-tertiary)}
+.copied{display:none;font-size:12.5px;font-weight:700;color:var(--success)}
+.is-copied .copied{display:inline}
+
+.stub__ask{margin-top:var(--s28);padding-top:var(--s20);
+  border-top:1px solid var(--border-secondary);width:100%;max-width:620px;
+  font-size:13.5px;color:var(--text-tertiary)}
+.stub__ask b{color:var(--text-secondary);font-weight:600}
+
+/* ── small pieces reused across built pages ────────────────────────── */
+.kpirow{display:flex;flex-wrap:wrap;gap:var(--s32);padding:var(--s24) 0;
+  border-top:1px solid var(--border-secondary);border-bottom:1px solid var(--border-secondary)}
+.kpi{min-width:120px}
+.kpi .lab{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-tertiary)}
+.kpi .val{font-size:30px;font-weight:400;font-variation-settings:'wght' var(--wght-display);
+  letter-spacing:-0.04em;line-height:1.15;margin-top:var(--s4)}
+.kpi .sub{font-size:12.5px;color:var(--text-secondary);margin-top:var(--s2)}
+
+.tile{display:flex;align-items:flex-start;gap:var(--s12);padding:var(--s16);
+  border:1px solid var(--border-secondary);border-radius:var(--r-s);
+  background:var(--bg-secondary);text-decoration:none;
+  transition:border-color .14s ease}
+.tile:hover{border-color:var(--purple-600)}
+.tile .tl{font-size:14.5px;font-weight:700;letter-spacing:var(--track)}
+.tile .td{font-size:13px;color:var(--text-secondary);margin-top:var(--s2)}
+
+.nextband{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--s16)}
+
+/* ── mobile: the sidebar becomes a scrolling strip. No JS, no drawer, no
+   hamburger that needs a script the attendee might strip out. ───────── */
+@media(max-width:900px){
+  .app{flex-direction:column}
+  /* One brand row, then every group flattened into a single strip you swipe.
+     Four stacked rows of nav pushed the actual page below the fold. */
+  .app__nav{width:100%;flex:none;height:auto;position:static;
+    border-right:0;border-bottom:1px solid var(--border-secondary);
+    padding:var(--s16) 0 var(--s12) var(--s12);overflow:visible}
+  .app__brand{padding:0 var(--s12) var(--s12) 0}
+  .app__navscroll{display:flex;flex-direction:row;gap:var(--s6);flex-wrap:nowrap;
+    overflow-x:auto;padding-right:var(--s12);
+    scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .app__navscroll::-webkit-scrollbar{display:none}
+  .navgroup{display:none}
+  .navlist{flex-direction:row;gap:var(--s6);flex-wrap:nowrap;min-width:min-content}
+  .navlist a,.navlist span.navitem{white-space:nowrap;padding:var(--s8) var(--s14,14px)}
+  .navdot{margin-left:var(--s4)}
+  .app__navfoot{display:none}
+  .app__bar{padding:var(--s16) var(--s20)}
+  .app__body{padding:var(--s20)}
+  .stub{padding:var(--s28) var(--s20)}
+  .kpirow{gap:var(--s20)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+}

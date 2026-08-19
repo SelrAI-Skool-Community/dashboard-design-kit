@@ -55,6 +55,42 @@ No build step, no install, no server, no internet, no Figma account.
 | **Overlays** | modal · confirm · drawer · sheet · toasts · alerts · banners · menus · loading |
 | **9 page patterns** | board · timeline · notifications · calendar · search · 404 and 500 · onboarding · profile · comments |
 
+## Build your whole dashboard (two commands)
+
+The templates above are the parts. This is the finished thing — a real
+multi-page dashboard, shaped around the tools you have actually connected.
+
+```bash
+node app/scan-kit.mjs
+node app/build.mjs
+open app/index.html
+```
+
+You get 15 pages sharing one left nav. Five are built straight away, because
+they describe your own setup and need nothing connected. The other ten are
+designed placeholders that say what they would be — and each one hands you the
+exact prompt that builds it. Nothing is a dead link.
+
+The nav tells you where you stand at a glance:
+
+| | |
+|---|---|
+| 🟢 green dot | you have the tool connected — this page is ready to build |
+| 🟠 amber dot | connect one tool first, and the connector is already in your kit |
+| no dot | an idea waiting for you to say what you want on it |
+
+Connect something new, run both commands again, and pages light up on their own.
+
+Put it online whenever you like — it is plain HTML, so it deploys as-is:
+
+```bash
+cd app && vercel deploy --prod
+```
+
+**What the scan reads:** the tools connected to your Claude, and the names of the
+skills in your kit. Names only — never a password, a key, an email or a file
+path. You can read the whole file yourself, it is `app/kit-scan.json`.
+
 ## Start a new screen
 
 1. Copy the closest template out of `templates/`.

@@ -1,0 +1,122 @@
+/* resolver key sk-mx2ajx (skills-index lookup; keep)
+   Selr AI — the token contract as CSS. Light and Dark off one set of names.
+   Values are the locked brand set. Never write a raw hex in a template.
+
+   Migrated to the measured design language (~/.claude/skills/selr-design-language/
+   tokens.css, read off www.selrai.com.au) on 2026-08-14. Values only — every
+   custom-property NAME below is unchanged so existing templates, charts and
+   components keep working without edits. */
+
+/* Manrope ships with the kit (fonts/, SIL OFL) so every machine renders the same.
+   Variable font: one 24KB file carries every weight from 200 to 800. */
+@font-face{
+  font-family:Manrope;
+  src:url("fonts/Manrope-var.woff2") format("woff2");
+  font-weight:200 800;
+  font-display:swap;
+}
+
+:root{
+  /* 00 Global — purple ramp. Accent #6736E2 / pressed #5024C0 — measured, unchanged. */
+  --purple-100:#F2EDFF; --purple-200:#D5C4FF; --purple-400:#9B73FF; --purple-500:#8155F0;
+  --purple-600:#6736E2; --purple-700:#5024C0; --purple-800:#3C159E; --purple-900:#230670;
+  /* 00 Global — grayscale. Warm off-white ground, warm neutrals — never the old
+     cool blue-grey ramp. Ink #242424 / muted #616161, measured off the live site. */
+  --cloud:#F7F5EF; --smoke:#E3E3E3; --steel:#C7C7C2; --space:#A8A59D;
+  --graphite:#6E6A62; --arsenic:#616161; --phantom:#1E1E24; --black:#242424;
+  --true-black:#000000; --white:#FFFFFA;
+  /* 00 Global — UI neutrals + semantic */
+  --neutral-100:#FCFCFA; --neutral-200:#F0EEE6; --neutral-400:#ABABAB;
+  --success:#26B759; --success-mid:#B5FFCF; --success-tint:#E0FFEB;
+  --warning:#F39A46; --warning-mid:#F9BE85; --warning-tint:#FFE9D4;
+  --danger:#FF1B1B;  --danger-mid:#FF8A8A;  --danger-tint:#FFE0E0;
+
+  /* 02 Spacing */
+  --s2:2px; --s4:4px; --s6:6px; --s8:8px; --s10:10px; --s12:12px; --s16:16px;
+  --s20:20px; --s24:24px; --s28:28px; --s32:32px; --s40:40px; --s48:48px; --s56:56px;
+
+  /* 03 Corner radius — strictly 20 / 30 / 40 / 100%, per the measured system.
+     Names are unchanged (charts and components reference them by name); the
+     old 10-step scale collapses onto the four real tiers. */
+  --r-3xs:20px; --r-2xs:20px; --r-xs:20px; --r-s:20px; --r-m:20px; --r-l:30px;
+  --r-xl:20px; --r-2xl:30px; --r-3xl:40px; --r-4xl:40px; --r-full:100%;
+
+  /* type */
+  --font:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --t-h1:64px; --t-h2:48px; --t-sub1:32px; --t-sub2:24px; --t-p1:18px; --t-p2:16px;
+  --t-ui1:32px; --t-ui2:24px; --t-ui3:20px; --t-ui4:17px; --t-ui5:15px;
+  --t-body:15px; --t-caption:12px;
+  /* Tracking is always negative and tiered on the real site: -0.04em >=25px,
+     -0.03em 15-20px, -0.025em 13px, -0.015em 12px. --track is the mid tier —
+     the default for body/UI text. Heading-scale rules set their own tier
+     explicitly instead of using this var (see base.css). */
+  --track:-0.03em;
+  /* Display weight axis. Manrope-var.woff2 covers 200-800; headings ride the
+     axis at font-weight:400 + font-variation-settings 'wght' var(--wght-display)
+     rather than a static weight. The one-word giant display runs lighter. */
+  --wght-display:585;
+  --wght-display-xl:500;
+}
+
+/* 01 Color Styles — Light */
+:root, :root[data-mode="light"]{
+  --bg-primary:var(--cloud); --bg-secondary:var(--white); --bg-tertiary:var(--neutral-100);
+  --bg-inverted:var(--black); --bg-accent:var(--purple-600); --bg-danger:var(--danger-tint);
+  --btn-primary:var(--purple-600); --btn-primary-hover:var(--purple-700); --btn-primary-pressed:var(--purple-700);
+  --btn-primary-disabled:var(--neutral-200);
+  --btn-secondary:var(--white); --btn-secondary-hover:var(--purple-100); --btn-secondary-pressed:var(--purple-200);
+  --chip:var(--white); --chip-hover:var(--cloud); --chip-pressed:var(--smoke); --chip-selected:var(--black);
+  --text-primary:var(--black); --text-secondary:var(--arsenic); --text-tertiary:var(--graphite);
+  --text-disabled:var(--steel); --text-accent:var(--purple-600); --text-inverted:var(--white);
+  --border-primary:var(--smoke); --border-secondary:var(--cloud); --border-tertiary:var(--steel);
+  --c1:var(--purple-100); --c2:var(--purple-200); --c3:var(--purple-400);
+  --c4:var(--purple-600); --c5:var(--purple-800); --c-alt:var(--purple-700);
+  --c-basic:var(--cloud); --c-quarterly:var(--space); --c-negative:var(--danger);
+  --grid-line:var(--cloud);
+  /* No drop-shadow system on the real site — depth comes from colour, radius
+     and the 1px hairline / ring pattern instead. Keeping the names (and every
+     var(--shadow-*) reference in the templates) so nothing needs rewiring;
+     they now resolve to nothing. */
+  --shadow-sm:none;
+  --shadow-md:none;
+  --shadow-lg:none;
+}
+
+/* 01 Color Styles — Dark */
+:root[data-mode="dark"]{
+  --bg-primary:var(--black); --bg-secondary:var(--phantom); --bg-tertiary:var(--arsenic);
+  --bg-inverted:var(--white); --bg-accent:var(--purple-500); --bg-danger:var(--phantom);
+  --btn-primary:var(--purple-600); --btn-primary-hover:var(--purple-700); --btn-primary-pressed:var(--purple-700);
+  --btn-primary-disabled:var(--arsenic);
+  --btn-secondary:var(--phantom); --btn-secondary-hover:var(--purple-900); --btn-secondary-pressed:var(--purple-800);
+  --chip:var(--phantom); --chip-hover:var(--arsenic); --chip-pressed:var(--graphite); --chip-selected:var(--white);
+  --text-primary:var(--white); --text-secondary:var(--steel); --text-tertiary:var(--space);
+  --text-disabled:var(--graphite); --text-accent:var(--purple-400); --text-inverted:var(--black);
+  --border-primary:var(--arsenic); --border-secondary:var(--phantom); --border-tertiary:var(--graphite);
+  --c1:var(--purple-900); --c2:var(--purple-800); --c3:var(--purple-500);
+  --c4:var(--purple-600); --c5:var(--purple-400); --c-alt:var(--purple-200);
+  --c-basic:var(--arsenic); --c-quarterly:var(--graphite); --c-negative:var(--danger);
+  --grid-line:var(--arsenic);
+  --shadow-sm:none;
+  --shadow-md:none;
+  --shadow-lg:none;
+}
+
+/* ══ YOUR BRAND ═══════════════════════════════════════════════════════
+   Claude writes this block from brand/BRAND.md — the ONLY place brand
+   colours go. Overriding the ramp variables rebrands every screen, chart
+   and component in both modes. Delete the block to restore the default.
+
+   Example (uncomment and swap the values):
+
+:root{
+  --purple-600:#0E7C5A;   primary — buttons, links, accents
+  --purple-700:#0A5F45;   hover
+  --purple-800:#074734;   pressed
+  --purple-500:#2E9D7A;   lighter accent
+  --purple-400:#5FB59C;   lighter still (charts)
+  --purple-200:#BFE6D8;   soft tint
+  --purple-100:#E7F6F0;   softest tint
+  --purple-900:#04301F;   deepest shade
+}
+   ═════════════════════════════════════════════════════════════════════ */
