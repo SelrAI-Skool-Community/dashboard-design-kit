@@ -20,7 +20,7 @@ const TPL  = join(KIT, 'templates');
 const OUT  = HERE;
 const ASSETS = join(OUT, 'assets');
 
-const { GROUPS, SOON, PAGES, ICONS, TIERS, CONNECT_PROMPT, IDEA_PROMPT } =
+const { GROUPS, SOON, PAGES, ICONS, TIERS, CONNECT_PROMPT, IDEA_PROMPT, SCAN_PROMPT } =
   await import('./pages.mjs');
 
 /* ── inputs ────────────────────────────────────────────────────────── */
@@ -38,20 +38,85 @@ function loadScan() {
     console.log('  Run `node app/scan-kit.mjs` first to shape it around your tools.\n');
     return EMPTY_SCAN;
   }
-  try { return { ...EMPTY_SCAN, ...JSON.parse(readFileSync(p, 'utf8')) }; }
+  let raw;
+  try { raw = JSON.parse(readFileSync(p, 'utf8')); }
   catch { console.log('  kit-scan.json could not be read — building the empty-handed version.\n'); return EMPTY_SCAN; }
+  return coerce(raw);
+}
+
+/* A person (or Claude) can hand-edit kit-scan.json, and a shape-valid but
+   wrong-typed field used to kill the build with a Node stack trace in front of
+   somebody non-technical. Every field is forced to the type the generator
+   expects, so a bad file degrades to the empty-handed dashboard instead. */
+function coerce(raw) {
+  const o = (v) => (v && typeof v === 'object' && !Array.isArray(v)) ? v : {};
+  const a = (v) => Array.isArray(v) ? v.filter((x) => x && typeof x === 'object') : [];
+  const n = (v) => Number.isFinite(v) ? v : (Number.isFinite(Number(v)) ? Number(v) : 0);
+
+  const r = o(raw);
+  const c = o(r.counts);
+  const pagesIn = o(r.pages);
+  const pages = {};
+  for (const k of Object.keys(pagesIn)) {
+    const pg = o(pagesIn[k]);
+    pages[k] = {
+      tier: typeof pg.tier === 'string' ? pg.tier : 'idea',
+      connected: a(pg.connected),
+      available: a(pg.available),
+    };
+  }
+  const b = o(r.brand);
+  return {
+    generatedAt: typeof r.generatedAt === 'string' ? r.generatedAt : null,
+    counts: { connected: n(c.connected), available: n(c.available), skills: n(c.skills), kits: n(c.kits) },
+    connected: a(r.connected),
+    pages,
+    kits: a(r.kits),
+    brand: {
+      set: b.set === true,
+      name: typeof b.name === 'string' ? b.name : null,
+      primary: typeof b.primary === 'string' ? b.primary : null,
+    },
+  };
 }
 
 const scan = loadScan();
+
+/* Is the palette actually repainted, or has somebody only written the colours
+   down? brand/BRAND.md is a note to Claude; the pixels come from the YOUR BRAND
+   block in tokens.css, which ships fully commented out. Treat it as branded only
+   when a live :root override for the accent exists outside a comment. */
+const BRANDED = (() => {
+  for (const f of [join(ASSETS, 'tokens.css'), join(TPL, 'tokens.css')]) {
+    let css;
+    try { css = readFileSync(f, 'utf8'); } catch { continue; }
+    const live = css.replace(/\/\*[\s\S]*?\*\//g, '');   // strip comments
+    /* Count live definitions of the accent rather than looking for the YOUR
+       BRAND heading. That heading sits inside the comment that ships commented
+       out, and applying a brand means uncommenting the :root block underneath
+       it — which carries no heading — so the marker vanishes exactly when the
+       brand arrives. The base palette defines the accent once; any override
+       makes it twice. */
+    if ((live.match(/--purple-600\s*:/g) || []).length >= 2) return true;
+  }
+  return false;
+})();
 const BRAND_NAME = scan.brand?.name || 'Your business';
-const INITIAL = BRAND_NAME.trim().charAt(0).toUpperCase() || 'Y';
+/* [...str] iterates code points, so an emoji or accented first letter survives.
+   charAt(0) split the surrogate pair and put a replacement glyph in the nav
+   brand and the avatar of all 15 pages. */
+const INITIAL = ([...String(BRAND_NAME).trim()][0] || 'Y').toUpperCase();
 
 /* ── helpers ───────────────────────────────────────────────────────── */
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const attr = s => esc(s).replace(/"/g, '&quot;');
 
+/* Plain text. The tier sentence is interpolated raw (it carries its own <b>
+   tags) so THAT call site escapes; the prompt text is escaped once by esc()
+   on the way into the box. Escaping here as well double-encoded an ampersand
+   into &amp;amp; inside a prompt somebody then pastes into Claude. */
 function names(list) {
-  const n = list.map(c => c.label);
+  const n = (list || []).map(c => (c && c.label ? String(c.label) : ''));
   if (n.length === 0) return '';
   if (n.length === 1) return n[0];
   if (n.length === 2) return `${n[0]} and ${n[1]}`;
@@ -66,7 +131,12 @@ function icon(key, cls = 'icon') {
 function tierOf(id) {
   const p = PAGES[id];
   if (p.built) return 'built';
-  if (!p.scanKey) return 'idea-open';           // page about their own setup, always buildable
+  /* No scanKey means the page reads the attendee's own setup rather than one
+     tool's data, so it is buildable the moment anything is connected. This
+     used to return a tier nothing consumed, and Insights fell through to
+     "nothing in your kit covers this one yet" on the same screen where Money
+     was celebrating Xero and Stripe. */
+  if (!p.scanKey) return (scan.connected || []).length ? 'ready' : 'idea';
   const s = scan.pages?.[p.scanKey];
   if (!s) return 'idea';                        // no scan run yet — promise nothing
   /* A tier of connect-first with nothing available to connect is not a real
@@ -171,15 +241,25 @@ function stub(id) {
   let tier, line, prompt, cta;
 
   if (t === 'ready') {
+    /* A page with no scanKey draws on everything connected, not one category. */
+    const src = p.scanKey ? connected : (scan.connected || []);
     tier = TIERS.ready;
-    line = tier.line(p, names(connected), connected.length > 1);
-    prompt = p.prompt(names(connected));
+    line = tier.line(p, esc(names(src)), src.length > 1);
+    prompt = p.prompt(names(src));
     cta = tier.cta;
   } else if (t === 'connect-first' && available.length) {
     tier = TIERS['connect-first'];
     const pick = available.slice(0, 2);
-    line = tier.line(p, names(pick));
+    line = tier.line(p, esc(names(pick)));
     prompt = CONNECT_PROMPT(names(pick), pick.map(c => c.id));
+    cta = tier.cta;
+  } else if (!scan.generatedAt) {
+    /* Nobody has run the scan yet, which is the state a fresh clone opens in.
+       Claiming "nothing in your kit covers this" would be a lie about a kit
+       carrying 54 connectors. */
+    tier = TIERS.prescan;
+    line = tier.line(p);
+    prompt = SCAN_PROMPT;
     cta = tier.cta;
   } else {
     tier = TIERS.idea;
@@ -237,7 +317,10 @@ function homeBody() {
     return `          <a class="tile" href="${p.file}">${icon(p.icon)}<div><div class="tl">${esc(p.label)} ${tag}</div><div class="td">${esc(p.sub)}</div></div></a>\n`;
   }).join('');
 
-  const brandWarn = scan.brand?.set ? '' :
+  /* Keyed off BRANDED, not brand.set. Filling in BRAND.md used to delete this
+     warning while every page still rendered in our purple — the dashboard lost
+     the one signal that told the truth. */
+  const brandWarn = BRANDED ? '' :
     `      <section class="card col-12" style="border-color:var(--warning)">
         <h3>This dashboard is still in the kit's colours, not yours</h3>
         <p class="desc">Nothing here is branded to you yet. Ask Claude: <b>&ldquo;set up my brand from my website&rdquo;</b> — it pulls your colours and logo and every page follows.</p>
@@ -311,8 +394,8 @@ function skillsBody() {
     `          <div class="tile"><div><div class="tl">${esc(k.label)}</div><div class="td">Installed</div></div></div>\n`).join('');
   return head('skills') + `
       <div class="kpirow">
-        <div class="kpi"><div class="lab">Skills installed</div><div class="val">${c.skills}</div><div class="sub">things Claude can do without being told twice</div></div>
-        <div class="kpi"><div class="lab">Kits installed</div><div class="val">${c.kits}</div><div class="sub">from the workshop</div></div>
+        <div class="kpi"><div class="lab">Skills installed</div><div class="val">${esc(c.skills)}</div><div class="sub">things Claude can do without being told twice</div></div>
+        <div class="kpi"><div class="lab">Kits installed</div><div class="val">${esc(c.kits)}</div><div class="sub">from the workshop</div></div>
       </div>
 
       <section class="card" style="margin-top:var(--s24)">
@@ -329,7 +412,9 @@ function brandBody() {
       <section class="card">
         <div class="card__head"><h3>${b.set ? 'Your brand' : 'Not set up yet'}</h3></div>
         <p class="desc">${b.set
-          ? `Every page here is built from these values. Change them in <b>brand/BRAND.md</b> and rebuild — the whole dashboard follows.`
+          ? (BRANDED
+              ? `Every page here is built from these values. Change them in <b>brand/BRAND.md</b>, put the new colours in the YOUR BRAND block of <b>templates/tokens.css</b>, and rebuild.`
+              : `You have written these down, but the pages are <b>still rendering in the kit's colours</b>. Writing brand/BRAND.md does not repaint anything on its own. Ask Claude: <b>&ldquo;put my brand colours into the kit's tokens&rdquo;</b> and it fills in the YOUR BRAND block of templates/tokens.css.`)
           : `This dashboard is still in the kit's default colours. Ask Claude: <b>&ldquo;set up my brand from my website&rdquo;</b> and it pulls your colours and logo, then rebuilds every page in them.`}</p>
 ${b.set ? `        <div class="kpirow" style="border:0;padding:var(--s20) 0 0">
           <div class="kpi"><div class="lab">Business</div><div class="val" style="font-size:22px">${esc(b.name || '—')}</div></div>
@@ -380,11 +465,22 @@ node app/build.mjs</div>
 const BUILT = { home: homeBody, connectors: connectorsBody, skills: skillsBody, brand: brandBody, settings: settingsBody };
 
 /* ── assets ────────────────────────────────────────────────────────── */
+const kept = [];
 function copyAssets() {
   mkdirSync(ASSETS, { recursive: true });
+  /* assets/tokens.css is the file the deployed pages load and the obvious one
+     to hand-edit. An unguarded copy reverted brand work on the next rebuild,
+     silently. Keep a diverged file and say so, rather than destroying it. */
   for (const f of ['tokens.css', 'base.css', 'charts.js', 'icons.js']) {
     const src = join(TPL, f);
-    if (existsSync(src)) cpSync(src, join(ASSETS, f));
+    if (!existsSync(src)) continue;
+    const dest = join(ASSETS, f);
+    if (existsSync(dest)) {
+      let a = null, b = null;
+      try { a = readFileSync(src, 'utf8'); b = readFileSync(dest, 'utf8'); } catch { /* fall through */ }
+      if (a !== null && b !== null && a !== b) { kept.push(f); continue; }
+    }
+    cpSync(src, dest);
   }
   const fonts = join(TPL, 'fonts');
   if (existsSync(fonts)) cpSync(fonts, join(ASSETS, 'fonts'), { recursive: true });
@@ -464,14 +560,26 @@ function copyAssets() {
 
 /* ── go ────────────────────────────────────────────────────────────── */
 console.log('\nBuilding your dashboard...\n');
-copyAssets();
+try {
+  copyAssets();
+} catch (e) {
+  console.log('  Could not write into the app folder. Check you have permission to edit it,');
+  console.log('  then run this again. Nothing was changed.\n');
+  process.exit(1);
+}
 
 let built = 0, stubs = 0;
-for (const id of Object.keys(PAGES)) {
-  const p = PAGES[id];
-  const body = BUILT[id] ? BUILT[id]() : stub(id);
-  writeFileSync(join(OUT, p.file), shell(id, body));
-  BUILT[id] ? built++ : stubs++;
+try {
+  for (const id of Object.keys(PAGES)) {
+    const p = PAGES[id];
+    const body = BUILT[id] ? BUILT[id]() : stub(id);
+    writeFileSync(join(OUT, p.file), shell(id, body));
+    BUILT[id] ? built++ : stubs++;
+  }
+} catch (e) {
+  console.log('  Could not finish writing the pages. Check you have permission to edit');
+  console.log('  the app folder, then run this again.\n');
+  process.exit(1);
 }
 
 /* Anything the scan says is ready gets called out, because that is the bit an
@@ -481,6 +589,7 @@ const ready = Object.keys(PAGES).filter(id => !PAGES[id].built && tierOf(id) ===
 console.log(`  ${built + stubs} pages written into app/`);
 console.log(`  ${built} built, ${stubs} waiting for you`);
 if (ready.length) console.log(`  Ready to build right now: ${ready.map(i => PAGES[i].label).join(', ')}`);
-if (!scan.brand?.set) console.log(`  Heads up: your brand is not set, so this is still in the kit's colours.`);
+if (!BRANDED) console.log(`  Heads up: this is still in the kit's colours, not yours.`);
+if (kept.length) console.log(`  Kept your edited ${kept.join(' and ')} instead of overwriting.`);
 console.log(`\n  Open it:  open app/index.html`);
 console.log(`  Put it online:  cd app && vercel deploy --prod\n`);

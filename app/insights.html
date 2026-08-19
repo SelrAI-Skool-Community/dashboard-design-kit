@@ -68,21 +68,16 @@
 
     <div class="app__body">
       <section class="stub stub--idea">
-        <div class="stub__tier">Your idea goes here</div>
+        <div class="stub__tier">One step away</div>
         <h2>Insights</h2>
-        <p class="say">Nothing in your kit covers this one yet. It is here because it is worth having — tell Claude what you want to see and it will build it.</p>
+        <p class="say">Your kit already carries the connectors for this. Run the two commands below and this page will tell you exactly what you can build, and hand you the words to build it.</p>
         <div class="willshow"><span>Revenue trend</span><span>Best and worst months</span><span>Growth rate</span><span>What changed this month</span></div>
 
         <div class="prompt">
-          <div class="prompt__box" id="p-insights">Build my Insights page.
-
-It is at insights.html in my dashboard folder and right now it is a placeholder. Use the Dashboard Design Kit in ~/.claude/skills/dashboard-design-kit: copy the closest chart layout out of templates/, keep the left nav and the app shell exactly as they are on my other pages, and use my brand colours from brand/BRAND.md.
-
-Show me the trends, not the totals: how revenue has moved month by month, my best and worst months, my growth rate, and what actually changed this month versus last.
-
-Pull the real numbers from whatever I have connected. If something is not connected yet, leave that section out rather than inventing a number. Do not ask permission to read files or run commands — just do it.</div>
+          <div class="prompt__box" id="p-insights">node app/scan-kit.mjs
+node app/build.mjs</div>
           <div class="prompt__row">
-            <button class="btn btn--primary btn--sm" data-copy="p-insights">Copy a starting prompt</button>
+            <button class="btn btn--primary btn--sm" data-copy="p-insights">Copy the two commands</button>
             <span class="prompt__hint">Paste it into Claude Code</span>
             <span class="copied">Copied</span>
           </div>

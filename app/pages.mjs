@@ -234,8 +234,12 @@ Do not ask permission to read files or run commands — just do it.`,
 export const TIERS = {
   ready: {
     label: 'Ready to build',
+    /* "set up in your Claude" rather than "will pull real numbers today".
+       A configured MCP server is not proof of a working login — several sign in
+       on first use — so the honest claim is that the wiring is there. The
+       prompt itself tells Claude to say so plainly if a connection fails. */
     line: (page, names, plural) =>
-      `You have <b>${names}</b> connected, so this page can pull real numbers ${plural ? 'from them' : 'from it'} today. Paste the prompt below and Claude builds it.`,
+      `<b>${names}</b> ${plural ? 'are' : 'is'} set up in your Claude, so this page has what it needs. Paste the prompt below and Claude builds it. If ${plural ? 'one of them asks' : 'it asks'} you to sign in first, that is normal.`,
     cta: 'Copy the prompt that builds this page',
   },
   'connect-first': {
@@ -243,6 +247,16 @@ export const TIERS = {
     line: (page, names) =>
       `Connect <b>${names}</b> and this page fills itself in. The connector is already sitting in your kit, so it is a couple of minutes, not a project.`,
     cta: 'Copy the prompt that connects it',
+  },
+  /* The state a fresh clone opens in. Saying "nothing in your kit covers this"
+     here would be flatly untrue — the kit ships 54 connectors — and it is the
+     first sentence an attendee reads if they open the folder before running
+     anything. */
+  prescan: {
+    label: 'One step away',
+    line: () =>
+      `Your kit already carries the connectors for this. Run the two commands below and this page will tell you exactly what you can build, and hand you the words to build it.`,
+    cta: 'Copy the two commands',
   },
   idea: {
     label: 'Your idea goes here',
@@ -270,3 +284,7 @@ Use the Dashboard Design Kit in ~/.claude/skills/dashboard-design-kit: copy the 
 First ask me one question — what do I most want to see on this page? Then build it from whatever I have connected. If something needs a tool I have not connected, tell me which one and stop rather than inventing numbers.
 
 Do not ask permission to read files or run commands — just do it.`;
+
+export const SCAN_PROMPT =
+`node app/scan-kit.mjs
+node app/build.mjs`;

@@ -103,6 +103,27 @@ for (const f of js) {
   try { execFileSync('node', ['--check', join(TPL, f)], { stdio: 'pipe' }); ok(`parses · ${f}`); }
   catch (e) { bad(`syntax error · ${f}\n${e.stderr}`); }
 }
+/* app/*.mjs are the two scripts that actually run on an attendee's laptop, and
+   the gate used to ignore them entirely — pages.mjs could be broken JavaScript
+   and this still printed VERIFY PASSED while the build died on import. */
+const appScripts = (() => {
+  try { return readdirSync(APP).filter(f => f.endsWith('.mjs') || f.endsWith('.js')); }
+  catch { return []; }
+})();
+for (const f of appScripts) {
+  try { execFileSync('node', ['--check', join(APP, f)], { stdio: 'pipe' }); ok(`parses · app/${f}`); }
+  catch (e) { bad(`syntax error · app/${f}\n${e.stderr}`); }
+}
+/* And they must actually run. Every defect the gate has ever missed was a
+   runtime one, not a syntax one. */
+if (appScripts.includes('build.mjs')) {
+  try {
+    execFileSync('node', [join(APP, 'build.mjs')], { stdio: 'pipe', timeout: 60000 });
+    ok('app/build.mjs runs clean and writes its pages');
+  } catch (e) {
+    bad(`app/build.mjs failed to run\n${e.stderr || e.message}`);
+  }
+}
 // Figma Plugin API sources use a top-level return, legal only inside the wrapper
 // use_figma applies — check them the same way it runs them.
 const wrapped = [join(ROOT, 'tokens', 'figma-push.js')];
@@ -283,6 +304,16 @@ const BANNED = new RegExp(Buffer.from(
 let leaks = 0;
 for (const p of pages) if (BANNED.test(readPage(p))) { bad(`${p.label} contains a personal identifier`); leaks++; }
 for (const f of js) if (BANNED.test(read(f))) { bad(`${f} contains a personal identifier`); leaks++; }
+/* Same blind spot as the parse check: app/*.mjs, and the two files an attendee
+   reads first, were never scanned for a leaked name or address. */
+for (const f of appScripts) {
+  try { if (BANNED.test(readFileSync(join(APP, f), 'utf8'))) { bad(`app/${f} contains a personal identifier`); leaks++; } }
+  catch { /* unreadable is caught elsewhere */ }
+}
+for (const f of ['README.md', 'SKILL.md']) {
+  try { if (BANNED.test(readFileSync(join(ROOT, f), 'utf8'))) { bad(`${f} contains a personal identifier`); leaks++; } }
+  catch { /* optional */ }
+}
 if (!leaks) ok('no names, emails or phone numbers in any template');
 
 /* ── 11. the handover stands on its own ──────────────────────────────── */

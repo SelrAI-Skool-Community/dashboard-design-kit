@@ -68,21 +68,16 @@
 
     <div class="app__body">
       <section class="stub stub--idea">
-        <div class="stub__tier">Your idea goes here</div>
+        <div class="stub__tier">One step away</div>
         <h2>Team</h2>
-        <p class="say">Nothing in your kit covers this one yet. It is here because it is worth having — tell Claude what you want to see and it will build it.</p>
+        <p class="say">Your kit already carries the connectors for this. Run the two commands below and this page will tell you exactly what you can build, and hand you the words to build it.</p>
         <div class="willshow"><span>Who is on today</span><span>Hours this week</span><span>Bookings</span><span>Wage cost</span><span>Time off coming up</span></div>
 
         <div class="prompt">
-          <div class="prompt__box" id="p-team">Build my Team page.
-
-It is at team.html in my dashboard folder and right now it is a placeholder. Use the Dashboard Design Kit in ~/.claude/skills/dashboard-design-kit: copy the closest template out of templates/, keep the left nav and the app shell exactly as they are on my other pages, and use my brand colours from brand/BRAND.md.
-
-Pull real rosters and bookings from whatever I have connected. Show me: who is on today, hours logged this week, what is booked in, what it is costing me in wages, and any time off coming up.
-
-Read only. Never approve a timesheet, never submit a pay run, never change a roster — this is real people's pay and it stays a human decision. If a connection is not working, tell me in plain English and build the page with the parts that do work. Do not ask permission to read files or run commands — just do it.</div>
+          <div class="prompt__box" id="p-team">node app/scan-kit.mjs
+node app/build.mjs</div>
           <div class="prompt__row">
-            <button class="btn btn--primary btn--sm" data-copy="p-team">Copy a starting prompt</button>
+            <button class="btn btn--primary btn--sm" data-copy="p-team">Copy the two commands</button>
             <span class="prompt__hint">Paste it into Claude Code</span>
             <span class="copied">Copied</span>
           </div>

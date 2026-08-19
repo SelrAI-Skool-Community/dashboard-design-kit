@@ -68,21 +68,16 @@
 
     <div class="app__body">
       <section class="stub stub--idea">
-        <div class="stub__tier">Your idea goes here</div>
+        <div class="stub__tier">One step away</div>
         <h2>Agents</h2>
-        <p class="say">Nothing in your kit covers this one yet. It is here because it is worth having — tell Claude what you want to see and it will build it.</p>
+        <p class="say">Your kit already carries the connectors for this. Run the two commands below and this page will tell you exactly what you can build, and hand you the words to build it.</p>
         <div class="willshow"><span>What runs daily</span><span>Last run</span><span>What it found</span><span>Anything that failed</span></div>
 
         <div class="prompt">
-          <div class="prompt__box" id="p-agents">Build my Agents page.
-
-It is at agents.html in my dashboard folder and right now it is a placeholder. Use the Dashboard Design Kit in ~/.claude/skills/dashboard-design-kit: copy the closest template out of templates/, keep the left nav and the app shell exactly as they are on my other pages, and use my brand colours from brand/BRAND.md.
-
-Show me every job I have set to run on its own: what it does, when it runs, when it last ran, what it found, and anything that failed. If I do not have any yet, say so and suggest three that would be worth setting up for a business like mine.
-
-Do not ask permission to read files or run commands — just do it.</div>
+          <div class="prompt__box" id="p-agents">node app/scan-kit.mjs
+node app/build.mjs</div>
           <div class="prompt__row">
-            <button class="btn btn--primary btn--sm" data-copy="p-agents">Copy a starting prompt</button>
+            <button class="btn btn--primary btn--sm" data-copy="p-agents">Copy the two commands</button>
             <span class="prompt__hint">Paste it into Claude Code</span>
             <span class="copied">Copied</span>
           </div>

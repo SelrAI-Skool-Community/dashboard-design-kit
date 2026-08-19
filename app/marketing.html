@@ -68,21 +68,16 @@
 
     <div class="app__body">
       <section class="stub stub--idea">
-        <div class="stub__tier">Your idea goes here</div>
+        <div class="stub__tier">One step away</div>
         <h2>Marketing</h2>
-        <p class="say">Nothing in your kit covers this one yet. It is here because it is worth having — tell Claude what you want to see and it will build it.</p>
+        <p class="say">Your kit already carries the connectors for this. Run the two commands below and this page will tell you exactly what you can build, and hand you the words to build it.</p>
         <div class="willshow"><span>Ad spend</span><span>Cost per lead</span><span>Best performing ad</span><span>Email open rates</span><span>Where leads come from</span></div>
 
         <div class="prompt">
-          <div class="prompt__box" id="p-marketing">Build my Marketing page.
-
-It is at marketing.html in my dashboard folder and right now it is a placeholder. Use the Dashboard Design Kit in ~/.claude/skills/dashboard-design-kit: copy the closest template out of templates/, keep the left nav and the app shell exactly as they are on my other pages, and use my brand colours from brand/BRAND.md.
-
-Pull real numbers from whatever I have connected. Show me: what I am spending on ads, my cost per lead, which ad or email is performing best right now, my open and click rates, and where my leads are actually coming from.
-
-If a connection is not working, tell me in plain English and build the page with the parts that do work. Do not ask permission to read files or run commands — just do it.</div>
+          <div class="prompt__box" id="p-marketing">node app/scan-kit.mjs
+node app/build.mjs</div>
           <div class="prompt__row">
-            <button class="btn btn--primary btn--sm" data-copy="p-marketing">Copy a starting prompt</button>
+            <button class="btn btn--primary btn--sm" data-copy="p-marketing">Copy the two commands</button>
             <span class="prompt__hint">Paste it into Claude Code</span>
             <span class="copied">Copied</span>
           </div>

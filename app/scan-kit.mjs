@@ -180,9 +180,11 @@ function matchConnector(name) {
     let rank = 0;
     if (nk === nid) rank = 3;
     else if (keyTokens.includes(nid) || idTokens.includes(nk)) rank = 2;
-    // Substring matching only for tokens long enough to be meaningful —
-    // short ids like "kit" or "aws" would otherwise match almost anything.
-    else if (Math.min(nk.length, nid.length) >= 5 && (nk.includes(nid) || nid.includes(nk))) rank = 1;
+    /* No loose substring matching. A 5-char floor still let "squarespace"
+       report Square as connected and "canvas" report Canva — both promoting a
+       page to "ready to build" against a tool the attendee does not own.
+       Exact match, whole-token match and the alias table are enough:
+       "xero-selrai" tokenises to [xero, selrai] and still finds Xero. */
     if (rank && (!best || rank > best.rank)) best = { id, rank };
   }
   return { id: best ? best.id : null };
@@ -206,18 +208,35 @@ for (const name of [...mcpNames].sort()) {
 /* AUTHORITY 2 — CLI auth probes (also a live connection)              */
 /* ------------------------------------------------------------------ */
 
-const CLI_PROBES = [
-  { id: 'github', cmd: 'gh', args: ['auth', 'status'] },
-  { id: 'vercel-foundation', cmd: 'vercel', args: ['whoami'] },
-  { id: 'stripe', cmd: 'stripe', args: ['config', '--list'] },
+/* These used to shell out. Two problems, both real:
+
+   `vercel whoami` with no credentials PRINTS "Starting login flow..." and does
+   it — a script advertised as read-only was kicking off a sign-in on somebody
+   else's laptop. And `stripe config --list` exits 0 on a config file holding
+   nothing but a colour preference, so anyone who ran the CLI once and
+   abandoned the login got a false green and a Money page promising real
+   numbers it could not fetch.
+
+   Looking for the credential file the CLI writes proves the same thing with no
+   side effects. We test that the file exists and mentions a credential — we
+   never read, store or print the value. */
+const CLI_SIGNALS = [
+  { id: 'github', files: ['.config/gh/hosts.yml'], needs: /oauth_token|user:/ },
+  { id: 'vercel-foundation', files: [
+      'Library/Application Support/com.vercel.cli/auth.json',
+      '.local/share/com.vercel.cli/auth.json',
+      '.vercel/auth.json',
+    ], needs: /token/ },
+  { id: 'stripe', files: ['.config/stripe/config.toml'], needs: /(test|live)_mode_api_key/ },
 ];
 
-try {
-  const results = await Promise.all(CLI_PROBES.map((p) => probe(p.cmd, p.args)));
-  CLI_PROBES.forEach((p, i) => {
-    if (results[i] && LABELS.has(p.id) && !connectedMap.has(p.id)) connectedMap.set(p.id, 'cli');
-  });
-} catch { /* probes are best-effort only */ }
+for (const sig of CLI_SIGNALS) {
+  if (!LABELS.has(sig.id) || connectedMap.has(sig.id)) continue;
+  for (const rel of sig.files) {
+    const txt = readTextSafe(path.join(HOME, rel));
+    if (txt !== null && sig.needs.test(txt)) { connectedMap.set(sig.id, 'cli'); break; }
+  }
+}
 
 /* ------------------------------------------------------------------ */
 /* AUTHORITY 3 — connector skills shipped with the kit                 */
@@ -352,7 +371,9 @@ const output = {
     kits: kits.length,
   },
   connected: connectedList,
-  unmatched: [...unmatched].sort(),
+  /* `unmatched` used to ship here. It is raw MCP server names, no page reads
+     it, and a server called "acmeclient-crm" would publish a client's name to
+     a public URL for no benefit. It stays a console line instead. */
   pages,
   kits,
   brand,
@@ -377,7 +398,23 @@ try {
 let safe = true;
 if (wrote) {
   const check = readTextSafe(OUT_FILE);
-  const LEAK = /sk-|token|key|@|\/Users\/|\/home\//;
+  /* This has to match the SHAPE of a secret, never an English word. The first
+     version matched a bare "key", "token" or "@", so "Monkey Bar Co",
+     "Hockey Pro Shop" and "Bloom @ Fifth" all deleted the attendee's scan and
+     told them their config had leaked. A business name is not a credential. */
+  const LEAK = new RegExp([
+    'sk-[A-Za-z0-9_-]{16,}',            // OpenAI / Stripe style secret
+    'sk_(live|test)_[A-Za-z0-9]{10,}',
+    'ghp_[A-Za-z0-9]{20,}',             // GitHub token
+    'gho_[A-Za-z0-9]{20,}',
+    'xox[baprs]-[A-Za-z0-9-]{10,}',     // Slack token
+    'eyJ[A-Za-z0-9_-]{20,}',            // JWT
+    'AKIA[0-9A-Z]{16}',                 // AWS key id
+    '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}',   // a real email address
+    '/Users/[A-Za-z0-9._-]+',           // an absolute home path
+    '/home/[a-z0-9._-]+',
+    'C:\\\\Users\\\\',
+  ].join('|'));
   if (check === null || LEAK.test(check)) {
     safe = false;
     console.error('');
